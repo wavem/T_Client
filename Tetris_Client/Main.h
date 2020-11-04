@@ -7,15 +7,30 @@
 #include <Vcl.Controls.hpp>
 #include <Vcl.StdCtrls.hpp>
 #include <Vcl.Forms.hpp>
+#include <Vcl.ExtCtrls.hpp>
 //---------------------------------------------------------------------------
-class TForm1 : public TForm
+class TFormMain : public TForm
 {
 __published:	// IDE-managed Components
+	TPanel *__pnBase;
+	TNotebook *Notebook_Main;
+	TPanel *_pnBase_01_Login;
+	TPanel *_pnBase_03_Game;
+	TPanel *_pnBase_02_Lobby;
+	TButton *btn_Enter;
+	void __fastcall btn_EnterClick(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
-	__fastcall TForm1(TComponent* Owner);
+	__fastcall TFormMain(TComponent* Owner);
+
+
+// MJW START
+public:
+	void __fastcall Init_Tetris();
+	void __fastcall PrintMsg(UnicodeString _str);
+
 };
 //---------------------------------------------------------------------------
-extern PACKAGE TForm1 *Form1;
+extern PACKAGE TFormMain *FormMain;
 //---------------------------------------------------------------------------
 #endif

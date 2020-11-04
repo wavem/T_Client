@@ -7,10 +7,27 @@
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
-TForm1 *Form1;
+TFormMain *FormMain;
 //---------------------------------------------------------------------------
-__fastcall TForm1::TForm1(TComponent* Owner)
+__fastcall TFormMain::TFormMain(TComponent* Owner)
 	: TForm(Owner)
 {
 }
 //---------------------------------------------------------------------------
+
+void __fastcall TFormMain::Init_Tetris() {
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::PrintMsg(UnicodeString _str) {
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::btn_EnterClick(TObject *Sender)
+{
+	Notebook_Main->PageIndex = 1; // Lobby
+}
+//---------------------------------------------------------------------------
+
