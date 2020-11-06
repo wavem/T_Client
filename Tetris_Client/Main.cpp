@@ -98,3 +98,9 @@ void __fastcall TFormMain::btn_GAMEClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
+void __fastcall TFormMain::btn_LogOutClick(TObject *Sender)
+{
+	Notebook_Main->PageIndex = 0; // GAME
+}
+//---------------------------------------------------------------------------
+

@@ -92,6 +92,7 @@ __published:	// IDE-managed Components
 	TButton *btn_GAME;
 	void __fastcall btn_EnterClick(TObject *Sender);
 	void __fastcall btn_GAMEClick(TObject *Sender);
+	void __fastcall btn_LogOutClick(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
 	__fastcall TFormMain(TComponent* Owner);

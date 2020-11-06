@@ -5,12 +5,14 @@ object FormMain: TFormMain
   ClientHeight = 909
   ClientWidth = 1348
   Color = clBtnFace
+  DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poScreenCenter
   PixelsPerInch = 96
   TextHeight = 13
   object __pnBase: TPanel
@@ -29,7 +31,7 @@ object FormMain: TFormMain
       Width = 1348
       Height = 909
       Align = alClient
-      PageIndex = 1
+      PageIndex = 2
       TabOrder = 0
       object TPage
         Left = 0
@@ -1035,6 +1037,7 @@ object FormMain: TFormMain
             Height = 25
             Caption = 'Back'
             TabOrder = 9
+            OnClick = btn_LogOutClick
           end
           object btn_START: TButton
             Left = 1088
