@@ -67,6 +67,7 @@
 #include "dxSkinWhiteprint.hpp"
 #include "dxSkinXmas2008Blue.hpp"
 #include <Vcl.Menus.hpp>
+#include "AdvSmoothPanel.hpp"
 //---------------------------------------------------------------------------
 class TFormMain : public TForm
 {
@@ -76,7 +77,6 @@ __published:	// IDE-managed Components
 	TPanel *_pnBase_01_Login;
 	TPanel *_pnBase_03_Game;
 	TPanel *_pnBase_02_Lobby;
-	TButton *btn_Enter;
 	TAdvStringGrid *grid_Mine;
 	TAdvStringGrid *grid_P1;
 	TAdvStringGrid *grid_P2;
@@ -90,6 +90,8 @@ __published:	// IDE-managed Components
 	TcxButton *btn_LogOut;
 	TButton *btn_START;
 	TButton *btn_GAME;
+	TAdvSmoothPanel *AdvSmoothPanel1;
+	TButton *btn_Enter;
 	void __fastcall btn_EnterClick(TObject *Sender);
 	void __fastcall btn_GAMEClick(TObject *Sender);
 	void __fastcall btn_LogOutClick(TObject *Sender);

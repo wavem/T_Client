@@ -1,9 +1,10 @@
 object FormMain: TFormMain
   Left = 0
   Top = 0
+  BorderStyle = bsNone
   Caption = 'T_Client'
-  ClientHeight = 909
-  ClientWidth = 1348
+  ClientHeight = 848
+  ClientWidth = 1192
   Color = clBtnFace
   DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
@@ -18,34 +19,38 @@ object FormMain: TFormMain
   object __pnBase: TPanel
     Left = 0
     Top = 0
-    Width = 1348
-    Height = 909
+    Width = 1192
+    Height = 848
     Align = alClient
     BevelOuter = bvNone
     Color = clBlack
     ParentBackground = False
     TabOrder = 0
+    ExplicitWidth = 1348
+    ExplicitHeight = 909
     object Notebook_Main: TNotebook
       Left = 0
       Top = 0
-      Width = 1348
-      Height = 909
+      Width = 1192
+      Height = 848
       Align = alClient
-      PageIndex = 2
       TabOrder = 0
+      ExplicitWidth = 1348
+      ExplicitHeight = 909
       object TPage
         Left = 0
         Top = 0
         Caption = 'Login'
+        ExplicitWidth = 1348
+        ExplicitHeight = 909
         object _pnBase_01_Login: TPanel
           Left = 0
           Top = 0
-          Width = 1348
-          Height = 909
+          Width = 1192
+          Height = 848
           Align = alClient
           BevelOuter = bvNone
-          Caption = 'Login'
-          Color = clTeal
+          Color = clNavy
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
           Font.Height = -11
@@ -54,14 +59,51 @@ object FormMain: TFormMain
           ParentBackground = False
           ParentFont = False
           TabOrder = 0
-          object btn_Enter: TButton
-            Left = 640
-            Top = 472
-            Width = 75
-            Height = 25
-            Caption = 'ENTER'
+          ExplicitWidth = 1348
+          ExplicitHeight = 909
+          object AdvSmoothPanel1: TAdvSmoothPanel
+            Left = 416
+            Top = 224
+            Width = 369
+            Height = 281
+            Cursor = crDefault
+            Caption.Text = 'WELCOME'
+            Caption.Location = plTopCenter
+            Caption.HTMLFont.Charset = DEFAULT_CHARSET
+            Caption.HTMLFont.Color = clWindowText
+            Caption.HTMLFont.Height = -11
+            Caption.HTMLFont.Name = 'Tahoma'
+            Caption.HTMLFont.Style = []
+            Caption.Font.Charset = DEFAULT_CHARSET
+            Caption.Font.Color = clWindowText
+            Caption.Font.Height = -37
+            Caption.Font.Name = 'Tahoma'
+            Caption.Font.Style = [fsBold]
+            Caption.ColorEnd = clYellow
+            Caption.LineColor = clYellow
+            Fill.Color = clNavy
+            Fill.ColorTo = clBlack
+            Fill.ColorMirror = clNavy
+            Fill.ColorMirrorTo = clNavy
+            Fill.GradientType = gtHatch
+            Fill.GradientMirrorType = gtVertical
+            Fill.HatchStyle = HatchStyleHorizontalBrick
+            Fill.BorderColor = 14922381
+            Fill.Rounding = 10
+            Fill.ShadowOffset = 10
+            Fill.Glow = gmNone
+            Version = '1.5.0.0'
             TabOrder = 0
-            OnClick = btn_EnterClick
+            TMSStyle = 4
+            object btn_Enter: TButton
+              Left = 142
+              Top = 224
+              Width = 75
+              Height = 25
+              Caption = 'ENTER'
+              TabOrder = 0
+              OnClick = btn_EnterClick
+            end
           end
         end
       end
@@ -70,17 +112,21 @@ object FormMain: TFormMain
         Top = 0
         HelpContext = 1
         Caption = 'Lobby'
+        ExplicitWidth = 1348
+        ExplicitHeight = 909
         object _pnBase_02_Lobby: TPanel
           Left = 0
           Top = 0
-          Width = 1348
-          Height = 909
+          Width = 1192
+          Height = 848
           Align = alClient
           BevelOuter = bvNone
           Caption = 'Lobby'
           Color = clMaroon
           ParentBackground = False
           TabOrder = 0
+          ExplicitWidth = 1348
+          ExplicitHeight = 909
           object btn_GAME: TButton
             Left = 640
             Top = 472
@@ -97,16 +143,20 @@ object FormMain: TFormMain
         Top = 0
         HelpContext = 2
         Caption = 'Game'
+        ExplicitWidth = 1348
+        ExplicitHeight = 909
         object _pnBase_03_Game: TPanel
           Left = 0
           Top = 0
-          Width = 1348
-          Height = 909
+          Width = 1192
+          Height = 848
           Align = alClient
           BevelOuter = bvNone
           Color = clMedGray
           ParentBackground = False
           TabOrder = 0
+          ExplicitWidth = 1348
+          ExplicitHeight = 909
           object img_NextBlock: TImage
             Left = 1000
             Top = 46

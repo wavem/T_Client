@@ -63,6 +63,7 @@
 #pragma link "dxSkinVS2010"
 #pragma link "dxSkinWhiteprint"
 #pragma link "dxSkinXmas2008Blue"
+#pragma link "AdvSmoothPanel"
 #pragma resource "*.dfm"
 TFormMain *FormMain;
 //---------------------------------------------------------------------------
