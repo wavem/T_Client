@@ -68,13 +68,13 @@
 #include "dxSkinXmas2008Blue.hpp"
 #include <Vcl.Menus.hpp>
 #include "AdvSmoothPanel.hpp"
+#include "AdvGlassButton.hpp"
 //---------------------------------------------------------------------------
 class TFormMain : public TForm
 {
 __published:	// IDE-managed Components
 	TPanel *__pnBase;
 	TNotebook *Notebook_Main;
-	TPanel *_pnBase_01_Login;
 	TPanel *_pnBase_03_Game;
 	TPanel *_pnBase_02_Lobby;
 	TAdvStringGrid *grid_Mine;
@@ -90,11 +90,12 @@ __published:	// IDE-managed Components
 	TcxButton *btn_LogOut;
 	TButton *btn_START;
 	TButton *btn_GAME;
-	TAdvSmoothPanel *AdvSmoothPanel1;
-	TButton *btn_Enter;
-	void __fastcall btn_EnterClick(TObject *Sender);
+	TAdvSmoothPanel *_pnBase_01_Login;
+	TAdvSmoothPanel *pn_Login;
+	TAdvGlassButton *btn_Single;
 	void __fastcall btn_GAMEClick(TObject *Sender);
 	void __fastcall btn_LogOutClick(TObject *Sender);
+	void __fastcall btn_SingleClick(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
 	__fastcall TFormMain(TComponent* Owner);

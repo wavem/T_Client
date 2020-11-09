@@ -26,8 +26,6 @@ object FormMain: TFormMain
     Color = clBlack
     ParentBackground = False
     TabOrder = 0
-    ExplicitWidth = 1348
-    ExplicitHeight = 909
     object Notebook_Main: TNotebook
       Left = 0
       Top = 0
@@ -35,40 +33,53 @@ object FormMain: TFormMain
       Height = 848
       Align = alClient
       TabOrder = 0
-      ExplicitWidth = 1348
-      ExplicitHeight = 909
       object TPage
         Left = 0
         Top = 0
         Caption = 'Login'
-        ExplicitWidth = 1348
-        ExplicitHeight = 909
-        object _pnBase_01_Login: TPanel
+        object _pnBase_01_Login: TAdvSmoothPanel
           Left = 0
           Top = 0
           Width = 1192
           Height = 848
+          Cursor = crDefault
+          Caption.HTMLFont.Charset = DEFAULT_CHARSET
+          Caption.HTMLFont.Color = clWindowText
+          Caption.HTMLFont.Height = -11
+          Caption.HTMLFont.Name = 'Tahoma'
+          Caption.HTMLFont.Style = []
+          Caption.Font.Charset = DEFAULT_CHARSET
+          Caption.Font.Color = clWindowText
+          Caption.Font.Height = -16
+          Caption.Font.Name = 'Tahoma'
+          Caption.Font.Style = []
+          Caption.Line = False
+          Fill.Color = clBlack
+          Fill.ColorTo = clMaroon
+          Fill.ColorMirror = clNone
+          Fill.ColorMirrorTo = clBlack
+          Fill.GradientType = gtHatch
+          Fill.GradientMirrorType = gtHatch
+          Fill.HatchStyle = HatchStyleDiagonalBrick
+          Fill.HatchStyleMirror = HatchStyleHorizontalBrick
+          Fill.BorderColor = clOlive
+          Fill.Rounding = 0
+          Fill.ShadowOffset = 0
+          Fill.Glow = gmNone
+          Version = '1.5.0.0'
           Align = alClient
-          BevelOuter = bvNone
-          Color = clNavy
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWhite
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentBackground = False
-          ParentFont = False
           TabOrder = 0
-          ExplicitWidth = 1348
-          ExplicitHeight = 909
-          object AdvSmoothPanel1: TAdvSmoothPanel
-            Left = 416
-            Top = 224
-            Width = 369
+          ExplicitLeft = 80
+          ExplicitTop = 40
+          ExplicitWidth = 705
+          ExplicitHeight = 281
+          TMSStyle = 4
+          object pn_Login: TAdvSmoothPanel
+            Left = 456
+            Top = 328
+            Width = 337
             Height = 281
             Cursor = crDefault
-            Caption.Text = 'WELCOME'
-            Caption.Location = plTopCenter
             Caption.HTMLFont.Charset = DEFAULT_CHARSET
             Caption.HTMLFont.Color = clWindowText
             Caption.HTMLFont.Height = -11
@@ -76,33 +87,48 @@ object FormMain: TFormMain
             Caption.HTMLFont.Style = []
             Caption.Font.Charset = DEFAULT_CHARSET
             Caption.Font.Color = clWindowText
-            Caption.Font.Height = -37
+            Caption.Font.Height = -16
             Caption.Font.Name = 'Tahoma'
-            Caption.Font.Style = [fsBold]
-            Caption.ColorEnd = clYellow
-            Caption.LineColor = clYellow
-            Fill.Color = clNavy
+            Caption.Font.Style = []
+            Caption.Line = False
+            Fill.Color = clMaroon
             Fill.ColorTo = clBlack
-            Fill.ColorMirror = clNavy
-            Fill.ColorMirrorTo = clNavy
+            Fill.ColorMirror = 15587527
+            Fill.ColorMirrorTo = 16773863
             Fill.GradientType = gtHatch
-            Fill.GradientMirrorType = gtVertical
-            Fill.HatchStyle = HatchStyleHorizontalBrick
-            Fill.BorderColor = 14922381
+            Fill.GradientMirrorType = gtHatch
+            Fill.HatchStyle = HatchStyleDiagonalBrick
+            Fill.BorderColor = clBlack
             Fill.Rounding = 10
-            Fill.ShadowOffset = 10
+            Fill.ShadowOffset = 0
             Fill.Glow = gmNone
             Version = '1.5.0.0'
             TabOrder = 0
             TMSStyle = 4
-            object btn_Enter: TButton
-              Left = 142
-              Top = 224
-              Width = 75
-              Height = 25
-              Caption = 'ENTER'
+            object btn_Single: TAdvGlassButton
+              Left = 120
+              Top = 216
+              Width = 100
+              Height = 32
+              Cursor = crHandPoint
+              BackColor = clNavy
+              Caption = 'SINGLE'
+              CornerRadius = 16
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clOlive
+              Font.Height = -16
+              Font.Name = 'Tahoma'
+              Font.Style = [fsBold]
+              ForeColor = clWhite
+              ForceTransparent = True
+              GlowColor = clOlive
+              InnerBorderColor = clBlack
+              OuterBorderColor = clMaroon
+              ParentFont = False
+              ShineColor = 15335424
               TabOrder = 0
-              OnClick = btn_EnterClick
+              Version = '1.3.0.2'
+              OnClick = btn_SingleClick
             end
           end
         end
@@ -112,8 +138,6 @@ object FormMain: TFormMain
         Top = 0
         HelpContext = 1
         Caption = 'Lobby'
-        ExplicitWidth = 1348
-        ExplicitHeight = 909
         object _pnBase_02_Lobby: TPanel
           Left = 0
           Top = 0
@@ -125,8 +149,6 @@ object FormMain: TFormMain
           Color = clMaroon
           ParentBackground = False
           TabOrder = 0
-          ExplicitWidth = 1348
-          ExplicitHeight = 909
           object btn_GAME: TButton
             Left = 640
             Top = 472
@@ -143,8 +165,6 @@ object FormMain: TFormMain
         Top = 0
         HelpContext = 2
         Caption = 'Game'
-        ExplicitWidth = 1348
-        ExplicitHeight = 909
         object _pnBase_03_Game: TPanel
           Left = 0
           Top = 0
@@ -155,8 +175,6 @@ object FormMain: TFormMain
           Color = clMedGray
           ParentBackground = False
           TabOrder = 0
-          ExplicitWidth = 1348
-          ExplicitHeight = 909
           object img_NextBlock: TImage
             Left = 1000
             Top = 46

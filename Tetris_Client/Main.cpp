@@ -64,6 +64,7 @@
 #pragma link "dxSkinWhiteprint"
 #pragma link "dxSkinXmas2008Blue"
 #pragma link "AdvSmoothPanel"
+#pragma link "AdvGlassButton"
 #pragma resource "*.dfm"
 TFormMain *FormMain;
 //---------------------------------------------------------------------------
@@ -86,13 +87,6 @@ void __fastcall TFormMain::PrintMsg(UnicodeString _str) {
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TFormMain::btn_EnterClick(TObject *Sender)
-{
-	Notebook_Main->PageIndex = 1; // Lobby
-}
-//---------------------------------------------------------------------------
-
-
 void __fastcall TFormMain::btn_GAMEClick(TObject *Sender)
 {
 	Notebook_Main->PageIndex = 2; // GAME
@@ -102,6 +96,12 @@ void __fastcall TFormMain::btn_GAMEClick(TObject *Sender)
 void __fastcall TFormMain::btn_LogOutClick(TObject *Sender)
 {
 	Notebook_Main->PageIndex = 0; // GAME
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::btn_SingleClick(TObject *Sender)
+{
+	Notebook_Main->PageIndex = 1; // Lobby
 }
 //---------------------------------------------------------------------------
 
