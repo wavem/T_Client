@@ -123,13 +123,6 @@ void __fastcall TFormMain::PrintChat_Lobby(UnicodeString _str) {
 }
 //---------------------------------------------------------------------------
 
-
-void __fastcall TFormMain::btn_LogOutClick(TObject *Sender)
-{
-	Notebook_Main->PageIndex = 0; // GAME
-}
-//---------------------------------------------------------------------------
-
 void __fastcall TFormMain::btn_LoginClick(TObject *Sender)
 {
 	// Button Login
@@ -139,6 +132,9 @@ void __fastcall TFormMain::btn_LoginClick(TObject *Sender)
 void __fastcall TFormMain::btn_SignUpClick(TObject *Sender)
 {
 	// Button Sign Up
+	TFormSignUp *p_dlg = new TFormSignUp(NULL);
+	p_dlg->ShowModal();
+	delete p_dlg;
 }
 //---------------------------------------------------------------------------
 
@@ -146,12 +142,6 @@ void __fastcall TFormMain::btn_SingleModeClick(TObject *Sender)
 {
 	// Button Single Mode
 	Notebook_Main->PageIndex = 1; // Lobby
-}
-//---------------------------------------------------------------------------
-
-void __fastcall TFormMain::btn_InformationClick(TObject *Sender)
-{
-	// Button Information
 }
 //---------------------------------------------------------------------------
 
@@ -167,3 +157,23 @@ void __fastcall TFormMain::btn_EnterClick(TObject *Sender)
 	Notebook_Main->PageIndex = 2; // GAME
 }
 //---------------------------------------------------------------------------
+
+void __fastcall TFormMain::btn_QUIT_InGameClick(TObject *Sender)
+{
+	Notebook_Main->PageIndex = 1; // Lobby
+}
+//---------------------------------------------------------------------------
+void __fastcall TFormMain::btn_LogOutClick(TObject *Sender)
+{
+	Notebook_Main->PageIndex = 0; // Log In Screen
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::btn_InformationClick(TObject *Sender)
+{
+	TFormVersion *p_dlg = new TFormVersion(NULL);
+	p_dlg->ShowModal();
+	delete p_dlg;
+}
+//---------------------------------------------------------------------------
+

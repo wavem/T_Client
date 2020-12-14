@@ -74,6 +74,11 @@
 #include "AdvEdit.hpp"
 #include "AdvScrollBox.hpp"
 //---------------------------------------------------------------------------
+
+#include "Define.h"
+#include "SignUpDlg.h"
+#include "Version.h"
+//---------------------------------------------------------------------------
 class TFormMain : public TForm
 {
 __published:	// IDE-managed Components
@@ -96,11 +101,7 @@ __published:	// IDE-managed Components
 	TAdvGlassButton *AdvGlassButton3;
 	TAdvEdit *ed_Chat;
 	TAdvSmoothPanel *_pnBase_03_Game;
-	TLabel *Label5;
-	TAdvGlassButton *AdvGlassButton2;
-	TAdvEdit *AdvEdit3;
-	TAdvSmoothButton *AdvSmoothButton2;
-	TAdvMemo *AdvMemo2;
+	TLabel *lb_InGame_NextBlock;
 	TAdvStringGrid *grid_P1;
 	TAdvStringGrid *grid_P2;
 	TAdvStringGrid *grid_P3;
@@ -109,7 +110,6 @@ __published:	// IDE-managed Components
 	TPanel *pn_Pause;
 	TAdvStringGrid *grid_Mine;
 	TAdvStringGrid *grid_Items;
-	TcxButton *btn_LogOut;
 	TImage *img_NextBlock;
 	TAdvStringGrid *grid_Room;
 	TAdvMemo *chat;
@@ -126,17 +126,25 @@ __published:	// IDE-managed Components
 	TLabel *lb_Lobby_10;
 	TLabel *lb_Lobby_11;
 	TLabel *lb_Lobby_12;
-	TAdvGlassButton *btn_QUIT;
+	TAdvGlassButton *btn_LogOut;
 	TAdvGlassButton *btn_TEST;
 	TAdvGlassButton *btn_Enter;
-	void __fastcall btn_LogOutClick(TObject *Sender);
+	TAdvEdit *ed_Chat_InGame;
+	TAdvMemo *memo_Chat_InGame;
+	TAdvGlassButton *btn_Send_InGameChat;
+	TAdvGlassButton *btn_QUIT_InGame;
+	TAdvGlassButton *btn_StartGame;
+	TAdvGlassButton *btn_PauseGame;
+	TAdvGlassButton *btn_Setting_InGame;
 	void __fastcall btn_SingleModeClick(TObject *Sender);
 	void __fastcall btn_SignUpClick(TObject *Sender);
-	void __fastcall btn_InformationClick(TObject *Sender);
 	void __fastcall btn_Login_QuitClick(TObject *Sender);
 	void __fastcall btn_LoginClick(TObject *Sender);
 	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
 	void __fastcall btn_EnterClick(TObject *Sender);
+	void __fastcall btn_QUIT_InGameClick(TObject *Sender);
+	void __fastcall btn_LogOutClick(TObject *Sender);
+	void __fastcall btn_InformationClick(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
 	__fastcall TFormMain(TComponent* Owner);
