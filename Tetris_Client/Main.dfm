@@ -14,6 +14,7 @@ object FormMain: TFormMain
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
+  OnClose = FormClose
   PixelsPerInch = 96
   TextHeight = 13
   object __pnBase: TPanel
@@ -348,9 +349,139 @@ object FormMain: TFormMain
           ExplicitLeft = 232
           ExplicitTop = 209
           TMSStyle = 4
-          object Label1: TLabel
-            Left = 1025
-            Top = 201
+          object lb_Lobby_1: TLabel
+            Left = 30
+            Top = 213
+            Width = 26
+            Height = 18
+            Caption = 'No.'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -15
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lb_Lobby_2: TLabel
+            Left = 70
+            Top = 213
+            Width = 40
+            Height = 18
+            Caption = 'State'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -15
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lb_Lobby_3: TLabel
+            Left = 135
+            Top = 213
+            Width = 40
+            Height = 18
+            Caption = 'Team'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -15
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lb_Lobby_4: TLabel
+            Left = 199
+            Top = 213
+            Width = 35
+            Height = 18
+            Caption = 'Item'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -15
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lb_Lobby_5: TLabel
+            Left = 355
+            Top = 213
+            Width = 34
+            Height = 18
+            Caption = 'Title'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -15
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lb_Lobby_6: TLabel
+            Left = 525
+            Top = 213
+            Width = 52
+            Height = 18
+            Caption = 'Master'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -15
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lb_Lobby_7: TLabel
+            Left = 621
+            Top = 213
+            Width = 49
+            Height = 18
+            Caption = 'Player'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -15
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lb_Lobby_8: TLabel
+            Left = 686
+            Top = 213
+            Width = 55
+            Height = 18
+            Caption = 'Private'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -15
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lb_Lobby_9: TLabel
+            Left = 755
+            Top = 213
+            Width = 40
+            Height = 18
+            Caption = 'Enter'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -15
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lb_Lobby_10: TLabel
+            Left = 854
+            Top = 22
+            Width = 26
+            Height = 18
+            Caption = 'No.'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -15
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lb_Lobby_11: TLabel
+            Left = 962
+            Top = 22
             Width = 18
             Height = 18
             Caption = 'ID'
@@ -361,12 +492,12 @@ object FormMain: TFormMain
             Font.Style = [fsBold]
             ParentFont = False
           end
-          object Label2: TLabel
-            Left = 970
-            Top = 233
-            Width = 73
+          object lb_Lobby_12: TLabel
+            Left = 1079
+            Top = 22
+            Width = 45
             Height = 18
-            Caption = 'Password'
+            Caption = 'Grade'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clGradientActiveCaption
             Font.Height = -15
@@ -375,9 +506,9 @@ object FormMain: TFormMain
             ParentFont = False
           end
           object AdvGlassButton3: TAdvGlassButton
-            Left = 1063
-            Top = 774
-            Width = 97
+            Left = 1072
+            Top = 784
+            Width = 80
             Height = 32
             Cursor = crHandPoint
             BackColor = clNavy
@@ -399,13 +530,13 @@ object FormMain: TFormMain
             Version = '1.3.0.2'
             OnClick = btn_InformationClick
           end
-          object AdvEdit1: TAdvEdit
-            Left = 824
-            Top = 774
-            Width = 233
+          object ed_Chat: TAdvEdit
+            Left = 851
+            Top = 787
+            Width = 217
             Height = 26
-            BorderColor = clGradientInactiveCaption
-            EditAlign = eaCenter
+            BorderColor = 10240280
+            EditAlign = eaDefault
             EmptyTextStyle = []
             SoftBorder = True
             LabelFont.Charset = DEFAULT_CHARSET
@@ -421,74 +552,188 @@ object FormMain: TFormMain
             Lookup.Separator = ';'
             BevelInner = bvNone
             BevelOuter = bvNone
-            Color = clGradientInactiveCaption
+            BorderStyle = bsNone
+            Color = 10240280
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -15
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
-            MaxLength = 16
+            MaxLength = 48
             ParentFont = False
             TabOrder = 1
             Text = ''
             Visible = True
             Version = '3.3.5.3'
           end
-          object btn_Test: TAdvSmoothButton
-            Left = 904
-            Top = 280
-            Width = 120
-            Height = 35
-            Cursor = crHandPoint
-            Appearance.GlowPercentage = 35
-            Appearance.Font.Charset = DEFAULT_CHARSET
-            Appearance.Font.Color = clAqua
-            Appearance.Font.Height = -15
-            Appearance.Font.Name = 'Tahoma'
-            Appearance.Font.Style = [fsBold]
-            Appearance.Rounding = 12
-            Status.Caption = '0'
-            Status.Appearance.Fill.Color = clRed
-            Status.Appearance.Fill.ColorMirror = clNone
-            Status.Appearance.Fill.ColorMirrorTo = clNone
-            Status.Appearance.Fill.GradientType = gtSolid
-            Status.Appearance.Fill.GradientMirrorType = gtSolid
-            Status.Appearance.Fill.BorderColor = clGray
-            Status.Appearance.Fill.Rounding = 8
-            Status.Appearance.Fill.ShadowOffset = 0
-            Status.Appearance.Fill.Glow = gmNone
-            Status.Appearance.Font.Charset = DEFAULT_CHARSET
-            Status.Appearance.Font.Color = clWhite
-            Status.Appearance.Font.Height = -11
-            Status.Appearance.Font.Name = 'Tahoma'
-            Status.Appearance.Font.Style = []
-            Bevel = False
-            BevelColor = clLime
-            Caption = 'TEST'
-            Color = clNavy
+          object grid_Room: TAdvStringGrid
+            Left = 25
+            Top = 237
+            Width = 783
+            Height = 587
+            Cursor = crDefault
+            TabStop = False
+            BorderStyle = bsNone
+            Color = 12407073
+            ColCount = 9
+            Ctl3D = True
+            DefaultRowHeight = 28
+            DoubleBuffered = True
+            DrawingStyle = gdsClassic
+            FixedColor = clWhite
+            FixedCols = 0
+            RowCount = 21
+            FixedRows = 0
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 14722896
+            Font.Height = -13
+            Font.Name = #47569#51008' '#44256#46357
+            Font.Style = [fsBold]
+            GradientEndColor = 12148001
+            GradientStartColor = 12148001
+            GridLineWidth = 2
+            Options = [goHorzLine, goRowSelect]
+            ParentCtl3D = False
+            ParentDoubleBuffered = False
             ParentFont = False
-            ParentShowHint = False
-            ShowHint = False
+            ScrollBars = ssNone
             TabOrder = 2
-            ShowFocus = False
-            Version = '2.1.0.0'
-            OnClick = btn_TestClick
-            TMSStyle = 0
-          end
-          object btn_GAME: TButton
-            Left = 1056
-            Top = 297
-            Width = 75
-            Height = 25
-            Caption = 'ENTER'
-            TabOrder = 3
-            OnClick = btn_GAMEClick
+            GridLineColor = 12148001
+            GridFixedLineColor = 12148001
+            HoverRowCells = [hcNormal, hcSelected]
+            ActiveCellFont.Charset = DEFAULT_CHARSET
+            ActiveCellFont.Color = clWindowText
+            ActiveCellFont.Height = -11
+            ActiveCellFont.Name = 'Tahoma'
+            ActiveCellFont.Style = [fsBold]
+            BackGround.Display = bdGradientVert
+            BackGround.Cells = bcFixed
+            BackGround.Color = 14849594
+            BackGround.ColorTo = clWhite
+            BorderColor = 12407073
+            ColumnHeaders.Strings = (
+              'Idx'
+              'State'
+              'Team'
+              'Item'
+              'Title'
+              'Master ID'
+              'Players'
+              'Private'
+              'Enter')
+            ControlLook.FixedGradientHoverFrom = clGray
+            ControlLook.FixedGradientHoverTo = clWhite
+            ControlLook.FixedGradientDownFrom = clGray
+            ControlLook.FixedGradientDownTo = clSilver
+            ControlLook.DropDownHeader.Font.Charset = DEFAULT_CHARSET
+            ControlLook.DropDownHeader.Font.Color = clWindowText
+            ControlLook.DropDownHeader.Font.Height = -11
+            ControlLook.DropDownHeader.Font.Name = 'Tahoma'
+            ControlLook.DropDownHeader.Font.Style = []
+            ControlLook.DropDownHeader.Visible = True
+            ControlLook.DropDownHeader.Buttons = <>
+            ControlLook.DropDownFooter.Font.Charset = DEFAULT_CHARSET
+            ControlLook.DropDownFooter.Font.Color = clWindowText
+            ControlLook.DropDownFooter.Font.Height = -11
+            ControlLook.DropDownFooter.Font.Name = 'Tahoma'
+            ControlLook.DropDownFooter.Font.Style = []
+            ControlLook.DropDownFooter.Visible = True
+            ControlLook.DropDownFooter.Buttons = <>
+            ControlLook.NoDisabledButtonLook = True
+            DefaultAlignment = taCenter
+            EnableHTML = False
+            Filter = <>
+            FilterDropDown.Font.Charset = DEFAULT_CHARSET
+            FilterDropDown.Font.Color = clWindowText
+            FilterDropDown.Font.Height = -11
+            FilterDropDown.Font.Name = 'Tahoma'
+            FilterDropDown.Font.Style = []
+            FilterDropDown.TextChecked = 'Checked'
+            FilterDropDown.TextUnChecked = 'Unchecked'
+            FilterDropDownClear = '(All)'
+            FilterEdit.TypeNames.Strings = (
+              'Starts with'
+              'Ends with'
+              'Contains'
+              'Not contains'
+              'Equal'
+              'Not equal'
+              'Larger than'
+              'Smaller than'
+              'Clear')
+            FixedColWidth = 35
+            FixedRowHeight = 28
+            FixedFont.Charset = DEFAULT_CHARSET
+            FixedFont.Color = clWhite
+            FixedFont.Height = -15
+            FixedFont.Name = 'Tahoma'
+            FixedFont.Style = [fsBold]
+            FloatFormat = '%.2f'
+            HoverButtons.Buttons = <>
+            HoverButtons.Position = hbLeftFromColumnLeft
+            HTMLSettings.ImageFolder = 'images'
+            HTMLSettings.ImageBaseName = 'img'
+            IntelliPan = ipNone
+            IntelliZoom = False
+            MouseActions.AutoSizeColOnDblClick = False
+            MouseActions.WheelIncrement = 1
+            MouseActions.WheelAction = waScroll
+            MouseActions.WheelActive = waMouseOver
+            PrintSettings.DateFormat = 'dd/mm/yyyy'
+            PrintSettings.Font.Charset = DEFAULT_CHARSET
+            PrintSettings.Font.Color = clWindowText
+            PrintSettings.Font.Height = -11
+            PrintSettings.Font.Name = 'Tahoma'
+            PrintSettings.Font.Style = []
+            PrintSettings.FixedFont.Charset = DEFAULT_CHARSET
+            PrintSettings.FixedFont.Color = clWindowText
+            PrintSettings.FixedFont.Height = -11
+            PrintSettings.FixedFont.Name = 'Tahoma'
+            PrintSettings.FixedFont.Style = []
+            PrintSettings.HeaderFont.Charset = DEFAULT_CHARSET
+            PrintSettings.HeaderFont.Color = clWindowText
+            PrintSettings.HeaderFont.Height = -11
+            PrintSettings.HeaderFont.Name = 'Tahoma'
+            PrintSettings.HeaderFont.Style = []
+            PrintSettings.FooterFont.Charset = DEFAULT_CHARSET
+            PrintSettings.FooterFont.Color = clWindowText
+            PrintSettings.FooterFont.Height = -11
+            PrintSettings.FooterFont.Name = 'Tahoma'
+            PrintSettings.FooterFont.Style = []
+            PrintSettings.PageNumSep = '/'
+            ScrollSynch = True
+            SearchFooter.FindNextCaption = 'Find &next'
+            SearchFooter.FindPrevCaption = 'Find &previous'
+            SearchFooter.Font.Charset = DEFAULT_CHARSET
+            SearchFooter.Font.Color = clWindowText
+            SearchFooter.Font.Height = -11
+            SearchFooter.Font.Name = 'Tahoma'
+            SearchFooter.Font.Style = []
+            SearchFooter.HighLightCaption = 'Highlight'
+            SearchFooter.HintClose = 'Close'
+            SearchFooter.HintFindNext = 'Find next occurrence'
+            SearchFooter.HintFindPrev = 'Find previous occurrence'
+            SearchFooter.HintHighlight = 'Highlight occurrences'
+            SearchFooter.MatchCaseCaption = 'Match case'
+            ShowSelection = False
+            SortSettings.DefaultFormat = ssAutomatic
+            Version = '7.8.0.1'
+            ColWidths = (
+              35
+              64
+              64
+              64
+              240
+              120
+              70
+              64
+              60)
           end
           object chat: TAdvMemo
-            Left = 824
-            Top = 328
-            Width = 345
-            Height = 425
+            Left = 849
+            Top = 456
+            Width = 302
+            Height = 322
             Cursor = crIBeam
             ActiveLineSettings.ShowActiveLine = False
             ActiveLineSettings.ShowActiveLineIndicator = False
@@ -500,6 +745,9 @@ object FormMain: TFormMain
             AutoCompletion.StartToken = '(.'
             AutoCorrect.Active = True
             AutoHintParameterPosition = hpBelowCode
+            AutoIndent = False
+            BlockShow = False
+            BkColor = 12407073
             BookmarkGlyph.Data = {
               36050000424D3605000000000000360400002800000010000000100000000100
               0800000000000001000000000000000000000001000000000000000000000000
@@ -543,7 +791,7 @@ object FormMain: TFormMain
               BFBFBFBFBFB72525FDFD9A9ABFBFBFBFBFB7BFBFB7B72525FDFDFD25BFBFBFBF
               BFBFBFBFBFB72525FDFD9A9ABFBFBFBFBFBFBFBFBFB725FDFDFDFD2525252525
               25252525252525FDFDFDFDFDFDFDFDFDFDFDFDFDFDFDFDFDFDFD}
-            BorderStyle = bsSingle
+            BorderStyle = bsNone
             ClipboardFormats = [cfText]
             CodeFolding.Enabled = False
             CodeFolding.LineColor = clGray
@@ -555,17 +803,19 @@ object FormMain: TFormMain
             Gutter.Font.Height = -13
             Gutter.Font.Name = 'Courier New'
             Gutter.Font.Style = []
+            Gutter.BorderColor = clGreen
+            Gutter.Visible = False
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clBlack
             Font.Height = -13
-            Font.Name = 'COURIER NEW'
-            Font.Style = []
+            Font.Name = #47569#51008' '#44256#46357
+            Font.Style = [fsBold]
             HiddenCaret = False
             Lines.Strings = (
               '')
             MarkerList.UseDefaultMarkerImageIndex = False
             MarkerList.DefaultMarkerImageIndex = -1
-            MarkerList.ImageTransparentColor = 33554432
+            MarkerList.ImageTransparentColor = -1
             OleDropTarget = []
             PrintOptions.MarginLeft = 0
             PrintOptions.MarginRight = 0
@@ -574,14 +824,15 @@ object FormMain: TFormMain
             PrintOptions.PageNr = False
             PrintOptions.PrintLineNumbers = False
             ReadOnly = True
+            RightMargin = 0
             RightMarginColor = 14869218
+            ScrollBars = ssNone
             ScrollHint = False
             SelColor = clWhite
             SelBkColor = clNavy
-            ShowRightMargin = True
+            ShowRightMargin = False
             SmartTabs = False
-            TabOrder = 4
-            TabStop = True
+            TabOrder = 3
             TrimTrailingSpaces = False
             UILanguage.ScrollHint = 'Row'
             UILanguage.Undo = 'Undo'
@@ -596,58 +847,262 @@ object FormMain: TFormMain
             UrlStyle.Style = [fsUnderline]
             UseStyler = True
             Version = '3.4.1.0'
+            WantTab = False
             WordWrap = wwNone
           end
-          object AdvScrollBox1: TAdvScrollBox
-            Left = 24
-            Top = 280
-            Width = 769
-            Height = 537
-            BevelInner = bvNone
-            BevelOuter = bvNone
+          object grid_PlayerList: TAdvStringGrid
+            Left = 849
+            Top = 48
+            Width = 302
+            Height = 391
+            Cursor = crDefault
+            TabStop = False
+            BorderStyle = bsNone
+            Color = 12407073
+            ColCount = 3
+            Ctl3D = True
+            DefaultRowHeight = 28
             DoubleBuffered = True
-            Ctl3D = False
+            DrawingStyle = gdsClassic
+            FixedColor = clWhite
+            FixedCols = 0
+            RowCount = 21
+            FixedRows = 0
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = 14722896
+            Font.Height = -13
+            Font.Name = #47569#51008' '#44256#46357
+            Font.Style = [fsBold]
+            GradientEndColor = 12148001
+            GradientStartColor = 12148001
+            GridLineWidth = 2
+            Options = [goHorzLine, goRowSelect]
             ParentCtl3D = False
             ParentDoubleBuffered = False
+            ParentFont = False
+            ScrollBars = ssNone
+            TabOrder = 4
+            GridLineColor = 12148001
+            GridFixedLineColor = 12148001
+            HoverRowCells = [hcNormal, hcSelected]
+            ActiveCellFont.Charset = DEFAULT_CHARSET
+            ActiveCellFont.Color = clWindowText
+            ActiveCellFont.Height = -11
+            ActiveCellFont.Name = 'Tahoma'
+            ActiveCellFont.Style = [fsBold]
+            BackGround.Display = bdGradientVert
+            BackGround.Cells = bcFixed
+            BackGround.Color = 14849594
+            BackGround.ColorTo = clWhite
+            BorderColor = 12407073
+            ColumnHeaders.Strings = (
+              'Idx'
+              'State'
+              'Team'
+              'Item'
+              'Title'
+              'Master ID'
+              'Players'
+              'Private'
+              'Enter')
+            ControlLook.FixedGradientHoverFrom = clGray
+            ControlLook.FixedGradientHoverTo = clWhite
+            ControlLook.FixedGradientDownFrom = clGray
+            ControlLook.FixedGradientDownTo = clSilver
+            ControlLook.DropDownHeader.Font.Charset = DEFAULT_CHARSET
+            ControlLook.DropDownHeader.Font.Color = clWindowText
+            ControlLook.DropDownHeader.Font.Height = -11
+            ControlLook.DropDownHeader.Font.Name = 'Tahoma'
+            ControlLook.DropDownHeader.Font.Style = []
+            ControlLook.DropDownHeader.Visible = True
+            ControlLook.DropDownHeader.Buttons = <>
+            ControlLook.DropDownFooter.Font.Charset = DEFAULT_CHARSET
+            ControlLook.DropDownFooter.Font.Color = clWindowText
+            ControlLook.DropDownFooter.Font.Height = -11
+            ControlLook.DropDownFooter.Font.Name = 'Tahoma'
+            ControlLook.DropDownFooter.Font.Style = []
+            ControlLook.DropDownFooter.Visible = True
+            ControlLook.DropDownFooter.Buttons = <>
+            ControlLook.NoDisabledButtonLook = True
+            DefaultAlignment = taCenter
+            EnableHTML = False
+            Filter = <>
+            FilterDropDown.Font.Charset = DEFAULT_CHARSET
+            FilterDropDown.Font.Color = clWindowText
+            FilterDropDown.Font.Height = -11
+            FilterDropDown.Font.Name = 'Tahoma'
+            FilterDropDown.Font.Style = []
+            FilterDropDown.TextChecked = 'Checked'
+            FilterDropDown.TextUnChecked = 'Unchecked'
+            FilterDropDownClear = '(All)'
+            FilterEdit.TypeNames.Strings = (
+              'Starts with'
+              'Ends with'
+              'Contains'
+              'Not contains'
+              'Equal'
+              'Not equal'
+              'Larger than'
+              'Smaller than'
+              'Clear')
+            FixedColWidth = 40
+            FixedRowHeight = 28
+            FixedFont.Charset = DEFAULT_CHARSET
+            FixedFont.Color = clWhite
+            FixedFont.Height = -15
+            FixedFont.Name = 'Tahoma'
+            FixedFont.Style = [fsBold]
+            FloatFormat = '%.2f'
+            HoverButtons.Buttons = <>
+            HoverButtons.Position = hbLeftFromColumnLeft
+            HTMLSettings.ImageFolder = 'images'
+            HTMLSettings.ImageBaseName = 'img'
+            IntelliPan = ipNone
+            IntelliZoom = False
+            MouseActions.AutoSizeColOnDblClick = False
+            MouseActions.WheelIncrement = 1
+            MouseActions.WheelAction = waScroll
+            MouseActions.WheelActive = waMouseOver
+            PrintSettings.DateFormat = 'dd/mm/yyyy'
+            PrintSettings.Font.Charset = DEFAULT_CHARSET
+            PrintSettings.Font.Color = clWindowText
+            PrintSettings.Font.Height = -11
+            PrintSettings.Font.Name = 'Tahoma'
+            PrintSettings.Font.Style = []
+            PrintSettings.FixedFont.Charset = DEFAULT_CHARSET
+            PrintSettings.FixedFont.Color = clWindowText
+            PrintSettings.FixedFont.Height = -11
+            PrintSettings.FixedFont.Name = 'Tahoma'
+            PrintSettings.FixedFont.Style = []
+            PrintSettings.HeaderFont.Charset = DEFAULT_CHARSET
+            PrintSettings.HeaderFont.Color = clWindowText
+            PrintSettings.HeaderFont.Height = -11
+            PrintSettings.HeaderFont.Name = 'Tahoma'
+            PrintSettings.HeaderFont.Style = []
+            PrintSettings.FooterFont.Charset = DEFAULT_CHARSET
+            PrintSettings.FooterFont.Color = clWindowText
+            PrintSettings.FooterFont.Height = -11
+            PrintSettings.FooterFont.Name = 'Tahoma'
+            PrintSettings.FooterFont.Style = []
+            PrintSettings.PageNumSep = '/'
+            ScrollSynch = True
+            SearchFooter.FindNextCaption = 'Find &next'
+            SearchFooter.FindPrevCaption = 'Find &previous'
+            SearchFooter.Font.Charset = DEFAULT_CHARSET
+            SearchFooter.Font.Color = clWindowText
+            SearchFooter.Font.Height = -11
+            SearchFooter.Font.Name = 'Tahoma'
+            SearchFooter.Font.Style = []
+            SearchFooter.HighLightCaption = 'Highlight'
+            SearchFooter.HintClose = 'Close'
+            SearchFooter.HintFindNext = 'Find next occurrence'
+            SearchFooter.HintFindPrev = 'Find previous occurrence'
+            SearchFooter.HintHighlight = 'Highlight occurrences'
+            SearchFooter.MatchCaseCaption = 'Match case'
+            ShowSelection = False
+            SortSettings.DefaultFormat = ssAutomatic
+            Version = '7.8.0.1'
+            ColWidths = (
+              40
+              170
+              90)
+          end
+          object btn_MakeRoom: TAdvGlassButton
+            Left = 320
+            Top = 152
+            Width = 168
+            Height = 32
+            Cursor = crHandPoint
+            BackColor = clNavy
+            Caption = 'MAKING ROOM'
+            CornerRadius = 16
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -16
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ForeColor = clWhite
+            ForceTransparent = True
+            GlowColor = clOlive
+            InnerBorderColor = clBlack
+            OuterBorderColor = clNavy
+            ParentFont = False
+            ShineColor = 15335424
             TabOrder = 5
-            BorderColor = 4326912
-            object AdvSmoothPanel1: TAdvSmoothPanel
-              Left = 16
-              Top = 16
-              Width = 361
-              Height = 129
-              Cursor = crDefault
-              Caption.HTMLFont.Charset = DEFAULT_CHARSET
-              Caption.HTMLFont.Color = clWindowText
-              Caption.HTMLFont.Height = -11
-              Caption.HTMLFont.Name = 'Tahoma'
-              Caption.HTMLFont.Style = []
-              Caption.Font.Charset = DEFAULT_CHARSET
-              Caption.Font.Color = clWindowText
-              Caption.Font.Height = -15
-              Caption.Font.Name = 'Tahoma'
-              Caption.Font.Style = [fsBold]
-              Caption.BackgroundColor = 2622464
-              Caption.BackgroundColorTo = 12411648
-              Caption.ColorStart = clGradientActiveCaption
-              Caption.ColorEnd = clGradientActiveCaption
-              Caption.GradientType = gtHorizontal
-              Caption.Line = False
-              Fill.Color = 4326912
-              Fill.ColorTo = 9653504
-              Fill.ColorMirror = 9653504
-              Fill.ColorMirrorTo = 4326912
-              Fill.GradientType = gtVertical
-              Fill.GradientMirrorType = gtVertical
-              Fill.BorderColor = 2622464
-              Fill.Rounding = 10
-              Fill.ShadowColor = clBlack
-              Fill.ShadowOffset = 6
-              Fill.Glow = gmNone
-              Version = '1.5.0.0'
-              TabOrder = 0
-              TMSStyle = 4
-            end
+            Version = '1.3.0.2'
+          end
+          object btn_QUIT: TAdvGlassButton
+            Left = 320
+            Top = 114
+            Width = 168
+            Height = 32
+            Cursor = crHandPoint
+            BackColor = clNavy
+            Caption = 'EXIT'
+            CornerRadius = 16
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -16
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ForeColor = clWhite
+            ForceTransparent = True
+            GlowColor = clOlive
+            InnerBorderColor = clBlack
+            OuterBorderColor = clNavy
+            ParentFont = False
+            ShineColor = 15335424
+            TabOrder = 6
+            Version = '1.3.0.2'
+          end
+          object btn_TEST: TAdvGlassButton
+            Left = 320
+            Top = 76
+            Width = 168
+            Height = 32
+            Cursor = crHandPoint
+            BackColor = clNavy
+            Caption = 'TEST'
+            CornerRadius = 16
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -16
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ForeColor = clWhite
+            ForceTransparent = True
+            GlowColor = clOlive
+            InnerBorderColor = clBlack
+            OuterBorderColor = clNavy
+            ParentFont = False
+            ShineColor = 15335424
+            TabOrder = 7
+            Version = '1.3.0.2'
+          end
+          object btn_Enter: TAdvGlassButton
+            Left = 320
+            Top = 40
+            Width = 168
+            Height = 32
+            Cursor = crHandPoint
+            BackColor = clNavy
+            Caption = 'ENTER'
+            CornerRadius = 16
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -16
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ForeColor = clWhite
+            ForceTransparent = True
+            GlowColor = clOlive
+            InnerBorderColor = clBlack
+            OuterBorderColor = clNavy
+            ParentFont = False
+            ShineColor = 15335424
+            TabOrder = 8
+            Version = '1.3.0.2'
+            OnClick = btn_EnterClick
           end
         end
       end
@@ -810,7 +1265,6 @@ object FormMain: TFormMain
             TabOrder = 2
             ShowFocus = False
             Version = '2.1.0.0'
-            OnClick = btn_TestClick
             TMSStyle = 0
           end
           object AdvMemo2: TAdvMemo

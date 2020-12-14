@@ -75,13 +75,39 @@ TFormMain *FormMain;
 __fastcall TFormMain::TFormMain(TComponent* Owner)
 	: TForm(Owner)
 {
-	Init_Tetris();
+	InitProgram();
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TFormMain::Init_Tetris() {
+void __fastcall TFormMain::InitProgram() {
+
 	// SETTING START PAGE
 	Notebook_Main->PageIndex = 0; // LOGIN
+
+	// Setting Room Grid (TEST)
+	grid_Room->Cells[0][0] = L"1";
+	grid_Room->Cells[1][0] = L"대기중";
+	grid_Room->Cells[2][0] = L"개인전";
+	grid_Room->Cells[3][0] = L"아템전";
+	grid_Room->Cells[4][0] = L"강북중학교 동창들 고수만 모여라";
+	grid_Room->Cells[5][0] = L"fenix12345dark";
+	grid_Room->Cells[6][0] = L"2/6";
+	grid_Room->Cells[7][0] = L"공개";
+	grid_Room->AddButton(8, 0, 50, 24, L"입장", haCenter, Advgrid::vaCenter); // View
+
+	grid_PlayerList->Cells[0][0] = L"1";
+	grid_PlayerList->Cells[1][0] = L"fenix24";
+	grid_PlayerList->Cells[2][0] = L"하수";
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::FormClose(TObject *Sender, TCloseAction &Action)
+{
+	ExitProgram();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::ExitProgram() {
 
 }
 //---------------------------------------------------------------------------
@@ -97,11 +123,6 @@ void __fastcall TFormMain::PrintChat_Lobby(UnicodeString _str) {
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TFormMain::btn_GAMEClick(TObject *Sender)
-{
-	Notebook_Main->PageIndex = 2; // GAME
-}
-//---------------------------------------------------------------------------
 
 void __fastcall TFormMain::btn_LogOutClick(TObject *Sender)
 {
@@ -141,11 +162,8 @@ void __fastcall TFormMain::btn_Login_QuitClick(TObject *Sender)
 	//Application->Terminate();
 }
 //---------------------------------------------------------------------------
-
-void __fastcall TFormMain::btn_TestClick(TObject *Sender)
+void __fastcall TFormMain::btn_EnterClick(TObject *Sender)
 {
-	PrintChat_Lobby(L"Test Button Clicked");
+	Notebook_Main->PageIndex = 2; // GAME
 }
 //---------------------------------------------------------------------------
-
-

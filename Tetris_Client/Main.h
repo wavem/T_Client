@@ -92,13 +92,9 @@ __published:	// IDE-managed Components
 	TAdvGlassButton *btn_SignUp;
 	TAdvGlassButton *btn_Login_Quit;
 	TAdvSmoothPanel *_pnBase_02_Lobby;
-	TLabel *Label1;
-	TLabel *Label2;
+	TLabel *lb_Lobby_1;
 	TAdvGlassButton *AdvGlassButton3;
-	TAdvEdit *AdvEdit1;
-	TAdvSmoothButton *btn_Test;
-	TButton *btn_GAME;
-	TAdvMemo *chat;
+	TAdvEdit *ed_Chat;
 	TAdvSmoothPanel *_pnBase_03_Game;
 	TLabel *Label5;
 	TAdvGlassButton *AdvGlassButton2;
@@ -115,16 +111,32 @@ __published:	// IDE-managed Components
 	TAdvStringGrid *grid_Items;
 	TcxButton *btn_LogOut;
 	TImage *img_NextBlock;
-	TAdvScrollBox *AdvScrollBox1;
-	TAdvSmoothPanel *AdvSmoothPanel1;
-	void __fastcall btn_GAMEClick(TObject *Sender);
+	TAdvStringGrid *grid_Room;
+	TAdvMemo *chat;
+	TLabel *lb_Lobby_2;
+	TLabel *lb_Lobby_3;
+	TLabel *lb_Lobby_4;
+	TLabel *lb_Lobby_5;
+	TLabel *lb_Lobby_6;
+	TLabel *lb_Lobby_7;
+	TLabel *lb_Lobby_8;
+	TLabel *lb_Lobby_9;
+	TAdvStringGrid *grid_PlayerList;
+	TAdvGlassButton *btn_MakeRoom;
+	TLabel *lb_Lobby_10;
+	TLabel *lb_Lobby_11;
+	TLabel *lb_Lobby_12;
+	TAdvGlassButton *btn_QUIT;
+	TAdvGlassButton *btn_TEST;
+	TAdvGlassButton *btn_Enter;
 	void __fastcall btn_LogOutClick(TObject *Sender);
 	void __fastcall btn_SingleModeClick(TObject *Sender);
-	void __fastcall btn_TestClick(TObject *Sender);
 	void __fastcall btn_SignUpClick(TObject *Sender);
 	void __fastcall btn_InformationClick(TObject *Sender);
 	void __fastcall btn_Login_QuitClick(TObject *Sender);
 	void __fastcall btn_LoginClick(TObject *Sender);
+	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
+	void __fastcall btn_EnterClick(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
 	__fastcall TFormMain(TComponent* Owner);
@@ -132,7 +144,8 @@ public:		// User declarations
 
 // MJW START
 public:
-	void __fastcall Init_Tetris();
+	void __fastcall InitProgram();
+	void __fastcall ExitProgram();
 	void __fastcall PrintMsg(UnicodeString _str);
 	void __fastcall PrintChat_Lobby(UnicodeString _str);
 
