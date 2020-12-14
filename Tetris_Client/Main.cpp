@@ -65,6 +65,10 @@
 #pragma link "dxSkinXmas2008Blue"
 #pragma link "AdvSmoothPanel"
 #pragma link "AdvGlassButton"
+#pragma link "AdvMemo"
+#pragma link "AdvSmoothButton"
+#pragma link "AdvEdit"
+#pragma link "AdvScrollBox"
 #pragma resource "*.dfm"
 TFormMain *FormMain;
 //---------------------------------------------------------------------------
@@ -87,6 +91,12 @@ void __fastcall TFormMain::PrintMsg(UnicodeString _str) {
 }
 //---------------------------------------------------------------------------
 
+void __fastcall TFormMain::PrintChat_Lobby(UnicodeString _str) {
+	int t_Idx = chat->Lines->Add(_str);
+	chat->SetCursor(0, t_Idx);
+}
+//---------------------------------------------------------------------------
+
 void __fastcall TFormMain::btn_GAMEClick(TObject *Sender)
 {
 	Notebook_Main->PageIndex = 2; // GAME
@@ -99,9 +109,43 @@ void __fastcall TFormMain::btn_LogOutClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TFormMain::btn_SingleClick(TObject *Sender)
+void __fastcall TFormMain::btn_LoginClick(TObject *Sender)
 {
+	// Button Login
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::btn_SignUpClick(TObject *Sender)
+{
+	// Button Sign Up
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::btn_SingleModeClick(TObject *Sender)
+{
+	// Button Single Mode
 	Notebook_Main->PageIndex = 1; // Lobby
 }
 //---------------------------------------------------------------------------
+
+void __fastcall TFormMain::btn_InformationClick(TObject *Sender)
+{
+	// Button Information
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::btn_Login_QuitClick(TObject *Sender)
+{
+	// Button Quit in Login Screen
+	FormMain->Close();
+	//Application->Terminate();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::btn_TestClick(TObject *Sender)
+{
+	PrintChat_Lobby(L"Test Button Clicked");
+}
+//---------------------------------------------------------------------------
+
 

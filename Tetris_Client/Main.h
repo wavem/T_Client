@@ -69,33 +69,62 @@
 #include <Vcl.Menus.hpp>
 #include "AdvSmoothPanel.hpp"
 #include "AdvGlassButton.hpp"
+#include "AdvMemo.hpp"
+#include "AdvSmoothButton.hpp"
+#include "AdvEdit.hpp"
+#include "AdvScrollBox.hpp"
 //---------------------------------------------------------------------------
 class TFormMain : public TForm
 {
 __published:	// IDE-managed Components
 	TPanel *__pnBase;
 	TNotebook *Notebook_Main;
-	TPanel *_pnBase_03_Game;
-	TPanel *_pnBase_02_Lobby;
-	TAdvStringGrid *grid_Mine;
+	TAdvSmoothPanel *_pnBase_04_Test;
+	TAdvSmoothPanel *pn_Login;
+	TAdvSmoothPanel *_pnBase_01_Login;
+	TAdvGlassButton *btn_SingleMode;
+	TAdvEdit *ed_ID;
+	TAdvGlassButton *btn_Login;
+	TAdvEdit *ed_PW;
+	TAdvGlassButton *btn_Information;
+	TLabel *lb_Title_Login_ID;
+	TLabel *lb_Title_Login_PW;
+	TAdvGlassButton *btn_SignUp;
+	TAdvGlassButton *btn_Login_Quit;
+	TAdvSmoothPanel *_pnBase_02_Lobby;
+	TLabel *Label1;
+	TLabel *Label2;
+	TAdvGlassButton *AdvGlassButton3;
+	TAdvEdit *AdvEdit1;
+	TAdvSmoothButton *btn_Test;
+	TButton *btn_GAME;
+	TAdvMemo *chat;
+	TAdvSmoothPanel *_pnBase_03_Game;
+	TLabel *Label5;
+	TAdvGlassButton *AdvGlassButton2;
+	TAdvEdit *AdvEdit3;
+	TAdvSmoothButton *AdvSmoothButton2;
+	TAdvMemo *AdvMemo2;
 	TAdvStringGrid *grid_P1;
 	TAdvStringGrid *grid_P2;
 	TAdvStringGrid *grid_P3;
 	TAdvStringGrid *grid_P4;
 	TAdvStringGrid *grid_P5;
 	TPanel *pn_Pause;
+	TAdvStringGrid *grid_Mine;
 	TAdvStringGrid *grid_Items;
-	TImage *img_NextBlock;
-	TMemo *memo;
 	TcxButton *btn_LogOut;
-	TButton *btn_START;
-	TButton *btn_GAME;
-	TAdvSmoothPanel *_pnBase_01_Login;
-	TAdvSmoothPanel *pn_Login;
-	TAdvGlassButton *btn_Single;
+	TImage *img_NextBlock;
+	TAdvScrollBox *AdvScrollBox1;
+	TAdvSmoothPanel *AdvSmoothPanel1;
 	void __fastcall btn_GAMEClick(TObject *Sender);
 	void __fastcall btn_LogOutClick(TObject *Sender);
-	void __fastcall btn_SingleClick(TObject *Sender);
+	void __fastcall btn_SingleModeClick(TObject *Sender);
+	void __fastcall btn_TestClick(TObject *Sender);
+	void __fastcall btn_SignUpClick(TObject *Sender);
+	void __fastcall btn_InformationClick(TObject *Sender);
+	void __fastcall btn_Login_QuitClick(TObject *Sender);
+	void __fastcall btn_LoginClick(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
 	__fastcall TFormMain(TComponent* Owner);
@@ -105,6 +134,7 @@ public:		// User declarations
 public:
 	void __fastcall Init_Tetris();
 	void __fastcall PrintMsg(UnicodeString _str);
+	void __fastcall PrintChat_Lobby(UnicodeString _str);
 
 };
 //---------------------------------------------------------------------------
