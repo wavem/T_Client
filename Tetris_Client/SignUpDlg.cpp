@@ -15,6 +15,7 @@ TFormSignUp *FormSignUp;
 __fastcall TFormSignUp::TFormSignUp(TComponent* Owner)
 	: TForm(Owner)
 {
+
 }
 //---------------------------------------------------------------------------
 
@@ -26,6 +27,12 @@ void __fastcall TFormSignUp::btn_EXITClick(TObject *Sender)
 
 void __fastcall TFormSignUp::btn_SignUpClick(TObject *Sender)
 {
+	unsigned int data = 0;
+	SendMessage(FormMain->Handle, MSG_TRY_TO_SIGNUP, (unsigned int)&data, 0x10);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormSignUp::ReceiveSignUpResult(TMessage &_msg) {
 	this->Close();
 }
 //---------------------------------------------------------------------------

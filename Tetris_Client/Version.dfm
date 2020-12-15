@@ -49,8 +49,6 @@ object FormVersion: TFormVersion
     Version = '1.5.0.0'
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 729
-    ExplicitHeight = 596
     TMSStyle = 4
     object lb_Title_Program: TLabel
       Left = 33
@@ -83,7 +81,7 @@ object FormVersion: TFormVersion
       Top = 161
       Width = 270
       Height = 18
-      Caption = 'Last Update : 2020-12-15 AM 01:43'
+      Caption = 'Last Update : 2020-12-15 AM 11:30'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clGradientActiveCaption
       Font.Height = -15

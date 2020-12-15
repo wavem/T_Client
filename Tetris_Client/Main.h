@@ -3,6 +3,11 @@
 #ifndef MainH
 #define MainH
 //---------------------------------------------------------------------------
+#include "Define.h"
+#include "TCPSocketThread.h"
+#include "SignUpDlg.h"
+#include "Version.h"
+//---------------------------------------------------------------------------
 #include <System.Classes.hpp>
 #include <Vcl.Controls.hpp>
 #include <Vcl.StdCtrls.hpp>
@@ -74,18 +79,14 @@
 #include "AdvEdit.hpp"
 #include "AdvScrollBox.hpp"
 //---------------------------------------------------------------------------
+class TFormSignUp;
+class CTcpSocketThread;
 
-#include "Define.h"
-#include "SignUpDlg.h"
-#include "Version.h"
-//---------------------------------------------------------------------------
 class TFormMain : public TForm
 {
 __published:	// IDE-managed Components
 	TPanel *__pnBase;
 	TNotebook *Notebook_Main;
-	TAdvSmoothPanel *_pnBase_04_Test;
-	TAdvSmoothPanel *pn_Login;
 	TAdvSmoothPanel *_pnBase_01_Login;
 	TAdvGlassButton *btn_SingleMode;
 	TAdvEdit *ed_ID;
@@ -136,6 +137,12 @@ __published:	// IDE-managed Components
 	TAdvGlassButton *btn_StartGame;
 	TAdvGlassButton *btn_PauseGame;
 	TAdvGlassButton *btn_Setting_InGame;
+	TPanel *_pnBase_04_Log;
+	TImage *btn_Debug;
+	TAdvMemo *memo_LOG;
+	TAdvGlassButton *btn_Log_Lobby;
+	TAdvGlassButton *btn_Log_InGame;
+	TAdvGlassButton *btn_Back_LogScreen;
 	void __fastcall btn_SingleModeClick(TObject *Sender);
 	void __fastcall btn_SignUpClick(TObject *Sender);
 	void __fastcall btn_Login_QuitClick(TObject *Sender);
@@ -145,6 +152,10 @@ __published:	// IDE-managed Components
 	void __fastcall btn_QUIT_InGameClick(TObject *Sender);
 	void __fastcall btn_LogOutClick(TObject *Sender);
 	void __fastcall btn_InformationClick(TObject *Sender);
+	void __fastcall btn_DebugClick(TObject *Sender);
+	void __fastcall btn_Log_LobbyClick(TObject *Sender);
+	void __fastcall btn_Log_InGameClick(TObject *Sender);
+	void __fastcall btn_Back_LogScreenClick(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
 	__fastcall TFormMain(TComponent* Owner);
@@ -155,8 +166,32 @@ public:
 	void __fastcall InitProgram();
 	void __fastcall ExitProgram();
 	void __fastcall PrintMsg(UnicodeString _str);
+	void __fastcall PrintLog(UnicodeString _str);
 	void __fastcall PrintChat_Lobby(UnicodeString _str);
 
+public:
+	TFormSignUp *m_pDlgSignUp;
+	CTcpSocketThread *m_ClientThread;
+	SOCKET m_sock_Client;
+
+public: // Communication
+	bool __fastcall CreateTCPSocket();
+	bool __fastcall CreateClientThread();
+
+
+
+
+public: // Message Handler
+	//void __fastcall AddClient(TMessage &_msg);
+	//void __fastcall ReceiveClientMessage(TMessage &_msg);
+	void __fastcall PrintThreadLogMessage(TMessage &_msg);
+	void __fastcall TryToSignUp(TMessage &_msg);
+
+
+BEGIN_MESSAGE_MAP
+	MESSAGE_HANDLER(MSG_LOG_FROM_THREAD, TMessage, PrintThreadLogMessage)
+	MESSAGE_HANDLER(MSG_TRY_TO_SIGNUP, TMessage, TryToSignUp)
+END_MESSAGE_MAP(TForm)
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TFormMain *FormMain;

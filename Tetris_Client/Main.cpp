@@ -81,8 +81,16 @@ __fastcall TFormMain::TFormMain(TComponent* Owner)
 
 void __fastcall TFormMain::InitProgram() {
 
+	// Common
+	UnicodeString tempStr = L"";
+
 	// SETTING START PAGE
 	Notebook_Main->PageIndex = 0; // LOGIN
+
+	// Init Member Variable
+	m_pDlgSignUp = NULL;
+	m_ClientThread = NULL;
+	m_sock_Client = INVALID_SOCKET;
 
 	// Setting Room Grid (TEST)
 	grid_Room->Cells[0][0] = L"1";
@@ -98,6 +106,74 @@ void __fastcall TFormMain::InitProgram() {
 	grid_PlayerList->Cells[0][0] = L"1";
 	grid_PlayerList->Cells[1][0] = L"fenix24";
 	grid_PlayerList->Cells[2][0] = L"го╪Ж";
+
+	// Socket Init
+	WSADATA data;
+	WORD version;
+	int ret = 0;
+
+	version = MAKEWORD(2, 2);
+	ret = WSAStartup(version, &data);
+	if(ret != 0) {
+		ret = WSAGetLastError();
+		if(ret == WSANOTINITIALISED) {
+			tempStr.sprintf(L"Socket not initialised (error code : %d)", ret);
+			PrintLog(tempStr);
+		} else {
+			tempStr.sprintf(L"Socket error (error code : %d)", ret);
+			PrintLog(tempStr);
+		}
+	} else {
+		PrintLog(L"Socket init success");
+	}
+
+	// Create T Client Socket
+	if(CreateTCPSocket() == false) return;
+
+	// Create T Client Thread
+	if(CreateClientThread() == false) return;
+
+}
+//---------------------------------------------------------------------------
+
+bool __fastcall TFormMain::CreateTCPSocket() {
+
+	// Common
+	UnicodeString tempStr = L"";
+	AnsiString t_AnsiStr = "";
+
+	// Create Socket
+	m_sock_Client = socket(AF_INET, SOCK_STREAM, 0);
+	if(m_sock_Client == INVALID_SOCKET) {
+		PrintLog(L"Fail to create socket");
+		return false;
+	}
+
+	// Set Socket Option : REUSE
+	int t_opt_reuse = 1;
+	if(setsockopt(m_sock_Client, SOL_SOCKET, SO_REUSEADDR,(char *)&t_opt_reuse, sizeof(t_opt_reuse)) == SOCKET_ERROR) {
+		PrintLog(L"Fail to set socket option (REUSE)");
+		return false;
+	}
+
+	return true;
+}
+//---------------------------------------------------------------------------
+
+bool __fastcall TFormMain::CreateClientThread() {
+
+	// Common
+	UnicodeString tempStr = L"";
+
+	// Create Thread
+	if(m_ClientThread != NULL) {
+		tempStr.sprintf(L"Client Thread is already exists.");
+		PrintMsg(tempStr);
+		return false;
+	}
+
+	// Creating Client Thread
+	m_ClientThread = new CTcpSocketThread(&m_sock_Client);
 }
 //---------------------------------------------------------------------------
 
@@ -109,6 +185,22 @@ void __fastcall TFormMain::FormClose(TObject *Sender, TCloseAction &Action)
 
 void __fastcall TFormMain::ExitProgram() {
 
+	// Delete Socket
+	if(m_sock_Client != INVALID_SOCKET) {
+		closesocket(m_sock_Client);
+		m_sock_Client = INVALID_SOCKET;
+	}
+
+	// Delete Thread
+	if(m_ClientThread != NULL) {
+		m_ClientThread->DoTerminate();
+		m_ClientThread->Terminate();
+		delete m_ClientThread;
+		m_ClientThread = NULL;
+	}
+
+	// Socket Clean Up
+	WSACleanup();
 }
 //---------------------------------------------------------------------------
 
@@ -123,6 +215,12 @@ void __fastcall TFormMain::PrintChat_Lobby(UnicodeString _str) {
 }
 //---------------------------------------------------------------------------
 
+void __fastcall TFormMain::PrintLog(UnicodeString _str) {
+	int t_Idx = memo_LOG->Lines->Add(_str);
+	memo_LOG->SetCursor(0, t_Idx);
+}
+//---------------------------------------------------------------------------
+
 void __fastcall TFormMain::btn_LoginClick(TObject *Sender)
 {
 	// Button Login
@@ -132,9 +230,9 @@ void __fastcall TFormMain::btn_LoginClick(TObject *Sender)
 void __fastcall TFormMain::btn_SignUpClick(TObject *Sender)
 {
 	// Button Sign Up
-	TFormSignUp *p_dlg = new TFormSignUp(NULL);
-	p_dlg->ShowModal();
-	delete p_dlg;
+	m_pDlgSignUp = new TFormSignUp(NULL);
+	m_pDlgSignUp->ShowModal();
+	delete m_pDlgSignUp;
 }
 //---------------------------------------------------------------------------
 
@@ -174,6 +272,46 @@ void __fastcall TFormMain::btn_InformationClick(TObject *Sender)
 	TFormVersion *p_dlg = new TFormVersion(NULL);
 	p_dlg->ShowModal();
 	delete p_dlg;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::TryToSignUp(TMessage &_msg) {
+	unsigned int data = 1;
+	PostMessage(m_pDlgSignUp->Handle, MSG_TRY_TO_SIGNUP, (unsigned int)&data, 0x10);
+}
+//---------------------------------------------------------------------------
+void __fastcall TFormMain::btn_DebugClick(TObject *Sender)
+{
+	Notebook_Main->PageIndex = 3; // DEBUG SCREEN
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::btn_Log_LobbyClick(TObject *Sender)
+{
+	Notebook_Main->PageIndex = 3; // DEBUG SCREEN
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::btn_Log_InGameClick(TObject *Sender)
+{
+	Notebook_Main->PageIndex = 3; // DEBUG SCREEN
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::PrintThreadLogMessage(TMessage &_msg) {
+    unsigned int t_wParam = _msg.WParam;
+	int t_lParam = _msg.LParam;
+
+	UnicodeString tempStr = L"";
+	UnicodeString *p = NULL;
+	p = (UnicodeString*)t_wParam;
+	tempStr = *p;
+	PrintLog(tempStr);
+}
+//---------------------------------------------------------------------------
+void __fastcall TFormMain::btn_Back_LogScreenClick(TObject *Sender)
+{
+	Notebook_Main->PageIndex = 0; // LOGIN SCREEN
 }
 //---------------------------------------------------------------------------
 

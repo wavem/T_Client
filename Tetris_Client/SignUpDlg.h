@@ -11,6 +11,9 @@
 #include "AdvGlassButton.hpp"
 #include "AdvSmoothPanel.hpp"
 //---------------------------------------------------------------------------
+#include "Main.h"
+#include <Vcl.ExtCtrls.hpp>
+//---------------------------------------------------------------------------
 class TFormSignUp : public TForm
 {
 __published:	// IDE-managed Components
@@ -28,6 +31,16 @@ __published:	// IDE-managed Components
 private:	// User declarations
 public:		// User declarations
 	__fastcall TFormSignUp(TComponent* Owner);
+
+
+
+
+public: // Message Handler
+	void __fastcall ReceiveSignUpResult(TMessage &_msg);
+
+BEGIN_MESSAGE_MAP
+	MESSAGE_HANDLER(MSG_TRY_TO_SIGNUP, TMessage, ReceiveSignUpResult)
+END_MESSAGE_MAP(TForm)
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TFormSignUp *FormSignUp;
