@@ -32,8 +32,8 @@ private:	// User declarations
 public:		// User declarations
 	__fastcall TFormSignUp(TComponent* Owner);
 
-
-
+public: // Member Variables
+	SIGNUPINFO m_SignUpInfo;
 
 public: // Message Handler
 	void __fastcall ReceiveSignUpResult(TMessage &_msg);

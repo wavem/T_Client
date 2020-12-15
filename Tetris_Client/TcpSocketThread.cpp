@@ -13,6 +13,7 @@ __fastcall CTcpSocketThread::CTcpSocketThread(SOCKET *p_sock) {
 	m_sock = p_sock;
 	isTryingToConnect = true;
 	isConnected = false;
+	memset(&recvData, 0, sizeof(recvData));
 }
 //---------------------------------------------------------------------------
 
@@ -101,8 +102,9 @@ void __fastcall CTcpSocketThread::Execute() {
 
 		// Receive Routine Funtion
 		if(Receive()) {
-			t_Str = L"Success to Receive";
-			SendMessage(FormMain->Handle, MSG_LOG_FROM_THREAD, (unsigned int)&t_Str, 0x10);
+			memset(&recvData, 0, sizeof(recvData));
+			memcpy(recvData.Data, recvBuff, TCP_RECV_BUF_SIZE);
+			SendMessage(FormMain->Handle, MSG_SERVER_DATA, (unsigned int)&recvData, 0x10);
 		} else {
 			t_Str = L"Fail to Receive";
 			SendMessage(FormMain->Handle, MSG_LOG_FROM_THREAD, (unsigned int)&t_Str, 0x10);
@@ -110,7 +112,7 @@ void __fastcall CTcpSocketThread::Execute() {
 		}
 
 		// Just Wait Moment...
-		WaitForSingleObject((void*)this->Handle, 100);
+		WaitForSingleObject((void*)this->Handle, 50);
 	}
 	m_eThreadWork = THREAD_TERMINATED;
 	return;
@@ -139,16 +141,33 @@ bool __fastcall CTcpSocketThread::Receive() {
 	// Check Secure Code
 	if(t_SecureCode != SECURE_CODE_C_TO_S) return false;
 
+	// Input Secure Code Into Receive Buffer
+	memcpy(&recvBuff[0], &t_SecureCode, sizeof(t_SecureCode));
+
 	// Check Data Size
 	t_recvSize = recv(*m_sock, (char*)&t_PacketSize, 2, 0);
 
+	// Check Connection
+	if(t_recvSize == 0 || t_recvSize == -1) return false;
+
+	// Input Packet Size Into Receive Buffer
+	memcpy(&recvBuff[1], &t_PacketSize, sizeof(t_PacketSize));
+
 	// Check Message Type
 	t_recvSize = recv(*m_sock, (char*)&t_MessageType, 1, 0);
+
+	// Check Connection
+	if(t_recvSize == 0 || t_recvSize == -1) return false;
+
+	// Input Message Type Into Receive Buffer
+	memcpy(&recvBuff[3], &t_MessageType, sizeof(t_MessageType));
 
 	// Receive Routine
 	t_CurrentSize = 4;
 	while(t_CurrentSize != t_PacketSize) {
 		t_recvSize = recv(*m_sock, (char*)(recvBuff + t_CurrentSize), t_PacketSize - t_CurrentSize, 0);
+		// Check Connection
+		if(t_recvSize == 0 || t_recvSize == -1) return false;
 		t_CurrentSize += t_recvSize;
 	}
 

@@ -276,10 +276,111 @@ void __fastcall TFormMain::btn_InformationClick(TObject *Sender)
 //---------------------------------------------------------------------------
 
 void __fastcall TFormMain::TryToSignUp(TMessage &_msg) {
-	unsigned int data = 1;
-	PostMessage(m_pDlgSignUp->Handle, MSG_TRY_TO_SIGNUP, (unsigned int)&data, 0x10);
+
+	// Common
+	unsigned int t_wParam = _msg.WParam;
+	int t_lParam = _msg.LParam;
+	SIGNUPINFO* p_SignUpInfo = NULL;
+	SIGNUPINFO t_SignUpInfo;
+	unsigned int rst = 0;
+
+	// Extract Message
+	p_SignUpInfo = (SIGNUPINFO*)t_wParam;
+	t_SignUpInfo = *p_SignUpInfo;
+
+	// TEST
+	PrintLog(t_SignUpInfo.ID);
+	PrintLog(t_SignUpInfo.PW);
+	PrintLog(t_SignUpInfo.UserName);
+
+	// Send Sign Up Message
+	rst = Send_SignUpMessage(t_SignUpInfo);
+
+	// Notice Result
+	if(rst != ERR_SIGNUP_SUCCESS) {
+		SendMessage(m_pDlgSignUp->Handle, MSG_TRY_TO_SIGNUP, (unsigned int)&rst, 0x10);
+	} else {
+		// Waiting Message From Server...
+	}
 }
 //---------------------------------------------------------------------------
+
+int __fastcall TFormMain::Send_SignUpMessage(SIGNUPINFO _info) {
+
+	// Sign UP Routine
+	// Common
+	UnicodeString tempStr = L"";
+	int t_TextLen = 0;
+	int t_sendrst = 0;
+	unsigned short t_PacketLen = 129; // Sign Up Fixed Size : 129 BYTE
+
+	// Check Client Socket
+	if(m_sock_Client == INVALID_SOCKET) {
+		tempStr.sprintf(L"Client socket is invalid");
+		PrintLog(tempStr);
+		return ERR_SIGNUP_SOCKET_ERR;
+	}
+
+	// Check Client Thread
+	if(m_ClientThread == NULL) {
+		tempStr.sprintf(L"Client Thread is invalid");
+		PrintLog(tempStr);
+		return ERR_SIGNUP_THREAD_ERR;
+	}
+
+	// Check Connection
+	if(m_ClientThread->isConnected == false) {
+		tempStr.sprintf(L"Client is not connected");
+		PrintLog(tempStr);
+		return ERR_SIGNUP_COMM_FAULT;
+	}
+
+	// Reset Send Buffer
+	memset(m_ClientThread->sendBuff, 0, TCP_SEND_BUF_SIZE);
+	m_ClientThread->p_sendText = NULL;
+
+	// Set Header Data
+	m_ClientThread->sendBuff[0] = 0x47;
+	memcpy(&m_ClientThread->sendBuff[1], &t_PacketLen, 2);
+	m_ClientThread->sendBuff[3] = DATA_TYPE_SIGN_UP;
+
+	// Extract User Name
+	tempStr = _info.UserName;
+	t_TextLen = tempStr.Length() * 2 + 2;// 2 is NULL
+	m_ClientThread->p_sendText = (unsigned char*)tempStr.c_str();
+
+	// Input User Name & Size Into Packet Data
+	memcpy(&m_ClientThread->sendBuff[4], m_ClientThread->p_sendText, t_TextLen);
+	memcpy(&m_ClientThread->sendBuff[126], &t_TextLen, 1);
+
+	// Extract User ID
+	tempStr = _info.ID;
+	t_TextLen = tempStr.Length() * 2 + 2;// 2 is NULL
+	m_ClientThread->p_sendText = (unsigned char*)tempStr.c_str();
+
+	// Input User ID & Size Into Packet Data
+	memcpy(&m_ClientThread->sendBuff[46], m_ClientThread->p_sendText, t_TextLen);
+	memcpy(&m_ClientThread->sendBuff[127], &t_TextLen, 1);
+
+	// Extract User PW
+	tempStr = tempStr = _info.PW;
+	t_TextLen = tempStr.Length() * 2 + 2;// 2 is NULL
+	m_ClientThread->p_sendText = (unsigned char*)tempStr.c_str();
+
+	// Input User PW & Size Into Packet Data
+	memcpy(&m_ClientThread->sendBuff[86], m_ClientThread->p_sendText, t_TextLen);
+	memcpy(&m_ClientThread->sendBuff[128], &t_TextLen, 1);
+
+	// Send to Server
+	t_sendrst = send(m_sock_Client, (char*)m_ClientThread->sendBuff, t_PacketLen, 0);
+
+	// Function End Routine
+	tempStr.sprintf(L"Send Byte : %d", t_sendrst);
+	PrintLog(tempStr);
+	return ERR_SIGNUP_SUCCESS;
+}
+//---------------------------------------------------------------------------
+
 void __fastcall TFormMain::btn_DebugClick(TObject *Sender)
 {
 	Notebook_Main->PageIndex = 3; // DEBUG SCREEN
@@ -299,7 +400,7 @@ void __fastcall TFormMain::btn_Log_InGameClick(TObject *Sender)
 //---------------------------------------------------------------------------
 
 void __fastcall TFormMain::PrintThreadLogMessage(TMessage &_msg) {
-    unsigned int t_wParam = _msg.WParam;
+	unsigned int t_wParam = _msg.WParam;
 	int t_lParam = _msg.LParam;
 
 	UnicodeString tempStr = L"";
@@ -312,6 +413,123 @@ void __fastcall TFormMain::PrintThreadLogMessage(TMessage &_msg) {
 void __fastcall TFormMain::btn_Back_LogScreenClick(TObject *Sender)
 {
 	Notebook_Main->PageIndex = 0; // LOGIN SCREEN
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::ReceiveServerData(TMessage &_msg) {
+
+	// Common
+	UnicodeString tempStr = L"";
+	unsigned int t_wParam = _msg.WParam;
+	int t_lParam = _msg.LParam;
+	SERVERDATA* p_serverData = NULL;
+	SERVERDATA t_serverData;
+	memset(&t_serverData, 0, sizeof(t_serverData));
+	unsigned short t_RecvSize = 0;
+	BYTE t_DataType = 0;
+	int t_ClientIdx = 0;
+
+	// Receive Server Data
+	p_serverData = (SERVERDATA*)t_wParam;
+	t_serverData = *p_serverData;
+
+	// Logging Received Information
+	memcpy(&t_RecvSize, &t_serverData.Data[1], 2);
+	tempStr.sprintf(L"Received %04d byte from Server", t_RecvSize);
+	PrintLog(tempStr);
+
+	// Extract Data Type
+	t_DataType = t_serverData.Data[3];
+
+	// Distribute Message by Data Type
+	switch(t_DataType) {
+	case DATA_TYPE_SIGN_UP:
+		Receive_SignUpResult(t_serverData);
+		break;
+
+	case DATA_TYPE_SIGN_IN:
+		break;
+
+	case DATA_TYPE_SIGN_OUT:
+		break;
+
+	case DATA_TYPE_LOBBY_CHATTING:
+		//ClientMsg_LOBBY_CHATTING(t_ClientMsg);
+		break;
+
+	case DATA_TYPE_INGAME_CHATTING:
+		break;
+
+	case DATA_TYPE_CHANGE_USER_INFO:
+		break;
+
+	case DATA_TYPE_INGAME_CMD:
+		break;
+
+	case DATA_TYPE_ENTER_GAME_ROOM:
+		break;
+
+	case DATA_TYPE_ESCAPE_GAME_ROOM:
+		break;
+
+	case DATA_TYPE_HEART_BEAT:
+		break;
+
+	case DATA_TYPE_INGAME_DATA:
+		break;
+
+	default:
+		break;
+	}
+
+
+#if 0
+	// Test Message
+	//tempStr.sprintf(L"Queue Size(Before) : [%d]", m_ClientMsgQ.size());
+	//PrintLog(tempStr);
+
+	// Push into Client Message Queue
+	int ret = WaitForSingleObject(m_Mutex, 2000);
+	if(ret == WAIT_FAILED) {
+		tempStr = L"Wait Failed";
+	} else if(ret == WAIT_ABANDONED) {
+		tempStr = L"Wait Abandoned";
+	} else if(ret == WAIT_TIMEOUT) {
+		tempStr = L"Wait Time Out";
+	} else if(ret == WAIT_OBJECT_0) {
+		tempStr = L"Success to Push Packet into Message Queue";
+		m_ClientMsgQ.push(t_ClientMsg);
+	} else {
+		tempStr = L"ETC";
+	}
+	PrintMsg(tempStr);
+	ReleaseMutex(m_Mutex);
+
+	// Test Message
+	//tempStr.sprintf(L"Queue Size(After) : [%d]", m_ClientMsgQ.size());
+	//PrintLog(tempStr);
+#endif
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::Receive_SignUpResult(SERVERDATA _serverData) {
+
+	// Common
+	int t_rst = 0;
+
+	// Extract Result Value
+	BYTE t_resultData = _serverData.Data[4];
+
+	// Send Message To Sign Up Dlg
+	if(t_resultData == 0) { // Success
+		t_rst = ERR_SIGNUP_SUCCESS;
+	} else if(t_resultData == 1) { // Duplicated ID
+		t_rst = ERR_SIGNUP_ID_DUPLICATED;
+	} else {
+		t_rst = ERR_SIGNUP_UNKNOWN;
+	}
+	SendMessage(m_pDlgSignUp->Handle, MSG_TRY_TO_SIGNUP, (unsigned int)&t_rst, 0x10);
 }
 //---------------------------------------------------------------------------
 

@@ -23,6 +23,7 @@ public: // Variables
 	BYTE sendBuff[TCP_SEND_BUF_SIZE];
 	BYTE* p_sendText;
 	BYTE recvBuff[TCP_RECV_BUF_SIZE];
+	SERVERDATA recvData;
 	bool isTryingToConnect;
 	bool isConnected;
 

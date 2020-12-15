@@ -174,11 +174,17 @@ public:
 	CTcpSocketThread *m_ClientThread;
 	SOCKET m_sock_Client;
 
-public: // Communication
+public: // Prepare Communication
 	bool __fastcall CreateTCPSocket();
 	bool __fastcall CreateClientThread();
 
+public: // Do Communication
+	int __fastcall Send_SignUpMessage(SIGNUPINFO _info);
 
+
+
+public: // Receive Routine
+	void __fastcall Receive_SignUpResult(SERVERDATA _serverData);
 
 
 public: // Message Handler
@@ -186,11 +192,13 @@ public: // Message Handler
 	//void __fastcall ReceiveClientMessage(TMessage &_msg);
 	void __fastcall PrintThreadLogMessage(TMessage &_msg);
 	void __fastcall TryToSignUp(TMessage &_msg);
+	void __fastcall ReceiveServerData(TMessage &_msg);
 
 
 BEGIN_MESSAGE_MAP
 	MESSAGE_HANDLER(MSG_LOG_FROM_THREAD, TMessage, PrintThreadLogMessage)
 	MESSAGE_HANDLER(MSG_TRY_TO_SIGNUP, TMessage, TryToSignUp)
+	MESSAGE_HANDLER(MSG_SERVER_DATA, TMessage, ReceiveServerData)
 END_MESSAGE_MAP(TForm)
 };
 //---------------------------------------------------------------------------

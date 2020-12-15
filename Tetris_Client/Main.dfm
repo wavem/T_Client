@@ -33,14 +33,11 @@ object FormMain: TFormMain
       Width = 1192
       Height = 848
       Align = alClient
-      PageIndex = 3
       TabOrder = 0
       object TPage
         Left = 0
         Top = 0
         Caption = 'Lobby'
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object _pnBase_01_Login: TAdvSmoothPanel
           Left = 0
           Top = 0
@@ -75,8 +72,6 @@ object FormMain: TFormMain
           Version = '1.5.0.0'
           Align = alClient
           TabOrder = 0
-          ExplicitLeft = 112
-          ExplicitTop = 104
           TMSStyle = 4
           object lb_Title_Login_ID: TLabel
             Left = 449
@@ -319,6 +314,8 @@ object FormMain: TFormMain
         Top = 0
         HelpContext = 1
         Caption = 'Lobby'
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object _pnBase_02_Lobby: TAdvSmoothPanel
           Left = 0
           Top = 0
@@ -814,14 +811,14 @@ object FormMain: TFormMain
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clBlack
             Font.Height = -13
-            Font.Name = #47569#51008' '#44256#46357
+            Font.Name = 'FixedSys'
             Font.Style = [fsBold]
             HiddenCaret = False
             Lines.Strings = (
               '')
             MarkerList.UseDefaultMarkerImageIndex = False
             MarkerList.DefaultMarkerImageIndex = -1
-            MarkerList.ImageTransparentColor = -1
+            MarkerList.ImageTransparentColor = 33554432
             OleDropTarget = []
             PrintOptions.MarginLeft = 0
             PrintOptions.MarginRight = 0
@@ -839,6 +836,7 @@ object FormMain: TFormMain
             ShowRightMargin = False
             SmartTabs = False
             TabOrder = 3
+            TabStop = True
             TrimTrailingSpaces = False
             UILanguage.ScrollHint = 'Row'
             UILanguage.Undo = 'Undo'
@@ -1143,6 +1141,8 @@ object FormMain: TFormMain
         Top = 0
         HelpContext = 2
         Caption = 'Game'
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object _pnBase_03_Game: TAdvSmoothPanel
           Left = 0
           Top = 0
@@ -2429,10 +2429,6 @@ object FormMain: TFormMain
           Color = clBlack
           ParentBackground = False
           TabOrder = 0
-          ExplicitLeft = 352
-          ExplicitTop = 256
-          ExplicitWidth = 185
-          ExplicitHeight = 41
           object memo_LOG: TAdvMemo
             Left = 32
             Top = 24
