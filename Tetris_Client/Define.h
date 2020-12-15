@@ -6,7 +6,8 @@
 #include <System.Classes.hpp>
 
 // COMM
-#define IP_SERVER "127.0.0.1"
+//#define IP_SERVER "127.0.0.1"
+#define IP_SERVER "192.168.35.9"
 #define TCP_SERVER_PORT 14759
 
 #define TCP_SEND_BUF_SIZE 300
@@ -51,6 +52,12 @@ typedef struct ST_SERVERDATA {
 #define DATA_TYPE_HEART_BEAT		10
 #define DATA_TYPE_INGAME_DATA		11
 
+// DEFAULT ERR CODE
+#define ERR_DEFAULT_SUCCESS		0
+#define ERR_DEFAULT_SOCKET		1
+#define ERR_DEFAULT_THREAD		2
+#define ERR_DEFAULT_COMM		3
+#define ERR_DEFAULT_UNKNOWN		4
 
 // SIGN UP ERROR CODE
 #define ERR_SIGNUP_SUCCESS			0

@@ -78,6 +78,12 @@
 #include "AdvSmoothButton.hpp"
 #include "AdvEdit.hpp"
 #include "AdvScrollBox.hpp"
+#include "CurvyControls.hpp"
+#include "cxContainer.hpp"
+#include "cxControls.hpp"
+#include "cxEdit.hpp"
+#include "cxMemo.hpp"
+#include "cxTextEdit.hpp"
 //---------------------------------------------------------------------------
 class TFormSignUp;
 class CTcpSocketThread;
@@ -99,8 +105,8 @@ __published:	// IDE-managed Components
 	TAdvGlassButton *btn_Login_Quit;
 	TAdvSmoothPanel *_pnBase_02_Lobby;
 	TLabel *lb_Lobby_1;
-	TAdvGlassButton *AdvGlassButton3;
-	TAdvEdit *ed_Chat;
+	TAdvGlassButton *btn_Send_LobbyChat;
+	TAdvEdit *ed_Chat_Lobby;
 	TAdvSmoothPanel *_pnBase_03_Game;
 	TLabel *lb_InGame_NextBlock;
 	TAdvStringGrid *grid_P1;
@@ -113,7 +119,6 @@ __published:	// IDE-managed Components
 	TAdvStringGrid *grid_Items;
 	TImage *img_NextBlock;
 	TAdvStringGrid *grid_Room;
-	TAdvMemo *chat;
 	TLabel *lb_Lobby_2;
 	TLabel *lb_Lobby_3;
 	TLabel *lb_Lobby_4;
@@ -143,6 +148,8 @@ __published:	// IDE-managed Components
 	TAdvGlassButton *btn_Log_Lobby;
 	TAdvGlassButton *btn_Log_InGame;
 	TAdvGlassButton *btn_Back_LogScreen;
+	TCurvyMemo *CurvyMemo1;
+	TcxMemo *memo_Chat_Lobby;
 	void __fastcall btn_SingleModeClick(TObject *Sender);
 	void __fastcall btn_SignUpClick(TObject *Sender);
 	void __fastcall btn_Login_QuitClick(TObject *Sender);
@@ -156,6 +163,9 @@ __published:	// IDE-managed Components
 	void __fastcall btn_Log_LobbyClick(TObject *Sender);
 	void __fastcall btn_Log_InGameClick(TObject *Sender);
 	void __fastcall btn_Back_LogScreenClick(TObject *Sender);
+	void __fastcall btn_Send_LobbyChatClick(TObject *Sender);
+	void __fastcall ed_Chat_LobbyKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
+
 private:	// User declarations
 public:		// User declarations
 	__fastcall TFormMain(TComponent* Owner);
@@ -165,7 +175,6 @@ public:		// User declarations
 public:
 	void __fastcall InitProgram();
 	void __fastcall ExitProgram();
-	void __fastcall PrintMsg(UnicodeString _str);
 	void __fastcall PrintLog(UnicodeString _str);
 	void __fastcall PrintChat_Lobby(UnicodeString _str);
 
@@ -180,12 +189,15 @@ public: // Prepare Communication
 
 public: // Do Communication
 	int __fastcall Send_SignUpMessage(SIGNUPINFO _info);
+	int __fastcall Send_LobbyChatMessage();
 
 
 
 public: // Receive Routine
 	void __fastcall Receive_SignUpResult(SERVERDATA _serverData);
 	void __fastcall Receive_SignInResult(SERVERDATA _serverData);
+
+	void __fastcall Receive_LobbyChatData(SERVERDATA _serverData);
 
 
 public: // Message Handler
