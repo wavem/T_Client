@@ -223,7 +223,74 @@ void __fastcall TFormMain::PrintLog(UnicodeString _str) {
 
 void __fastcall TFormMain::btn_LoginClick(TObject *Sender)
 {
-	// Button Login
+	// Common
+	UnicodeString tempStr = L"";
+	UnicodeString t_ID = ed_ID->Text;
+	UnicodeString t_PW = ed_PW->Text;
+
+	if(t_ID == L"" || t_PW == L"") {
+		Application->MessageBoxW(L"Please Input ID & Password", L"Log In", MB_OK | MB_ICONINFORMATION);
+		return;
+	}
+
+	// Log-In Routine
+	// Common
+	int t_TextLen = 0;
+	int t_sendrst = 0;
+	unsigned short t_PacketLen = 129; // Sign Up Fixed Size : 129 BYTE
+
+	// Check Client Socket
+	if(m_sock_Client == INVALID_SOCKET) {
+		Application->MessageBoxW(L"Socket Invalid.", L"Log In", MB_OK | MB_ICONERROR);
+		return;
+	}
+
+	// Check Client Thread
+	if(m_ClientThread == NULL) {
+		Application->MessageBoxW(L"Client Thread Invalid.", L"Log In", MB_OK | MB_ICONERROR);
+		return;
+	}
+
+	// Check Connection
+	if(m_ClientThread->isConnected == false) {
+		Application->MessageBoxW(L"Communication Error.", L"Log In", MB_OK | MB_ICONERROR);
+		return;
+	}
+
+	// Reset Send Buffer
+	memset(m_ClientThread->sendBuff, 0, TCP_SEND_BUF_SIZE);
+	m_ClientThread->p_sendText = NULL;
+
+	// Set Header Data
+	m_ClientThread->sendBuff[0] = SECURE_CODE_C_TO_S;
+	memcpy(&m_ClientThread->sendBuff[1], &t_PacketLen, 2);
+	m_ClientThread->sendBuff[3] = DATA_TYPE_SIGN_IN;
+
+	// Extract User ID
+	tempStr = t_ID;
+	t_TextLen = tempStr.Length() * 2 + 2;// 2 is NULL
+	m_ClientThread->p_sendText = (unsigned char*)tempStr.c_str();
+
+	// Input User ID & Size Into Packet Data
+	memcpy(&m_ClientThread->sendBuff[46], m_ClientThread->p_sendText, t_TextLen);
+	memcpy(&m_ClientThread->sendBuff[127], &t_TextLen, 1);
+
+	// Extract User PW
+	tempStr = t_PW;
+	t_TextLen = tempStr.Length() * 2 + 2;// 2 is NULL
+	m_ClientThread->p_sendText = (unsigned char*)tempStr.c_str();
+
+	// Input User PW & Size Into Packet Data
+	memcpy(&m_ClientThread->sendBuff[86], m_ClientThread->p_sendText, t_TextLen);
+	memcpy(&m_ClientThread->sendBuff[128], &t_TextLen, 1);
+
+	// Send to Server
+	t_sendrst = send(m_sock_Client, (char*)m_ClientThread->sendBuff, t_PacketLen, 0);
+
+	// Function End Routine
+	tempStr.sprintf(L"Send Byte : %d", t_sendrst);
+	PrintLog(tempStr);
+	return;
 }
 //---------------------------------------------------------------------------
 
@@ -363,7 +430,7 @@ int __fastcall TFormMain::Send_SignUpMessage(SIGNUPINFO _info) {
 	memcpy(&m_ClientThread->sendBuff[127], &t_TextLen, 1);
 
 	// Extract User PW
-	tempStr = tempStr = _info.PW;
+	tempStr = _info.PW;
 	t_TextLen = tempStr.Length() * 2 + 2;// 2 is NULL
 	m_ClientThread->p_sendText = (unsigned char*)tempStr.c_str();
 
@@ -448,6 +515,7 @@ void __fastcall TFormMain::ReceiveServerData(TMessage &_msg) {
 		break;
 
 	case DATA_TYPE_SIGN_IN:
+		Receive_SignInResult(t_serverData);
 		break;
 
 	case DATA_TYPE_SIGN_OUT:
@@ -530,6 +598,23 @@ void __fastcall TFormMain::Receive_SignUpResult(SERVERDATA _serverData) {
 		t_rst = ERR_SIGNUP_UNKNOWN;
 	}
 	SendMessage(m_pDlgSignUp->Handle, MSG_TRY_TO_SIGNUP, (unsigned int)&t_rst, 0x10);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::Receive_SignInResult(SERVERDATA _serverData) {
+
+	// Common
+	BYTE t_resultData = _serverData.Data[4];
+
+	if(t_resultData == 0) { // Success
+		Notebook_Main->PageIndex = 1; // Lobby
+	} else if(t_resultData == 1) { // Wrong Password
+		Application->MessageBoxW(L"Password Incorrect. Please Try Again.", L"Log In", MB_OK | MB_ICONINFORMATION);
+	} else if(t_resultData == 2) { // There is No ID
+		Application->MessageBoxW(L"There is no ID. Please Check the ID and Try Again.", L"Log In", MB_OK | MB_ICONINFORMATION);
+	} else {
+		Application->MessageBoxW(L"Unknown Error Occured...", L"Log In", MB_OK | MB_ICONINFORMATION);
+	}
 }
 //---------------------------------------------------------------------------
 

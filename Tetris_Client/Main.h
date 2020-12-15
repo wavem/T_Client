@@ -185,6 +185,7 @@ public: // Do Communication
 
 public: // Receive Routine
 	void __fastcall Receive_SignUpResult(SERVERDATA _serverData);
+	void __fastcall Receive_SignInResult(SERVERDATA _serverData);
 
 
 public: // Message Handler
