@@ -178,10 +178,12 @@ public:
 	void __fastcall PrintLog(UnicodeString _str);
 	void __fastcall PrintChat_Lobby(UnicodeString _str);
 
+// MEMBER VARIABLES
 public:
 	TFormSignUp *m_pDlgSignUp;
 	CTcpSocketThread *m_ClientThread;
 	SOCKET m_sock_Client;
+	UnicodeString m_ID;
 
 public: // Prepare Communication
 	bool __fastcall CreateTCPSocket();

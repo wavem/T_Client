@@ -607,7 +607,11 @@ void __fastcall TFormMain::Receive_SignInResult(SERVERDATA _serverData) {
 	BYTE t_resultData = _serverData.Data[4];
 
 	if(t_resultData == 0) { // Success
+		// LOG-IN ROUTINE HERE
 		Notebook_Main->PageIndex = 1; // Lobby
+		m_ID = ed_ID->Text;
+		ed_ID->Text = L"";
+		ed_PW->Text = L"";
 	} else if(t_resultData == 1) { // Wrong Password
 		Application->MessageBoxW(L"Password Incorrect. Please Try Again.", L"Log In", MB_OK | MB_ICONINFORMATION);
 	} else if(t_resultData == 2) { // There is No ID
@@ -653,7 +657,9 @@ int __fastcall TFormMain::Send_LobbyChatMessage() {
 
 
 	// Extract Chatting Text Data from Edit Control
-	tempStr = ed_Chat_Lobby->Text;
+	tempStr = m_ID;
+	tempStr += L" : ";
+	tempStr += ed_Chat_Lobby->Text;
 	t_TextLen = tempStr.Length() * 2 + 2;// 2 is NULL
 	t_PacketLen = t_TextLen + 4;
 	m_ClientThread->p_sendText = (unsigned char*)tempStr.c_str();
