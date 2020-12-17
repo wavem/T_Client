@@ -6,14 +6,16 @@
 #include <System.Classes.hpp>
 
 // COMM
-//#define IP_SERVER "127.0.0.1"
+#define IP_SERVER "127.0.0.1"
 //#define IP_SERVER "192.168.35.9"
-#define IP_SERVER "192.168.0.47"
+//#define IP_SERVER "192.168.0.47"
 #define TCP_SERVER_PORT 14759
 
 #define TCP_SEND_BUF_SIZE 300
 #define TCP_RECV_BUF_SIZE 1300
 #define TCP_MAX_TEXT_LEN 296 // It will be used some day...
+
+#define MAX_ROOM_COUNT		10
 
 #define SECURE_CODE_C_TO_S	0x47
 #define SECURE_CODE_S_TO_C	0x59
