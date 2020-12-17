@@ -27,8 +27,6 @@ object FormMain: TFormMain
     Color = clBlack
     ParentBackground = False
     TabOrder = 0
-    ExplicitWidth = 1192
-    ExplicitHeight = 848
     object Notebook_Main: TNotebook
       Left = 0
       Top = 0
@@ -36,14 +34,10 @@ object FormMain: TFormMain
       Height = 819
       Align = alClient
       TabOrder = 0
-      ExplicitWidth = 1192
-      ExplicitHeight = 848
       object TPage
         Left = 0
         Top = 0
         Caption = 'Lobby'
-        ExplicitWidth = 1192
-        ExplicitHeight = 848
         object _pnBase_01_Login: TAdvSmoothPanel
           Left = 0
           Top = 0
@@ -78,8 +72,6 @@ object FormMain: TFormMain
           Version = '1.5.0.0'
           Align = alClient
           TabOrder = 0
-          ExplicitWidth = 1192
-          ExplicitHeight = 848
           TMSStyle = 4
           object lb_Title_Login_ID: TLabel
             Left = 449
@@ -324,8 +316,6 @@ object FormMain: TFormMain
         Top = 0
         HelpContext = 1
         Caption = 'Lobby'
-        ExplicitWidth = 1192
-        ExplicitHeight = 848
         object _pnBase_02_Lobby: TAdvSmoothPanel
           Left = 0
           Top = 0
@@ -360,8 +350,6 @@ object FormMain: TFormMain
           Version = '1.5.0.0'
           Align = alClient
           TabOrder = 0
-          ExplicitWidth = 1192
-          ExplicitHeight = 848
           TMSStyle = 4
           object lb_Lobby_1: TLabel
             Left = 30
@@ -1060,8 +1048,6 @@ object FormMain: TFormMain
         Top = 0
         HelpContext = 2
         Caption = 'Game'
-        ExplicitWidth = 1192
-        ExplicitHeight = 848
         object _pnBase_03_Game: TAdvSmoothPanel
           Left = 0
           Top = 0
@@ -1096,8 +1082,6 @@ object FormMain: TFormMain
           Version = '1.5.0.0'
           Align = alClient
           TabOrder = 0
-          ExplicitWidth = 1192
-          ExplicitHeight = 848
           TMSStyle = 4
           object lb_InGame_NextBlock: TLabel
             Left = 455

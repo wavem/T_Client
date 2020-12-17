@@ -725,20 +725,22 @@ void __fastcall TFormMain::Receive_LobbyPlayerListData(SERVERDATA _serverData) {
 
 	// Common
 	UnicodeString tempStr = L"";
-	wchar_t temp[20];
+	AnsiString t_AnsiStr = "";
+	unsigned char temp[20];
 	memset(temp, 0, 20);
 	BYTE t_Grade = 0;
 
 	for(int i = 0 ; i < grid_PlayerList->RowCount ; i++) {
-		memcpy(temp, &_serverData.Data[5 + 21 * i], 20);
-		tempStr = temp;
+		memcpy(temp, &_serverData.Data[6 + 21 * i], 20);
+		t_AnsiStr = (char*)temp;
+		tempStr = t_AnsiStr;
 		if(tempStr == L"") {
 			grid_PlayerList->Cells[0][i] = L"";
 			grid_PlayerList->Cells[1][i] = L"";
 			grid_PlayerList->Cells[2][i] = L"";
 			continue;
 		}
-		t_Grade = _serverData.Data[4 + 21 * i];
+		t_Grade = _serverData.Data[5 + 21 * i];
 		grid_PlayerList->Cells[0][i] = (i + 1);
 		grid_PlayerList->Cells[1][i] = tempStr;
 		grid_PlayerList->Cells[2][i] = GetLevelString(t_Grade);
