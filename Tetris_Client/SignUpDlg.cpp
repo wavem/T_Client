@@ -27,6 +27,13 @@ void __fastcall TFormSignUp::btn_EXITClick(TObject *Sender)
 
 void __fastcall TFormSignUp::btn_SignUpClick(TObject *Sender)
 {
+	// Pre-Return
+	if(ed_ID->Text == L"" || ed_PW->Text == L"" || ed_UserName->Text == L"") {
+		Application->MessageBoxW(L"Please Input All Information", L"Sign Up", MB_OK | MB_ICONERROR);
+		return;
+	}
+
+	// Extract User Information
 	m_SignUpInfo.ID = ed_ID->Text;
 	m_SignUpInfo.PW = ed_PW->Text;
 	m_SignUpInfo.UserName = ed_UserName->Text;

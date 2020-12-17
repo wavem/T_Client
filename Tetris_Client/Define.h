@@ -7,7 +7,8 @@
 
 // COMM
 //#define IP_SERVER "127.0.0.1"
-#define IP_SERVER "192.168.35.9"
+//#define IP_SERVER "192.168.35.9"
+#define IP_SERVER "192.168.0.47"
 #define TCP_SERVER_PORT 14759
 
 #define TCP_SEND_BUF_SIZE 300
@@ -47,10 +48,16 @@ typedef struct ST_SERVERDATA {
 #define DATA_TYPE_INGAME_CHATTING	5
 #define DATA_TYPE_CHANGE_USER_INFO	6
 #define DATA_TYPE_INGAME_CMD		7
-#define DATA_TYPE_ENTER_GAME_ROOM	8
-#define DATA_TYPE_ESCAPE_GAME_ROOM	9
-#define DATA_TYPE_HEART_BEAT		10
-#define DATA_TYPE_INGAME_DATA		11
+#define DATA_TYPE_MAKE_GAME_ROOM	8
+#define DATA_TYPE_ENTER_GAME_ROOM	9
+#define DATA_TYPE_ESCAPE_GAME_ROOM	10
+#define DATA_TYPE_HEART_BEAT		11
+#define DATA_TYPE_INGAME_DATA		12
+
+#define DATA_TYPE_LOBBY_ROOMSTATUS	0xF1
+#define DATA_TYPE_LOBBY_PLAYERLIST	0xF2
+
+
 
 // DEFAULT ERR CODE
 #define ERR_DEFAULT_SUCCESS		0
@@ -66,6 +73,18 @@ typedef struct ST_SERVERDATA {
 #define ERR_SIGNUP_COMM_FAULT		3
 #define ERR_SIGNUP_ID_DUPLICATED	4
 #define ERR_SIGNUP_UNKNOWN			5
+
+// USER LEVEL
+#define USER_LEVEL_0	0 // 신입
+#define USER_LEVEL_1	1 // 루키
+#define USER_LEVEL_2	2 // 초보
+#define USER_LEVEL_3	3 // 하수
+#define USER_LEVEL_4	4 // 중수
+#define USER_LEVEL_5	5 // 고수
+#define USER_LEVEL_6	6 // 초고수
+#define USER_LEVEL_7	7 // 영웅
+#define USER_LEVEL_8	8 // 전설
+#define USER_LEVEL_9	9 // 신
 
 
 

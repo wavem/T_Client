@@ -148,7 +148,6 @@ __published:	// IDE-managed Components
 	TAdvGlassButton *btn_Log_Lobby;
 	TAdvGlassButton *btn_Log_InGame;
 	TAdvGlassButton *btn_Back_LogScreen;
-	TCurvyMemo *CurvyMemo1;
 	TcxMemo *memo_Chat_Lobby;
 	void __fastcall btn_SingleModeClick(TObject *Sender);
 	void __fastcall btn_SignUpClick(TObject *Sender);
@@ -172,11 +171,12 @@ public:		// User declarations
 
 
 // MJW START
-public:
+public: // BASIC FUNCTIONS
 	void __fastcall InitProgram();
 	void __fastcall ExitProgram();
 	void __fastcall PrintLog(UnicodeString _str);
 	void __fastcall PrintChat_Lobby(UnicodeString _str);
+	UnicodeString __fastcall GetLevelString(BYTE _num);
 
 // MEMBER VARIABLES
 public:
@@ -200,6 +200,7 @@ public: // Receive Routine
 	void __fastcall Receive_SignInResult(SERVERDATA _serverData);
 
 	void __fastcall Receive_LobbyChatData(SERVERDATA _serverData);
+	void __fastcall Receive_LobbyPlayerListData(SERVERDATA _serverData);
 
 
 public: // Message Handler

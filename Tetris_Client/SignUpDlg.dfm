@@ -49,8 +49,6 @@ object FormSignUp: TFormSignUp
     Version = '1.5.0.0'
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 729
-    ExplicitHeight = 596
     TMSStyle = 4
     object lb_Title_SignUp_ID: TLabel
       Left = 113
@@ -96,8 +94,10 @@ object FormSignUp: TFormSignUp
       Top = 46
       Width = 169
       Height = 26
+      AutoThousandSeparator = False
       BorderColor = clGradientInactiveCaption
       EditAlign = eaCenter
+      EditType = etAlphaNumeric
       EmptyTextStyle = []
       SoftBorder = True
       LabelFont.Charset = DEFAULT_CHARSET

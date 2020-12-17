@@ -109,10 +109,6 @@ void __fastcall TFormMain::InitProgram() {
 	grid_Room->Cells[7][0] = L"공개";
 	grid_Room->AddButton(8, 0, 50, 24, L"입장", haCenter, Advgrid::vaCenter); // View
 
-	grid_PlayerList->Cells[0][0] = L"1";
-	grid_PlayerList->Cells[1][0] = L"fenix24";
-	grid_PlayerList->Cells[2][0] = L"하수";
-
 	// Socket Init
 	WSADATA data;
 	WORD version;
@@ -534,6 +530,9 @@ void __fastcall TFormMain::ReceiveServerData(TMessage &_msg) {
 	case DATA_TYPE_INGAME_CMD:
 		break;
 
+	case DATA_TYPE_MAKE_GAME_ROOM:
+		break;
+
 	case DATA_TYPE_ENTER_GAME_ROOM:
 		break;
 
@@ -544,6 +543,10 @@ void __fastcall TFormMain::ReceiveServerData(TMessage &_msg) {
 		break;
 
 	case DATA_TYPE_INGAME_DATA:
+		break;
+
+	case DATA_TYPE_LOBBY_PLAYERLIST:
+		Receive_LobbyPlayerListData(t_serverData);
 		break;
 
 	default:
@@ -718,3 +721,82 @@ void __fastcall TFormMain::Receive_LobbyChatData(SERVERDATA _serverData) {
 }
 //---------------------------------------------------------------------------
 
+void __fastcall TFormMain::Receive_LobbyPlayerListData(SERVERDATA _serverData) {
+
+	// Common
+	UnicodeString tempStr = L"";
+	wchar_t temp[20];
+	memset(temp, 0, 20);
+	BYTE t_Grade = 0;
+
+	for(int i = 0 ; i < grid_PlayerList->RowCount ; i++) {
+		memcpy(temp, &_serverData.Data[5 + 21 * i], 20);
+		tempStr = temp;
+		if(tempStr == L"") {
+			grid_PlayerList->Cells[0][i] = L"";
+			grid_PlayerList->Cells[1][i] = L"";
+			grid_PlayerList->Cells[2][i] = L"";
+			continue;
+		}
+		t_Grade = _serverData.Data[4 + 21 * i];
+		grid_PlayerList->Cells[0][i] = (i + 1);
+		grid_PlayerList->Cells[1][i] = tempStr;
+		grid_PlayerList->Cells[2][i] = GetLevelString(t_Grade);
+
+		memset(temp, 0, 20);
+	}
+}
+//---------------------------------------------------------------------------
+
+UnicodeString __fastcall TFormMain::GetLevelString(BYTE _num) {
+	// Common
+	UnicodeString tempStr = L"";
+
+	switch(_num) {
+		case USER_LEVEL_0:
+			tempStr = L"신입";
+			break;
+
+		case USER_LEVEL_1:
+			tempStr = L"루키";
+			break;
+
+		case USER_LEVEL_2:
+			tempStr = L"초보";
+			break;
+
+		case USER_LEVEL_3:
+			tempStr = L"하수";
+			break;
+
+		case USER_LEVEL_4:
+			tempStr = L"중수";
+			break;
+
+		case USER_LEVEL_5:
+			tempStr = L"고수";
+			break;
+
+		case USER_LEVEL_6:
+			tempStr = L"초고수";
+			break;
+
+		case USER_LEVEL_7:
+			tempStr = L"영웅";
+			break;
+
+		case USER_LEVEL_8:
+			tempStr = L"전설";
+			break;
+
+		case USER_LEVEL_9:
+			tempStr = L"신";
+			break;
+
+		default:
+			break;
+	}
+
+	return tempStr;
+}
+//---------------------------------------------------------------------------

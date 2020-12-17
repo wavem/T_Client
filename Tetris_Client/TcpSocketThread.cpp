@@ -139,7 +139,7 @@ bool __fastcall CTcpSocketThread::Receive() {
 	if(t_recvSize == 0 || t_recvSize == -1) return false;
 
 	// Check Secure Code
-	if(t_SecureCode != SECURE_CODE_C_TO_S) return false;
+	if(t_SecureCode != SECURE_CODE_S_TO_C) return false;
 
 	// Input Secure Code Into Receive Buffer
 	memcpy(&recvBuff[0], &t_SecureCode, sizeof(t_SecureCode));

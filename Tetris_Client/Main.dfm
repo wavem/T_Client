@@ -144,8 +144,10 @@ object FormMain: TFormMain
             Top = 398
             Width = 169
             Height = 26
+            AutoThousandSeparator = False
             BorderColor = clGradientInactiveCaption
             EditAlign = eaCenter
+            EditType = etAlphaNumeric
             EmptyTextStyle = []
             SoftBorder = True
             LabelFont.Charset = DEFAULT_CHARSET
@@ -538,7 +540,7 @@ object FormMain: TFormMain
             OuterBorderColor = clNavy
             ParentFont = False
             ShineColor = 15335424
-            TabOrder = 0
+            TabOrder = 1
             Version = '1.3.0.2'
             OnClick = btn_Send_LobbyChatClick
           end
@@ -573,7 +575,7 @@ object FormMain: TFormMain
             Font.Style = [fsBold]
             MaxLength = 48
             ParentFont = False
-            TabOrder = 1
+            TabOrder = 0
             Text = ''
             Visible = True
             OnKeyDown = ed_Chat_LobbyKeyDown
@@ -758,7 +760,7 @@ object FormMain: TFormMain
             DrawingStyle = gdsClassic
             FixedColor = clWhite
             FixedCols = 0
-            RowCount = 21
+            RowCount = 60
             FixedRows = 0
             Font.Charset = DEFAULT_CHARSET
             Font.Color = 14722896
@@ -2336,8 +2338,6 @@ object FormMain: TFormMain
         Top = 0
         HelpContext = 3
         Caption = 'Test'
-        ExplicitWidth = 1192
-        ExplicitHeight = 848
         object _pnBase_04_Log: TPanel
           Left = 0
           Top = 0
@@ -2348,8 +2348,6 @@ object FormMain: TFormMain
           Color = clBlack
           ParentBackground = False
           TabOrder = 0
-          ExplicitWidth = 1192
-          ExplicitHeight = 848
           object memo_LOG: TAdvMemo
             Left = 32
             Top = 24
@@ -2488,18 +2486,6 @@ object FormMain: TFormMain
             TabOrder = 1
             Version = '1.3.0.2'
             OnClick = btn_Back_LogScreenClick
-          end
-          object CurvyMemo1: TCurvyMemo
-            Left = 616
-            Top = 232
-            Width = 193
-            Height = 289
-            BorderColor = clMaroon
-            Color = clGrayText
-            Rounding = 10
-            TabOrder = 2
-            TabStop = False
-            ImeName = ''
           end
         end
       end
