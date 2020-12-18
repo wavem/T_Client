@@ -323,6 +323,7 @@ public: // Receive Routine
 
 	void __fastcall Receive_LobbyChatData(SERVERDATA _serverData);
 	void __fastcall Receive_LobbyPlayerListData(SERVERDATA _serverData);
+	void __fastcall Receive_LobbyRoomStatusData(SERVERDATA _serverData);
 
 
 public: // Message Handler
