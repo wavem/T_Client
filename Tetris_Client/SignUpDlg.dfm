@@ -15,7 +15,7 @@ object FormSignUp: TFormSignUp
   Position = poOwnerFormCenter
   PixelsPerInch = 96
   TextHeight = 13
-  object _pnBase_01_Login: TAdvSmoothPanel
+  object _pnBase_01_SignUp: TAdvSmoothPanel
     Left = 0
     Top = 0
     Width = 442

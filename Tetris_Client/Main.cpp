@@ -873,9 +873,18 @@ void __fastcall TFormMain::InitLobbyGameRoom() {
 		tempStr = L"btn_Room_";
 		tempStr += t_FixedIdx;
 		p_btn = (TAdvGlassButton*)FindComponent(tempStr);
-		if(p_btn != NULL) p_btn->Caption = L"MAKING";
+		if(p_btn != NULL) p_btn->Enabled = false;
 		p_btn = NULL;
 	}
 
 }
 //---------------------------------------------------------------------------
+void __fastcall TFormMain::btn_MakeRoomClick(TObject *Sender)
+{
+	// Button Create Room
+	m_pDlgMakingRoom = new TFormMakingRoomDlg(NULL);
+	m_pDlgMakingRoom->ShowModal();
+	delete m_pDlgMakingRoom;
+}
+//---------------------------------------------------------------------------
+

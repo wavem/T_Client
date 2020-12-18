@@ -7,6 +7,7 @@
 #include "TCPSocketThread.h"
 #include "SignUpDlg.h"
 #include "Version.h"
+#include "MakingRoomDlg.h"
 //---------------------------------------------------------------------------
 #include <System.Classes.hpp>
 #include <Vcl.Controls.hpp>
@@ -88,6 +89,7 @@
 #include <Vcl.ImgList.hpp>
 //---------------------------------------------------------------------------
 class TFormSignUp;
+class TFormMakingRoomDlg;
 class CTcpSocketThread;
 
 class TFormMain : public TForm
@@ -127,7 +129,6 @@ __published:	// IDE-managed Components
 	TAdvGlassButton *btn_LogOut;
 	TAdvGlassButton *btn_Enter;
 	TAdvEdit *ed_Chat_InGame;
-	TAdvMemo *memo_Chat_InGame;
 	TAdvGlassButton *btn_Send_InGameChat;
 	TAdvGlassButton *btn_QUIT_InGame;
 	TAdvGlassButton *btn_StartGame;
@@ -266,6 +267,7 @@ __published:	// IDE-managed Components
 	TLabel *lb_Team_10;
 	TLabel *lb_Item_10;
 	TAdvGlassButton *btn_Room_10;
+	TcxMemo *memo_Chat_Game;
 	void __fastcall btn_SingleModeClick(TObject *Sender);
 	void __fastcall btn_SignUpClick(TObject *Sender);
 	void __fastcall btn_Login_QuitClick(TObject *Sender);
@@ -281,6 +283,7 @@ __published:	// IDE-managed Components
 	void __fastcall btn_Back_LogScreenClick(TObject *Sender);
 	void __fastcall btn_Send_LobbyChatClick(TObject *Sender);
 	void __fastcall ed_Chat_LobbyKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
+	void __fastcall btn_MakeRoomClick(TObject *Sender);
 
 private:	// User declarations
 public:		// User declarations
@@ -298,8 +301,9 @@ public: // BASIC FUNCTIONS
 
 // MEMBER VARIABLES
 public:
-	TFormSignUp *m_pDlgSignUp;
-	CTcpSocketThread *m_ClientThread;
+	TFormSignUp* m_pDlgSignUp;
+	TFormMakingRoomDlg* m_pDlgMakingRoom;
+	CTcpSocketThread* m_ClientThread;
 	SOCKET m_sock_Client;
 	UnicodeString m_ID;
 
