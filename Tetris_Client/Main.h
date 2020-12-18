@@ -314,6 +314,7 @@ public: // Prepare Communication
 
 public: // Do Communication
 	int __fastcall Send_SignUpMessage(SIGNUPINFO _info);
+	int __fastcall Send_MakingRoomMessage(MAKINGROOMINFO _info);
 	int __fastcall Send_LobbyChatMessage();
 
 
@@ -321,6 +322,7 @@ public: // Do Communication
 public: // Receive Routine
 	void __fastcall Receive_SignUpResult(SERVERDATA _serverData);
 	void __fastcall Receive_SignInResult(SERVERDATA _serverData);
+	void __fastcall Receive_MakingRoomResult(SERVERDATA _serverData);
 
 	void __fastcall Receive_LobbyChatData(SERVERDATA _serverData);
 	void __fastcall Receive_LobbyPlayerListData(SERVERDATA _serverData);
@@ -332,12 +334,14 @@ public: // Message Handler
 	//void __fastcall ReceiveClientMessage(TMessage &_msg);
 	void __fastcall PrintThreadLogMessage(TMessage &_msg);
 	void __fastcall TryToSignUp(TMessage &_msg);
+	void __fastcall TryToMakingRoom(TMessage &_msg);
 	void __fastcall ReceiveServerData(TMessage &_msg);
 
 
 BEGIN_MESSAGE_MAP
 	MESSAGE_HANDLER(MSG_LOG_FROM_THREAD, TMessage, PrintThreadLogMessage)
 	MESSAGE_HANDLER(MSG_TRY_TO_SIGNUP, TMessage, TryToSignUp)
+	MESSAGE_HANDLER(MSG_TRY_TO_MAKING_ROOM, TMessage, TryToMakingRoom)
 	MESSAGE_HANDLER(MSG_SERVER_DATA, TMessage, ReceiveServerData)
 END_MESSAGE_MAP(TForm)
 };

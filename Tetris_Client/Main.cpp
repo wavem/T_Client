@@ -361,6 +361,101 @@ void __fastcall TFormMain::TryToSignUp(TMessage &_msg) {
 }
 //---------------------------------------------------------------------------
 
+void __fastcall TFormMain::TryToMakingRoom(TMessage &_msg) {
+	// Common
+	unsigned int t_wParam = _msg.WParam;
+	int t_lParam = _msg.LParam;
+	MAKINGROOMINFO* p_MakingRoomInfo = NULL;
+	MAKINGROOMINFO t_MakingRoomInfo;
+	unsigned int rst = 0;
+
+	// Extract Message
+	p_MakingRoomInfo = (MAKINGROOMINFO*)t_wParam;
+	t_MakingRoomInfo = *p_MakingRoomInfo;
+
+	// TEST
+	PrintLog(t_MakingRoomInfo.Title);
+	PrintLog(t_MakingRoomInfo.TeamType);
+	PrintLog(t_MakingRoomInfo.ItemType);
+
+	// Send Sign Up Message
+	rst = Send_MakingRoomMessage(t_MakingRoomInfo);
+
+	// Notice Result
+	if(rst != ERR_MAKING_ROOM_SUCCESS) {
+		SendMessage(m_pDlgMakingRoom->Handle, MSG_TRY_TO_MAKING_ROOM, (unsigned int)&rst, 0x10);
+	} else {
+		// Waiting Message From Server...
+	}
+}
+//---------------------------------------------------------------------------
+
+int __fastcall TFormMain::Send_MakingRoomMessage(MAKINGROOMINFO _info) {
+
+	// Making Room Routine
+	// Common
+	UnicodeString tempStr = L"";
+	int t_sendrst = 0;
+	BYTE t_TeamType = 0;
+	BYTE t_ItemType = 0;
+	int t_TextLen = 0;
+	UnicodeString t_RoomTitle = L"";
+	unsigned short t_PacketLen = 34;
+
+	// Check Client Socket
+	if(m_sock_Client == INVALID_SOCKET) {
+		tempStr.sprintf(L"Client socket is invalid");
+		PrintLog(tempStr);
+		return ERR_MAKING_ROOM_FAILED;
+	}
+
+	// Check Client Thread
+	if(m_ClientThread == NULL) {
+		tempStr.sprintf(L"Client Thread is invalid");
+		PrintLog(tempStr);
+		return ERR_MAKING_ROOM_FAILED;
+	}
+
+	// Check Connection
+	if(m_ClientThread->isConnected == false) {
+		tempStr.sprintf(L"Client is not connected");
+		PrintLog(tempStr);
+		return ERR_MAKING_ROOM_FAILED;
+	}
+
+	// Reset Send Buffer
+	memset(m_ClientThread->sendBuff, 0, TCP_SEND_BUF_SIZE);
+	m_ClientThread->p_sendText = NULL;
+
+	// Set Header Data
+	m_ClientThread->sendBuff[0] = 0x47;
+	memcpy(&m_ClientThread->sendBuff[1], &t_PacketLen, 2);
+	m_ClientThread->sendBuff[3] = DATA_TYPE_MAKE_GAME_ROOM;
+
+
+	// Extract Information
+	t_TeamType = _info.TeamType;
+	t_ItemType = _info.ItemType;
+	t_RoomTitle = _info.Title;
+	t_TextLen = t_RoomTitle.Length() * 2 + 2;
+	m_ClientThread->p_sendText = (unsigned char*)t_RoomTitle.c_str();
+
+	// Input Data Into Packet Data
+	m_ClientThread->sendBuff[4] = t_TeamType;
+	m_ClientThread->sendBuff[5] = t_ItemType;
+	memcpy(&m_ClientThread->sendBuff[6], m_ClientThread->p_sendText, t_TextLen);
+
+	// Send to Server
+	t_sendrst = send(m_sock_Client, (char*)m_ClientThread->sendBuff, t_PacketLen, 0);
+
+	// Function End Routine
+	tempStr.sprintf(L"Send Byte(Making Room) : %d", t_sendrst);
+	PrintLog(tempStr);
+
+	return ERR_MAKING_ROOM_SUCCESS;
+}
+//---------------------------------------------------------------------------
+
 int __fastcall TFormMain::Send_SignUpMessage(SIGNUPINFO _info) {
 
 	// Sign UP Routine
@@ -524,6 +619,7 @@ void __fastcall TFormMain::ReceiveServerData(TMessage &_msg) {
 		break;
 
 	case DATA_TYPE_MAKE_GAME_ROOM:
+		Receive_MakingRoomResult(t_serverData);
 		break;
 
 	case DATA_TYPE_ENTER_GAME_ROOM:
@@ -598,6 +694,24 @@ void __fastcall TFormMain::Receive_SignUpResult(SERVERDATA _serverData) {
 		t_rst = ERR_SIGNUP_UNKNOWN;
 	}
 	SendMessage(m_pDlgSignUp->Handle, MSG_TRY_TO_SIGNUP, (unsigned int)&t_rst, 0x10);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::Receive_MakingRoomResult(SERVERDATA _serverData) {
+
+	// Common
+	int t_rst = 0;
+
+	// Extract Result Value
+	BYTE t_resultData = _serverData.Data[4];
+
+	// Send Message To Making Room Dlg
+	if(t_resultData == 0) { // Success
+		t_rst = ERR_MAKING_ROOM_SUCCESS;
+	} else {
+		t_rst = ERR_MAKING_ROOM_FAILED;
+	}
+	SendMessage(m_pDlgMakingRoom->Handle, MSG_TRY_TO_MAKING_ROOM, (unsigned int)&t_rst, 0x10);
 }
 //---------------------------------------------------------------------------
 

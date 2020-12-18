@@ -48,8 +48,6 @@ object FormMakingRoomDlg: TFormMakingRoomDlg
     Version = '1.5.0.0'
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 442
-    ExplicitHeight = 282
     TMSStyle = 4
     object lb_Title_MakingRoom_Title: TLabel
       Left = 88
@@ -68,7 +66,7 @@ object FormMakingRoomDlg: TFormMakingRoomDlg
       Left = 37
       Top = 82
       Width = 85
-      Height = 19
+      Height = 18
       Caption = 'Battle Type'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clGradientActiveCaption
@@ -81,7 +79,7 @@ object FormMakingRoomDlg: TFormMakingRoomDlg
       Left = 41
       Top = 127
       Width = 81
-      Height = 16
+      Height = 18
       Caption = 'Using Item'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clGradientActiveCaption
@@ -90,7 +88,7 @@ object FormMakingRoomDlg: TFormMakingRoomDlg
       Font.Style = [fsBold]
       ParentFont = False
     end
-    object ed_ID: TAdvEdit
+    object ed_Title: TAdvEdit
       Left = 142
       Top = 38
       Width = 226
@@ -391,6 +389,7 @@ object FormMakingRoomDlg: TFormMakingRoomDlg
       Sections.Font.Name = 'Tahoma'
       Sections.Font.Style = []
       Sections.BorderColor = clBlack
+      SelectedItemIndex = 0
       Header.Fill.Color = 16773091
       Header.Fill.ColorTo = 16765615
       Header.Fill.ColorMirror = clNone
@@ -728,6 +727,7 @@ object FormMakingRoomDlg: TFormMakingRoomDlg
       Sections.Font.Name = 'Tahoma'
       Sections.Font.Style = []
       Sections.BorderColor = clBlack
+      SelectedItemIndex = 0
       Header.Fill.Color = 16773091
       Header.Fill.ColorTo = 16765615
       Header.Fill.ColorMirror = clNone
