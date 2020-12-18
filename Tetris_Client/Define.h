@@ -100,49 +100,39 @@ typedef struct ST_MAKINGROOMINFO {
 #define USER_LEVEL_8	8 // Àü¼³
 #define USER_LEVEL_9	9 // ½Å
 
-// ROOM INFORMATION
-typedef struct ST_ROOMCLIENTSTATUS {
-	bool Connected;
-	bool Life; // True == Alive, False == Death
-	BYTE TeamIdx; // 0 == Private, 1 or 2 == Team Number
-	bool Win; // True == Win, False == Defeat
-} ROOMCLIENTSTATUS;
-//---------------------------------------------------------------------------
 
-typedef struct ST_ROOMSTATUS_OUTSIDE{
-	// For Client (witn no entered in game room)
+typedef struct ST_ROOMSTATUS {
 	BYTE RoomNumber;
 	UnicodeString Title; // MAX UNICODE STRING LENGTH == 13 (Total 26 + 2 = 28 BYTE)
 	BYTE State; // Wait or Gaming // 0 == Wait, 1 == Game
 	BYTE TeamType; // Team or Private // 0 == Private, 1 == Team
 	BYTE ItemType; // Item or NoTem // 0 == Notem, 1 == Item
 	BYTE PlayerCount; // 0 ~ 6
-} ROOMSTATUS_OUT;
-//---------------------------------------------------------------------------
-
-typedef struct ST_ROOMSTATUS_INSIDE {
-	// For Server (for whom entered in game room)
-	bool IsStart;
-	BYTE ClientIdx[6];
-	BYTE ClientGrade[6];
-	UnicodeString ClientUserID[6];
-	ROOMCLIENTSTATUS ClientStatus[6];
 	BYTE SpeedLevel; // 0 ~ 9
-} ROOMSTATUS_IN;
+} ROOMSTATUS;
 //---------------------------------------------------------------------------
 
-typedef struct ST_ROOMBLOCK {
-	BYTE BlockStatus[10][20];
-} ROOMBLOCK;
+typedef struct ST_PLAYER {
+	bool Connected;
+	UnicodeString UserID;
+	BYTE Grade;
+	BYTE ServerIdx;
+
+	bool Life; // True == Alive, False == Death
+	BYTE State; // State for effect by used Item. (ex, blind...)
+	BYTE TeamIdx; // 0 == Private, 1 or 2 == Team Number
+	bool Win; // True == Win, False == Defeat
+	BYTE Block[10][20];
+} PLAYER;
+
+// For Sending to Server
+typedef struct ST_ROOMCMD {
+	bool StartSignal; // If Room Master
+	BYTE TargetUserIdx;
+	BYTE UseItemType;
+} ROOMCMD;
 //---------------------------------------------------------------------------
 
-typedef struct ST_ROOM {
-	bool IsCreated;
-	ROOMSTATUS_OUT RoomStatus_Out;
-	ROOMSTATUS_IN RoomStatus_In;
-	ROOMBLOCK RoomBlock[6];
-} ROOM;
-//---------------------------------------------------------------------------
 
 
 

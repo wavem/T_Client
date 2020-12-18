@@ -268,6 +268,24 @@ __published:	// IDE-managed Components
 	TLabel *lb_Item_10;
 	TAdvGlassButton *btn_Room_10;
 	TcxMemo *memo_Chat_Game;
+	TLabel *lb_PlayerID_1;
+	TLabel *lb_PlayerGrade_1;
+	TLabel *lb_PlayerNumber_1;
+	TLabel *lb_PlayerNumber_2;
+	TLabel *lb_PlayerID_2;
+	TLabel *lb_PlayerGrade_2;
+	TLabel *lb_PlayerNumber_3;
+	TLabel *lb_PlayerID_3;
+	TLabel *lb_PlayerGrade_3;
+	TLabel *lb_PlayerNumber_4;
+	TLabel *lb_PlayerID_4;
+	TLabel *lb_PlayerGrade_4;
+	TLabel *lb_PlayerNumber_5;
+	TLabel *lb_PlayerID_5;
+	TLabel *lb_PlayerGrade_5;
+	TLabel *lb_MyPlayNumber;
+	TLabel *lb_MyID;
+	TLabel *lb_MyGrade;
 	void __fastcall btn_SingleModeClick(TObject *Sender);
 	void __fastcall btn_SignUpClick(TObject *Sender);
 	void __fastcall btn_Login_QuitClick(TObject *Sender);
@@ -307,6 +325,7 @@ public:
 	CTcpSocketThread* m_ClientThread;
 	SOCKET m_sock_Client;
 	UnicodeString m_ID;
+	BYTE m_MyIdx;
 
 public: // Prepare Communication
 	bool __fastcall CreateTCPSocket();
@@ -327,6 +346,8 @@ public: // Receive Routine
 	void __fastcall Receive_LobbyChatData(SERVERDATA _serverData);
 	void __fastcall Receive_LobbyPlayerListData(SERVERDATA _serverData);
 	void __fastcall Receive_LobbyRoomStatusData(SERVERDATA _serverData);
+	void __fastcall Receive_InnerRoomStatusData(SERVERDATA _serverData);
+	void __fastcall Receive_BlockRoomStatusData(SERVERDATA _serverData);
 
 
 public: // Message Handler

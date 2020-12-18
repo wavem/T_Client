@@ -98,6 +98,7 @@ void __fastcall TFormMain::InitProgram() {
 	m_pDlgSignUp = NULL;
 	m_ClientThread = NULL;
 	m_sock_Client = INVALID_SOCKET;
+	m_MyIdx = 0;
 
 	// Init Lobby Game Room
 	InitLobbyGameRoom();
@@ -127,7 +128,6 @@ void __fastcall TFormMain::InitProgram() {
 
 	// Create T Client Thread
 	if(CreateClientThread() == false) return;
-
 }
 //---------------------------------------------------------------------------
 
@@ -708,6 +708,7 @@ void __fastcall TFormMain::Receive_MakingRoomResult(SERVERDATA _serverData) {
 	// Send Message To Making Room Dlg
 	if(t_resultData == 0) { // Success
 		t_rst = ERR_MAKING_ROOM_SUCCESS;
+		m_MyIdx = 0; // My Idx is 0. Because, this room is created by me.
 	} else {
 		t_rst = ERR_MAKING_ROOM_FAILED;
 	}

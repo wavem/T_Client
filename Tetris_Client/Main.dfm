@@ -33,7 +33,7 @@ object FormMain: TFormMain
       Width = 1186
       Height = 819
       Align = alClient
-      PageIndex = 1
+      PageIndex = 2
       TabOrder = 0
       object TPage
         Left = 0
@@ -5130,6 +5130,270 @@ object FormMain: TFormMain
             Width = 140
             Height = 140
           end
+          object lb_PlayerID_1: TLabel
+            Left = 90
+            Top = 360
+            Width = 106
+            Height = 20
+            Alignment = taCenter
+            AutoSize = False
+            Caption = 'pdmzzang0724'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -13
+            Font.Name = #47569#51008' '#44256#46357
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lb_PlayerGrade_1: TLabel
+            Left = 120
+            Top = 386
+            Width = 45
+            Height = 20
+            Alignment = taCenter
+            AutoSize = False
+            Caption = #52488#44256#49688
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -13
+            Font.Name = #47569#51008' '#44256#46357
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lb_PlayerNumber_1: TLabel
+            Left = 55
+            Top = 360
+            Width = 16
+            Height = 37
+            Alignment = taCenter
+            Caption = '1'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -27
+            Font.Name = #47569#51008' '#44256#46357
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lb_PlayerNumber_2: TLabel
+            Left = 229
+            Top = 360
+            Width = 16
+            Height = 37
+            Alignment = taCenter
+            Caption = '2'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -27
+            Font.Name = #47569#51008' '#44256#46357
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lb_PlayerID_2: TLabel
+            Left = 264
+            Top = 360
+            Width = 106
+            Height = 20
+            Alignment = taCenter
+            AutoSize = False
+            Caption = 'fenix24'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -13
+            Font.Name = #47569#51008' '#44256#46357
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lb_PlayerGrade_2: TLabel
+            Left = 294
+            Top = 386
+            Width = 45
+            Height = 20
+            Alignment = taCenter
+            AutoSize = False
+            Caption = #49888
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -13
+            Font.Name = #47569#51008' '#44256#46357
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lb_PlayerNumber_3: TLabel
+            Left = 55
+            Top = 743
+            Width = 16
+            Height = 37
+            Alignment = taCenter
+            Caption = '3'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -27
+            Font.Name = #47569#51008' '#44256#46357
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lb_PlayerID_3: TLabel
+            Left = 90
+            Top = 743
+            Width = 106
+            Height = 20
+            Alignment = taCenter
+            AutoSize = False
+            Caption = 'jwm'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -13
+            Font.Name = #47569#51008' '#44256#46357
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lb_PlayerGrade_3: TLabel
+            Left = 120
+            Top = 769
+            Width = 45
+            Height = 20
+            Alignment = taCenter
+            AutoSize = False
+            Caption = #54616#49688
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -13
+            Font.Name = #47569#51008' '#44256#46357
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lb_PlayerNumber_4: TLabel
+            Left = 229
+            Top = 743
+            Width = 16
+            Height = 37
+            Alignment = taCenter
+            Caption = '4'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -27
+            Font.Name = #47569#51008' '#44256#46357
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lb_PlayerID_4: TLabel
+            Left = 264
+            Top = 743
+            Width = 106
+            Height = 20
+            Alignment = taCenter
+            AutoSize = False
+            Caption = 'blingjiny'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -13
+            Font.Name = #47569#51008' '#44256#46357
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lb_PlayerGrade_4: TLabel
+            Left = 294
+            Top = 769
+            Width = 45
+            Height = 20
+            Alignment = taCenter
+            AutoSize = False
+            Caption = #51473#49688
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -13
+            Font.Name = #47569#51008' '#44256#46357
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lb_PlayerNumber_5: TLabel
+            Left = 403
+            Top = 743
+            Width = 16
+            Height = 37
+            Alignment = taCenter
+            Caption = '5'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -27
+            Font.Name = #47569#51008' '#44256#46357
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lb_PlayerID_5: TLabel
+            Left = 438
+            Top = 743
+            Width = 106
+            Height = 20
+            Alignment = taCenter
+            AutoSize = False
+            Caption = 'kingdom'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -13
+            Font.Name = #47569#51008' '#44256#46357
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lb_PlayerGrade_5: TLabel
+            Left = 468
+            Top = 769
+            Width = 45
+            Height = 20
+            Alignment = taCenter
+            AutoSize = False
+            Caption = #47336#53412
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -13
+            Font.Name = #47569#51008' '#44256#46357
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lb_MyPlayNumber: TLabel
+            Left = 925
+            Top = 13
+            Width = 31
+            Height = 71
+            Alignment = taCenter
+            Caption = '5'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -53
+            Font.Name = #47569#51008' '#44256#46357
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lb_MyID: TLabel
+            Left = 978
+            Top = 22
+            Width = 172
+            Height = 32
+            Alignment = taCenter
+            AutoSize = False
+            Caption = 'fenix0724'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -24
+            Font.Name = #47569#51008' '#44256#46357
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lb_MyGrade: TLabel
+            Left = 1039
+            Top = 63
+            Width = 48
+            Height = 21
+            Alignment = taCenter
+            AutoSize = False
+            Caption = #50689#50885
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -16
+            Font.Name = #47569#51008' '#44256#46357
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
           object grid_P1: TAdvStringGrid
             Left = 32
             Top = 32
@@ -6101,7 +6365,7 @@ object FormMain: TFormMain
           end
           object btn_QUIT_InGame: TAdvGlassButton
             Left = 939
-            Top = 341
+            Top = 405
             Width = 222
             Height = 32
             Cursor = crHandPoint
@@ -6126,7 +6390,7 @@ object FormMain: TFormMain
           end
           object btn_StartGame: TAdvGlassButton
             Left = 937
-            Top = 225
+            Top = 289
             Width = 222
             Height = 32
             Cursor = crHandPoint
@@ -6150,7 +6414,7 @@ object FormMain: TFormMain
           end
           object btn_PauseGame: TAdvGlassButton
             Left = 937
-            Top = 303
+            Top = 367
             Width = 222
             Height = 32
             Cursor = crHandPoint
@@ -6174,7 +6438,7 @@ object FormMain: TFormMain
           end
           object btn_Setting_InGame: TAdvGlassButton
             Left = 937
-            Top = 263
+            Top = 327
             Width = 222
             Height = 32
             Cursor = crHandPoint
@@ -6198,7 +6462,7 @@ object FormMain: TFormMain
           end
           object btn_Log_InGame: TAdvGlassButton
             Left = 937
-            Top = 187
+            Top = 251
             Width = 222
             Height = 32
             Cursor = crHandPoint
