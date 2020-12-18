@@ -99,6 +99,10 @@ void __fastcall TFormMain::InitProgram() {
 	m_ClientThread = NULL;
 	m_sock_Client = INVALID_SOCKET;
 	m_MyIdx = 0;
+	memset(&m_RoomStatus, 0, sizeof(m_RoomStatus));
+	for(int i = 0 ; i < 5 ; i++) {
+		memset(&m_Player[i], 0, sizeof(PLAYER));
+	}
 
 	// Init Lobby Game Room
 	InitLobbyGameRoom();
@@ -642,6 +646,10 @@ void __fastcall TFormMain::ReceiveServerData(TMessage &_msg) {
 		Receive_LobbyPlayerListData(t_serverData);
 		break;
 
+	case DATA_TYPE_INNER_ROOM_STATUS:
+		Receive_InnerRoomStatusData(t_serverData);
+		break;
+
 	default:
 		break;
 	}
@@ -709,6 +717,7 @@ void __fastcall TFormMain::Receive_MakingRoomResult(SERVERDATA _serverData) {
 	if(t_resultData == 0) { // Success
 		t_rst = ERR_MAKING_ROOM_SUCCESS;
 		m_MyIdx = 0; // My Idx is 0. Because, this room is created by me.
+		lb_MyPlayNumber->Caption = m_MyIdx + 1; // +1 !!!
 	} else {
 		t_rst = ERR_MAKING_ROOM_FAILED;
 	}
@@ -1002,11 +1011,11 @@ void __fastcall TFormMain::Receive_LobbyRoomStatusData(SERVERDATA _serverData) {
 
 	// Common
 	UnicodeString tempStr = L"";
-    TLabel* p_lb = NULL;
+	TLabel* p_lb = NULL;
 	TAdvGlassButton* p_btn;
 	TImage* p_img;
 	int t_BuffIdx = 0;
-	wchar_t temp[28] = {0, };
+	wchar_t temp[28];
 
 	BYTE t_RoomNumber = 0;
 	BYTE t_State = 0;
@@ -1137,6 +1146,85 @@ void __fastcall TFormMain::Receive_LobbyRoomStatusData(SERVERDATA _serverData) {
 		// Roop End Routine
 		memset(temp, 0, sizeof(temp));
 		t_BuffIdx += 33;
+	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::Receive_InnerRoomStatusData(SERVERDATA _serverData) {
+
+	// Common
+	UnicodeString tempStr = L"";
+	int t_BuffIdx = 0;
+	int t_PlayerIdx = 0;
+	int t_CurrentIdx = 0;
+	wchar_t t_Title[28];
+	wchar_t t_UserID[30];
+
+	// Room Info
+	m_RoomStatus.State = _serverData.Data[4];
+	m_RoomStatus.TeamType = _serverData.Data[5];
+	m_RoomStatus.ItemType = _serverData.Data[6];
+	m_RoomStatus.SpeedLevel = _serverData.Data[7];
+	m_RoomStatus.RoomNumber = _serverData.Data[8];
+	memcpy(t_Title, &_serverData.Data[9], 28);
+	m_RoomStatus.Title = t_Title;
+
+	// Player Info
+	t_BuffIdx = 37;
+	for(int i = 0 ; i < 6 ; i++) {
+		t_BuffIdx += (36 * i);
+		t_CurrentIdx += i;
+		if(t_CurrentIdx == m_MyIdx) {
+			m_Grade = GetLevelString(m_Player[m_MyIdx].Grade);
+			continue;
+		}
+
+		m_Player[t_PlayerIdx].Connected = _serverData.Data[t_BuffIdx];
+		memcpy(t_UserID, &_serverData.Data[t_BuffIdx + 1], 30);
+		m_Player[t_PlayerIdx].UserID = t_UserID;
+		m_Player[t_PlayerIdx].Grade = _serverData.Data[t_BuffIdx + 31];
+		m_Player[t_PlayerIdx].Life = _serverData.Data[t_BuffIdx + 32];
+		m_Player[t_PlayerIdx].State = _serverData.Data[t_BuffIdx + 33];
+		m_Player[t_PlayerIdx].TeamIdx = _serverData.Data[t_BuffIdx + 34];
+		m_Player[t_PlayerIdx].Win = _serverData.Data[t_BuffIdx + 35];
+		m_Player[t_PlayerIdx].ServerIdx = i;
+		t_PlayerIdx++;
+	}
+
+	RefreshInnerGameRoom();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::RefreshInnerGameRoom() {
+
+	// Common
+	UnicodeString tempStr = L"";
+	TLabel* p_lb = NULL;
+
+	// Refresh Inner Game Room UI
+	for(int i = 0 ; i < 5 ; i++) {
+
+		// Player Number
+		tempStr = L"lb_PlayerNumber_";
+		tempStr += (i + 1);
+		p_lb = (TLabel*)FindComponent(tempStr);
+		if(p_lb != NULL) p_lb->Caption = m_Player[i].ServerIdx + 1; // +1 !!!
+		p_lb = NULL;
+
+
+		// Player User ID
+		tempStr = L"lb_PlayerID_";
+		tempStr += (i + 1);
+		p_lb = (TLabel*)FindComponent(tempStr);
+		if(p_lb != NULL) p_lb->Caption = m_Player[i].UserID;
+		p_lb = NULL;
+
+		// Player Grade
+		tempStr = L"lb_PlayerGrade_";
+		tempStr += (i + 1);
+		p_lb = (TLabel*)FindComponent(tempStr);
+		if(p_lb != NULL) p_lb->Caption = GetLevelString(m_Player[i].Grade);
+		p_lb = NULL;
 	}
 }
 //---------------------------------------------------------------------------

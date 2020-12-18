@@ -7,8 +7,8 @@
 
 // COMM
 //#define IP_SERVER "127.0.0.1"
-#define IP_SERVER "192.168.0.10"
-//#define IP_SERVER "192.168.35.9"
+//#define IP_SERVER "192.168.0.10"
+#define IP_SERVER "192.168.35.9"
 //#define IP_SERVER "192.168.0.47"
 #define TCP_SERVER_PORT 14759
 
@@ -66,6 +66,8 @@ typedef struct ST_MAKINGROOMINFO {
 
 #define DATA_TYPE_LOBBY_ROOMSTATUS	0xF1
 #define DATA_TYPE_LOBBY_PLAYERLIST	0xF2
+#define DATA_TYPE_INNER_ROOM_STATUS	0xF3
+#define DATA_TYPE_BLOCK_ROOM_STATUS 0xF4
 
 
 
@@ -107,7 +109,7 @@ typedef struct ST_ROOMSTATUS {
 	BYTE State; // Wait or Gaming // 0 == Wait, 1 == Game
 	BYTE TeamType; // Team or Private // 0 == Private, 1 == Team
 	BYTE ItemType; // Item or NoTem // 0 == Notem, 1 == Item
-	BYTE PlayerCount; // 0 ~ 6
+	//BYTE PlayerCount; // 0 ~ 6
 	BYTE SpeedLevel; // 0 ~ 9
 } ROOMSTATUS;
 //---------------------------------------------------------------------------
@@ -116,12 +118,12 @@ typedef struct ST_PLAYER {
 	bool Connected;
 	UnicodeString UserID;
 	BYTE Grade;
-	BYTE ServerIdx;
+	BYTE ServerIdx; // Determined by Client, Not by Server.
 
 	bool Life; // True == Alive, False == Death
 	BYTE State; // State for effect by used Item. (ex, blind...)
 	BYTE TeamIdx; // 0 == Private, 1 or 2 == Team Number
-	bool Win; // True == Win, False == Defeat
+	BYTE Win; // 0 == Unknown, 1 == Win, 2 == Defeat.
 	BYTE Block[10][20];
 } PLAYER;
 

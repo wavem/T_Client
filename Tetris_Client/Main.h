@@ -317,6 +317,7 @@ public: // BASIC FUNCTIONS
 	UnicodeString __fastcall GetLevelString(BYTE _num);
 	void __fastcall InitLobbyGameRoom();
 	void __fastcall ResetGameRoom(int _Num);
+	void __fastcall RefreshInnerGameRoom();
 
 // MEMBER VARIABLES
 public:
@@ -325,7 +326,10 @@ public:
 	CTcpSocketThread* m_ClientThread;
 	SOCKET m_sock_Client;
 	UnicodeString m_ID;
+	UnicodeString m_Grade;
 	BYTE m_MyIdx;
+	ROOMSTATUS m_RoomStatus;
+	PLAYER m_Player[5];
 
 public: // Prepare Communication
 	bool __fastcall CreateTCPSocket();
