@@ -801,88 +801,79 @@ UnicodeString __fastcall TFormMain::GetLevelString(BYTE _num) {
 //---------------------------------------------------------------------------
 
 void __fastcall TFormMain::InitLobbyGameRoom() {
+	for(int i = 0 ; i < MAX_ROOM_COUNT ; i++) {
+		ResetGameRoom(i);
+	}
+}
+//---------------------------------------------------------------------------
 
+void __fastcall TFormMain::ResetGameRoom(int _Num) {
 	// Common
 	UnicodeString tempStr = L"";
 	TLabel* p_lb = NULL;
 	TAdvGlassButton* p_btn;
 	TImage* p_img;
-	int t_FixedIdx = 0;
+	int t_FixedIdx = _Num + 1;
 
 	// Room Title, Status Label, Player Count
-	for(int i = 0 ; i < MAX_ROOM_COUNT ; i++) {
-		t_FixedIdx = i + 1;
-		tempStr = L"lb_Title_Room_";
-		tempStr += t_FixedIdx;
-		p_lb = (TLabel*)FindComponent(tempStr);
-		if(p_lb != NULL) p_lb->Caption = L"";
-		p_lb = NULL;
+	tempStr = L"lb_Title_Room_";
+	tempStr += t_FixedIdx;
+	p_lb = (TLabel*)FindComponent(tempStr);
+	if(p_lb != NULL) p_lb->Caption = L"";
+	p_lb = NULL;
 
-		t_FixedIdx = i + 1;
-		tempStr = L"lb_Game_";
-		tempStr += t_FixedIdx;
-		p_lb = (TLabel*)FindComponent(tempStr);
-		if(p_lb != NULL) p_lb->Caption = L"";
-		p_lb = NULL;
+	tempStr = L"lb_Game_";
+	tempStr += t_FixedIdx;
+	p_lb = (TLabel*)FindComponent(tempStr);
+	if(p_lb != NULL) p_lb->Caption = L"";
+	p_lb = NULL;
 
-		t_FixedIdx = i + 1;
-		tempStr = L"lb_Team_";
-		tempStr += t_FixedIdx;
-		p_lb = (TLabel*)FindComponent(tempStr);
-		if(p_lb != NULL) p_lb->Caption = L"";
-		p_lb = NULL;
+	tempStr = L"lb_Team_";
+	tempStr += t_FixedIdx;
+	p_lb = (TLabel*)FindComponent(tempStr);
+	if(p_lb != NULL) p_lb->Caption = L"";
+	p_lb = NULL;
 
-		t_FixedIdx = i + 1;
-		tempStr = L"lb_Item_";
-		tempStr += t_FixedIdx;
-		p_lb = (TLabel*)FindComponent(tempStr);
-		if(p_lb != NULL) p_lb->Caption = L"";
-		p_lb = NULL;
+	tempStr = L"lb_Item_";
+	tempStr += t_FixedIdx;
+	p_lb = (TLabel*)FindComponent(tempStr);
+	if(p_lb != NULL) p_lb->Caption = L"";
+	p_lb = NULL;
 
-		t_FixedIdx = i + 1;
-		tempStr = L"lb_PlayerCount_Room_";
-		tempStr += t_FixedIdx;
-		p_lb = (TLabel*)FindComponent(tempStr);
-		if(p_lb != NULL) p_lb->Caption = L"";
-		p_lb = NULL;
-	}
+	tempStr = L"lb_PlayerCount_Room_";
+	tempStr += t_FixedIdx;
+	p_lb = (TLabel*)FindComponent(tempStr);
+	if(p_lb != NULL) p_lb->Caption = L"";
+	p_lb = NULL;
 
 	// Image
-	for(int i = 0 ; i < MAX_ROOM_COUNT ; i++) {
-		t_FixedIdx = i + 1;
-		tempStr = L"img_Game_Room_";
-		tempStr += t_FixedIdx;
-		p_img = (TImage*)FindComponent(tempStr);
-		if(p_img != NULL) p_img->Picture = NULL;
-		p_img = NULL;
+	tempStr = L"img_Game_Room_";
+	tempStr += t_FixedIdx;
+	p_img = (TImage*)FindComponent(tempStr);
+	if(p_img != NULL) p_img->Picture = NULL;
+	p_img = NULL;
 
-		t_FixedIdx = i + 1;
-		tempStr = L"img_Team_Room_";
-		tempStr += t_FixedIdx;
-		p_img = (TImage*)FindComponent(tempStr);
-		if(p_img != NULL) p_img->Picture = NULL;
-		p_img = NULL;
+	tempStr = L"img_Team_Room_";
+	tempStr += t_FixedIdx;
+	p_img = (TImage*)FindComponent(tempStr);
+	if(p_img != NULL) p_img->Picture = NULL;
+	p_img = NULL;
 
-		t_FixedIdx = i + 1;
-		tempStr = L"img_Item_Room_";
-		tempStr += t_FixedIdx;
-		p_img = (TImage*)FindComponent(tempStr);
-		if(p_img != NULL) p_img->Picture = NULL;
-		p_img = NULL;
-	}
+	tempStr = L"img_Item_Room_";
+	tempStr += t_FixedIdx;
+	p_img = (TImage*)FindComponent(tempStr);
+	if(p_img != NULL) p_img->Picture = NULL;
+	p_img = NULL;
 
 	// Buttons
-	for(int i = 0 ; i < MAX_ROOM_COUNT ; i++) {
-		t_FixedIdx = i + 1;
-		tempStr = L"btn_Room_";
-		tempStr += t_FixedIdx;
-		p_btn = (TAdvGlassButton*)FindComponent(tempStr);
-		if(p_btn != NULL) p_btn->Enabled = false;
-		p_btn = NULL;
-	}
-
+	tempStr = L"btn_Room_";
+	tempStr += t_FixedIdx;
+	p_btn = (TAdvGlassButton*)FindComponent(tempStr);
+	if(p_btn != NULL) p_btn->Enabled = false;
+	p_btn = NULL;
 }
 //---------------------------------------------------------------------------
+
 void __fastcall TFormMain::btn_MakeRoomClick(TObject *Sender)
 {
 	// Button Create Room
@@ -894,31 +885,143 @@ void __fastcall TFormMain::btn_MakeRoomClick(TObject *Sender)
 
 void __fastcall TFormMain::Receive_LobbyRoomStatusData(SERVERDATA _serverData) {
 
-	ShowMessage(L"Room Status Data Received !!");
-	return;
 	// Common
 	UnicodeString tempStr = L"";
-	AnsiString t_AnsiStr = "";
-	unsigned char temp[20];
-	memset(temp, 0, 20);
-	BYTE t_Grade = 0;
+    TLabel* p_lb = NULL;
+	TAdvGlassButton* p_btn;
+	TImage* p_img;
+	int t_BuffIdx = 0;
+	wchar_t temp[28] = {0, };
 
-	for(int i = 0 ; i < grid_PlayerList->RowCount ; i++) {
-		memcpy(temp, &_serverData.Data[6 + 21 * i], 20);
-		t_AnsiStr = (char*)temp;
-		tempStr = t_AnsiStr;
-		if(tempStr == L"") {
-			grid_PlayerList->Cells[0][i] = L"";
-			grid_PlayerList->Cells[1][i] = L"";
-			grid_PlayerList->Cells[2][i] = L"";
+	BYTE t_RoomNumber = 0;
+	BYTE t_State = 0;
+	BYTE t_TeamType = 0;
+	BYTE t_ItemType = 0;
+	BYTE t_PlayerCount = 0;
+	UnicodeString t_RoomTitle = L"";
+
+	t_BuffIdx = 4;
+	for(int i = 0 ; i < MAX_ROOM_COUNT ; i++) {
+		t_State = _serverData.Data[t_BuffIdx + 1];
+		if(t_State == 0) {
+			// Reset Empty Game Room
+			ResetGameRoom(i);
 			continue;
 		}
-		t_Grade = _serverData.Data[5 + 21 * i];
-		grid_PlayerList->Cells[0][i] = (i + 1);
-		grid_PlayerList->Cells[1][i] = tempStr;
-		grid_PlayerList->Cells[2][i] = GetLevelString(t_Grade);
 
-		memset(temp, 0, 20);
+		t_RoomNumber = _serverData.Data[t_BuffIdx];
+		t_TeamType = _serverData.Data[t_BuffIdx + 2];
+		t_ItemType = _serverData.Data[t_BuffIdx + 3];
+		t_PlayerCount = _serverData.Data[t_BuffIdx + 4];
+		memcpy(temp, &_serverData.Data[t_BuffIdx + 5], 28);
+		t_RoomTitle = temp;
+
+
+		// Change Room Title
+		tempStr = L"lb_Title_Room_";
+		tempStr += t_RoomNumber;
+		p_lb = (TLabel*)FindComponent(tempStr);
+		if(p_lb != NULL) p_lb->Caption = t_RoomTitle;
+		p_lb = NULL;
+
+		// Change Game State
+		tempStr = L"lb_Game_";
+		tempStr += t_RoomNumber;
+		p_lb = (TLabel*)FindComponent(tempStr);
+		if(p_lb != NULL) {
+			if(t_State == 1) {
+				p_lb->Caption = L"대기중";
+			} else if(t_State == 2) {
+				p_lb->Caption = L"게임중";
+			}
+		}
+		p_lb = NULL;
+
+		// Change Team Type
+		tempStr = L"lb_Team_";
+		tempStr += t_RoomNumber;
+		p_lb = (TLabel*)FindComponent(tempStr);
+		if(p_lb != NULL) {
+			if(t_TeamType == 0) {
+				p_lb->Caption = L"개인전";
+			} else if(t_State == 1) {
+				p_lb->Caption = L"팀전";
+			}
+		}
+		p_lb = NULL;
+
+		// Change Item Type
+		tempStr = L"lb_Item_";
+		tempStr += t_RoomNumber;
+		p_lb = (TLabel*)FindComponent(tempStr);
+		if(p_lb != NULL) {
+			if(t_ItemType == 0) {
+				p_lb->Caption = L"노템전";
+			} else if(t_State == 1) {
+				p_lb->Caption = L"아템전";
+			}
+		}
+		p_lb = NULL;
+
+		// Change Player Count
+		tempStr = L"lb_PlayerCount_Room_";
+		tempStr += t_RoomNumber;
+		p_lb = (TLabel*)FindComponent(tempStr);
+		if(p_lb != NULL) {
+			tempStr.sprintf(L"%d/6", t_PlayerCount);
+			p_lb->Caption = tempStr;
+		}
+		p_lb = NULL;
+
+		// Change Game State Image
+		tempStr = L"img_Game_Room_";
+		tempStr += t_RoomNumber;
+		p_img = (TImage*)FindComponent(tempStr);
+		if(p_img != NULL) {
+			if(t_State == 1) { // Wait
+				p_img->Picture = ImgSrc_Wait->Picture;
+			} else if(t_State == 2) { // Gaming...
+				p_img->Picture = ImgSrc_Game->Picture;
+			}
+		}
+		p_img = NULL;
+
+		// Change Team Type Image
+		tempStr = L"img_Team_Room_";
+		tempStr += t_RoomNumber;
+		p_img = (TImage*)FindComponent(tempStr);
+		if(p_img != NULL) {
+			if(t_TeamType == 0) { // Private
+				p_img->Picture = ImgSrc_Private->Picture;
+			} else if(t_State == 1) { // Team
+				p_img->Picture = ImgSrc_Team->Picture;
+			}
+		}
+		p_img = NULL;
+
+		// Change Item Type Image
+		tempStr = L"img_Item_Room_";
+		tempStr += t_RoomNumber;
+		p_img = (TImage*)FindComponent(tempStr);
+		if(p_img != NULL) {
+			if(t_ItemType == 0) { // Notem
+				p_img->Picture = ImgSrc_Notem->Picture;
+			} else if(t_State == 1) { // Item
+				p_img->Picture = ImgSrc_Item->Picture;
+			}
+		}
+		p_img = NULL;
+
+		// Change Enter Button State
+		tempStr = L"btn_Room_";
+		tempStr += t_RoomNumber;
+		p_btn = (TAdvGlassButton*)FindComponent(tempStr);
+		if(p_btn != NULL) p_btn->Enabled = true;
+		p_btn = NULL;
+
+		// Roop End Routine
+		memset(temp, 0, sizeof(temp));
+		t_BuffIdx += 33;
 	}
 }
 //---------------------------------------------------------------------------

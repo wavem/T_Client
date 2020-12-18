@@ -298,6 +298,7 @@ public: // BASIC FUNCTIONS
 	void __fastcall PrintChat_Lobby(UnicodeString _str);
 	UnicodeString __fastcall GetLevelString(BYTE _num);
 	void __fastcall InitLobbyGameRoom();
+	void __fastcall ResetGameRoom(int _Num);
 
 // MEMBER VARIABLES
 public:
