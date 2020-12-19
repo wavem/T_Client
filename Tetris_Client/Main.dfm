@@ -1148,6 +1148,7 @@ object FormMain: TFormMain
               ParentFont = False
             end
             object btn_Room_1: TAdvGlassButton
+              Tag = 1
               Left = 304
               Top = 11
               Width = 91
@@ -1170,6 +1171,7 @@ object FormMain: TFormMain
               ShineColor = 15335424
               TabOrder = 0
               Version = '1.3.0.2'
+              OnClick = ClickEnterRoomButton
             end
           end
           object pnRoom_2: TAdvSmoothPanel
@@ -1581,6 +1583,7 @@ object FormMain: TFormMain
               ParentFont = False
             end
             object btn_Room_2: TAdvGlassButton
+              Tag = 2
               Left = 304
               Top = 11
               Width = 91
@@ -1603,6 +1606,7 @@ object FormMain: TFormMain
               ShineColor = 15335424
               TabOrder = 0
               Version = '1.3.0.2'
+              OnClick = ClickEnterRoomButton
             end
           end
           object pnRoom_3: TAdvSmoothPanel
@@ -2014,6 +2018,7 @@ object FormMain: TFormMain
               ParentFont = False
             end
             object btn_Room_3: TAdvGlassButton
+              Tag = 3
               Left = 304
               Top = 11
               Width = 91
@@ -2036,6 +2041,7 @@ object FormMain: TFormMain
               ShineColor = 15335424
               TabOrder = 0
               Version = '1.3.0.2'
+              OnClick = ClickEnterRoomButton
             end
           end
           object pnRoom_4: TAdvSmoothPanel
@@ -2447,6 +2453,7 @@ object FormMain: TFormMain
               ParentFont = False
             end
             object btn_Room_4: TAdvGlassButton
+              Tag = 4
               Left = 304
               Top = 11
               Width = 91
@@ -2469,6 +2476,7 @@ object FormMain: TFormMain
               ShineColor = 15335424
               TabOrder = 0
               Version = '1.3.0.2'
+              OnClick = ClickEnterRoomButton
             end
           end
           object pnRoom_7: TAdvSmoothPanel
@@ -2880,6 +2888,7 @@ object FormMain: TFormMain
               ParentFont = False
             end
             object btn_Room_7: TAdvGlassButton
+              Tag = 7
               Left = 304
               Top = 11
               Width = 91
@@ -2902,6 +2911,7 @@ object FormMain: TFormMain
               ShineColor = 15335424
               TabOrder = 0
               Version = '1.3.0.2'
+              OnClick = ClickEnterRoomButton
             end
           end
           object pnRoom_8: TAdvSmoothPanel
@@ -3313,6 +3323,7 @@ object FormMain: TFormMain
               ParentFont = False
             end
             object btn_Room_8: TAdvGlassButton
+              Tag = 8
               Left = 304
               Top = 11
               Width = 91
@@ -3335,6 +3346,7 @@ object FormMain: TFormMain
               ShineColor = 15335424
               TabOrder = 0
               Version = '1.3.0.2'
+              OnClick = ClickEnterRoomButton
             end
           end
           object pnRoom_5: TAdvSmoothPanel
@@ -3746,6 +3758,7 @@ object FormMain: TFormMain
               ParentFont = False
             end
             object btn_Room_5: TAdvGlassButton
+              Tag = 5
               Left = 304
               Top = 11
               Width = 91
@@ -3768,6 +3781,7 @@ object FormMain: TFormMain
               ShineColor = 15335424
               TabOrder = 0
               Version = '1.3.0.2'
+              OnClick = ClickEnterRoomButton
             end
           end
           object pnRoom_6: TAdvSmoothPanel
@@ -4179,6 +4193,7 @@ object FormMain: TFormMain
               ParentFont = False
             end
             object btn_Room_6: TAdvGlassButton
+              Tag = 6
               Left = 304
               Top = 11
               Width = 91
@@ -4201,6 +4216,7 @@ object FormMain: TFormMain
               ShineColor = 15335424
               TabOrder = 0
               Version = '1.3.0.2'
+              OnClick = ClickEnterRoomButton
             end
           end
           object pnRoom_9: TAdvSmoothPanel
@@ -4612,6 +4628,7 @@ object FormMain: TFormMain
               ParentFont = False
             end
             object btn_Room_9: TAdvGlassButton
+              Tag = 9
               Left = 304
               Top = 11
               Width = 91
@@ -4634,6 +4651,7 @@ object FormMain: TFormMain
               ShineColor = 15335424
               TabOrder = 0
               Version = '1.3.0.2'
+              OnClick = ClickEnterRoomButton
             end
           end
           object pnRoom_10: TAdvSmoothPanel
@@ -5045,6 +5063,7 @@ object FormMain: TFormMain
               ParentFont = False
             end
             object btn_Room_10: TAdvGlassButton
+              Tag = 10
               Left = 304
               Top = 11
               Width = 91
@@ -5067,6 +5086,7 @@ object FormMain: TFormMain
               ShineColor = 15335424
               TabOrder = 0
               Version = '1.3.0.2'
+              OnClick = ClickEnterRoomButton
             end
           end
         end
@@ -5356,7 +5376,7 @@ object FormMain: TFormMain
             Width = 31
             Height = 71
             Alignment = taCenter
-            Caption = '5'
+            Caption = '6'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clGradientActiveCaption
             Font.Height = -53

@@ -103,6 +103,11 @@ void __fastcall TFormMain::InitProgram() {
 	for(int i = 0 ; i < 5 ; i++) {
 		memset(&m_Player[i], 0, sizeof(PLAYER));
 	}
+	m_ID = L"";
+	m_Grade = L"";
+	m_WinCount = 0;
+	m_DefCount = 0;
+	m_WinRate = 0;
 
 	// Init Lobby Game Room
 	InitLobbyGameRoom();
@@ -627,6 +632,7 @@ void __fastcall TFormMain::ReceiveServerData(TMessage &_msg) {
 		break;
 
 	case DATA_TYPE_ENTER_GAME_ROOM:
+		Receive_EnterRoomResult(t_serverData);
 		break;
 
 	case DATA_TYPE_ESCAPE_GAME_ROOM:
@@ -716,8 +722,8 @@ void __fastcall TFormMain::Receive_MakingRoomResult(SERVERDATA _serverData) {
 	// Send Message To Making Room Dlg
 	if(t_resultData == 0) { // Success
 		t_rst = ERR_MAKING_ROOM_SUCCESS;
-		m_MyIdx = 0; // My Idx is 0. Because, this room is created by me.
-		lb_MyPlayNumber->Caption = m_MyIdx + 1; // +1 !!!
+		m_MyIdx = 1; // My Idx is 1. Because, this room is created by me.
+		lb_MyPlayNumber->Caption = m_MyIdx;
 	} else {
 		t_rst = ERR_MAKING_ROOM_FAILED;
 	}
@@ -728,7 +734,9 @@ void __fastcall TFormMain::Receive_MakingRoomResult(SERVERDATA _serverData) {
 void __fastcall TFormMain::Receive_SignInResult(SERVERDATA _serverData) {
 
 	// Common
+	UnicodeString tempStr = L"";
 	BYTE t_resultData = _serverData.Data[4];
+	unsigned short t_us = 0;
 
 	if(t_resultData == 0) { // Success
 		// LOG-IN ROUTINE HERE
@@ -736,6 +744,15 @@ void __fastcall TFormMain::Receive_SignInResult(SERVERDATA _serverData) {
 		m_ID = ed_ID->Text;
 		ed_ID->Text = L"";
 		ed_PW->Text = L"";
+
+		m_Grade = GetLevelString(_serverData.Data[6]);
+		memcpy(&t_us, &_serverData.Data[7], sizeof(t_us));
+		m_WinCount = (int)t_us;
+		memcpy(&t_us, &_serverData.Data[9], sizeof(t_us));
+		m_DefCount = (int)t_us;
+		memcpy(&t_us, &_serverData.Data[11], sizeof(t_us));
+		m_WinRate = (int)t_us;
+
 	} else if(t_resultData == 1) { // Wrong Password
 		Application->MessageBoxW(L"Password Incorrect. Please Try Again.", L"Log In", MB_OK | MB_ICONINFORMATION);
 	} else if(t_resultData == 2) { // There is No ID
@@ -1170,18 +1187,22 @@ void __fastcall TFormMain::Receive_InnerRoomStatusData(SERVERDATA _serverData) {
 	m_RoomStatus.Title = t_Title;
 
 	// Player Info
-	t_BuffIdx = 37;
+	//t_BuffIdx = 37;
 	for(int i = 0 ; i < 6 ; i++) {
-		t_BuffIdx += (36 * i);
-		t_CurrentIdx += i;
+		t_BuffIdx = 37 + (36 * i);
+		t_CurrentIdx += 1;
 		if(t_CurrentIdx == m_MyIdx) {
-			m_Grade = GetLevelString(m_Player[m_MyIdx].Grade);
+			// 여기서 레벨을 받기보단 로그인 했을 때 받는게 나을꺼같은데
+			// 여기다 한 이유는... 혹시라도 게임하다가 레벨업 할까봐....ㅎㅎ
+			lb_MyPlayNumber->Caption = m_MyIdx;
+			m_Grade = GetLevelString(_serverData.Data[t_BuffIdx + 31]);
 			continue;
 		}
 
 		m_Player[t_PlayerIdx].Connected = _serverData.Data[t_BuffIdx];
 		memcpy(t_UserID, &_serverData.Data[t_BuffIdx + 1], 30);
-		m_Player[t_PlayerIdx].UserID = t_UserID;
+		tempStr = t_UserID;
+		m_Player[t_PlayerIdx].UserID = tempStr;
 		m_Player[t_PlayerIdx].Grade = _serverData.Data[t_BuffIdx + 31];
 		m_Player[t_PlayerIdx].Life = _serverData.Data[t_BuffIdx + 32];
 		m_Player[t_PlayerIdx].State = _serverData.Data[t_BuffIdx + 33];
@@ -1208,7 +1229,10 @@ void __fastcall TFormMain::RefreshInnerGameRoom() {
 		tempStr = L"lb_PlayerNumber_";
 		tempStr += (i + 1);
 		p_lb = (TLabel*)FindComponent(tempStr);
-		if(p_lb != NULL) p_lb->Caption = m_Player[i].ServerIdx + 1; // +1 !!!
+		if(p_lb != NULL) {
+			if(m_Player[i].Connected) p_lb->Caption = m_Player[i].ServerIdx + 1; // +1 !!!
+			else p_lb->Caption = L"";
+		}
 		p_lb = NULL;
 
 
@@ -1216,15 +1240,101 @@ void __fastcall TFormMain::RefreshInnerGameRoom() {
 		tempStr = L"lb_PlayerID_";
 		tempStr += (i + 1);
 		p_lb = (TLabel*)FindComponent(tempStr);
-		if(p_lb != NULL) p_lb->Caption = m_Player[i].UserID;
+		if(p_lb != NULL) {
+			if(m_Player[i].Connected) p_lb->Caption = m_Player[i].UserID;
+			else p_lb->Caption = L"";
+		}
 		p_lb = NULL;
 
 		// Player Grade
 		tempStr = L"lb_PlayerGrade_";
 		tempStr += (i + 1);
 		p_lb = (TLabel*)FindComponent(tempStr);
-		if(p_lb != NULL) p_lb->Caption = GetLevelString(m_Player[i].Grade);
+		if(p_lb != NULL) {
+			if(m_Player[i].Connected) p_lb->Caption = GetLevelString(m_Player[i].Grade);
+			else p_lb->Caption = L"";
+		}
 		p_lb = NULL;
+	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::ClickEnterRoomButton(TObject *Sender)
+{
+	if(!Send_EnterRoomMessage(((TAdvGlassButton*)Sender)->Tag)) {
+    	Application->MessageBoxW(L"Fail to enter the room", L"Entering Room", MB_OK | MB_ICONERROR);
+	}
+}
+//---------------------------------------------------------------------------
+
+bool __fastcall TFormMain::Send_EnterRoomMessage(int _RoomIdx) {
+
+	// Common
+	UnicodeString tempStr = L"";
+	int t_sendrst = 0;
+	unsigned short t_PacketLen = 5; // Fixed
+
+	// Check Client Socket
+	if(m_sock_Client == INVALID_SOCKET) {
+		tempStr.sprintf(L"Client socket is invalid");
+		PrintLog(tempStr);
+		return false;
+	}
+
+	// Check Client Thread
+	if(m_ClientThread == NULL) {
+		tempStr.sprintf(L"Client Thread is invalid");
+		PrintLog(tempStr);
+		return false;
+	}
+
+	// Check Connection
+	if(m_ClientThread->isConnected == false) {
+		tempStr.sprintf(L"Client is not connected");
+		PrintLog(tempStr);
+		return false;
+	}
+
+	// Reset Send Buffer
+	memset(m_ClientThread->sendBuff, 0, TCP_SEND_BUF_SIZE);
+	m_ClientThread->p_sendText = NULL;
+
+	// Set Header Data
+	m_ClientThread->sendBuff[0] = 0x47;
+	memcpy(&m_ClientThread->sendBuff[1], &t_PacketLen, 2);
+	m_ClientThread->sendBuff[3] = DATA_TYPE_ENTER_GAME_ROOM;
+
+	// Input Data Into Packet Data
+	m_ClientThread->sendBuff[4] = (BYTE)_RoomIdx;
+
+	// Send to Server
+	t_sendrst = send(m_sock_Client, (char*)m_ClientThread->sendBuff, t_PacketLen, 0);
+	if(t_sendrst == 0) return false;
+
+	// Function End Routine
+	tempStr.sprintf(L"Send Byte(Enter Room) : %d", t_sendrst);
+	PrintLog(tempStr);
+	return true;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::Receive_EnterRoomResult(SERVERDATA _serverData) {
+
+	// Common
+	UnicodeString tempStr = L"";
+
+	m_MyIdx = _serverData.Data[4];
+
+	//tempStr.sprintf(L"%d received room enter", m_MyIdx);
+	//ShowMessage(tempStr);
+
+	if(m_MyIdx != 0) {
+		lb_MyPlayNumber->Caption = m_MyIdx;
+		lb_MyID->Caption = m_ID;
+		lb_MyGrade->Caption = m_Grade;
+		Notebook_Main->PageIndex = 2; // GAME
+	} else {
+		ShowMessage(L"Room is Full...");
 	}
 }
 //---------------------------------------------------------------------------

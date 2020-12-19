@@ -302,6 +302,7 @@ __published:	// IDE-managed Components
 	void __fastcall btn_Send_LobbyChatClick(TObject *Sender);
 	void __fastcall ed_Chat_LobbyKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall btn_MakeRoomClick(TObject *Sender);
+	void __fastcall ClickEnterRoomButton(TObject *Sender);
 
 private:	// User declarations
 public:		// User declarations
@@ -327,6 +328,9 @@ public:
 	SOCKET m_sock_Client;
 	UnicodeString m_ID;
 	UnicodeString m_Grade;
+	int m_WinCount;
+	int m_DefCount;
+	int m_WinRate;
 	BYTE m_MyIdx;
 	ROOMSTATUS m_RoomStatus;
 	PLAYER m_Player[5];
@@ -339,6 +343,7 @@ public: // Do Communication
 	int __fastcall Send_SignUpMessage(SIGNUPINFO _info);
 	int __fastcall Send_MakingRoomMessage(MAKINGROOMINFO _info);
 	int __fastcall Send_LobbyChatMessage();
+	bool __fastcall Send_EnterRoomMessage(int _RoomIdx);
 
 
 
@@ -346,6 +351,7 @@ public: // Receive Routine
 	void __fastcall Receive_SignUpResult(SERVERDATA _serverData);
 	void __fastcall Receive_SignInResult(SERVERDATA _serverData);
 	void __fastcall Receive_MakingRoomResult(SERVERDATA _serverData);
+	void __fastcall Receive_EnterRoomResult(SERVERDATA _serverData);
 
 	void __fastcall Receive_LobbyChatData(SERVERDATA _serverData);
 	void __fastcall Receive_LobbyPlayerListData(SERVERDATA _serverData);
