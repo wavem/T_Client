@@ -6388,10 +6388,10 @@ object FormMain: TFormMain
             OnClick = btn_Send_InGameChatClick
           end
           object btn_QUIT_InGame: TAdvGlassButton
-            Left = 939
-            Top = 405
-            Width = 222
-            Height = 32
+            Left = 1058
+            Top = 373
+            Width = 114
+            Height = 72
             Cursor = crHandPoint
             BackColor = clNavy
             Caption = 'QUIT'
@@ -6414,13 +6414,14 @@ object FormMain: TFormMain
           end
           object btn_StartGame: TAdvGlassButton
             Left = 937
-            Top = 289
-            Width = 222
-            Height = 32
+            Top = 373
+            Width = 114
+            Height = 72
             Cursor = crHandPoint
             BackColor = clNavy
             Caption = 'START'
             CornerRadius = 16
+            Enabled = False
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clGradientActiveCaption
             Font.Height = -16
@@ -6438,7 +6439,7 @@ object FormMain: TFormMain
           end
           object btn_PauseGame: TAdvGlassButton
             Left = 937
-            Top = 367
+            Top = 255
             Width = 222
             Height = 32
             Cursor = crHandPoint
@@ -6461,8 +6462,8 @@ object FormMain: TFormMain
             Version = '1.3.0.2'
           end
           object btn_Setting_InGame: TAdvGlassButton
-            Left = 937
-            Top = 327
+            Left = 939
+            Top = 293
             Width = 222
             Height = 32
             Cursor = crHandPoint
@@ -6486,7 +6487,7 @@ object FormMain: TFormMain
           end
           object btn_Log_InGame: TAdvGlassButton
             Left = 937
-            Top = 251
+            Top = 331
             Width = 222
             Height = 32
             Cursor = crHandPoint

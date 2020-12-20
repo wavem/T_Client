@@ -56,6 +56,9 @@ void __fastcall TFormMakingRoomDlg::ReceiveMakingRoomResult(TMessage &_msg) {
 	t_rst = *p_rst;
 
 	if(t_rst == ERR_MAKING_ROOM_SUCCESS) {
+		FormMain->btn_StartGame->Enabled = true;
+		FormMain->memo_Chat_Game->Clear();
+		FormMain->ed_Chat_InGame->Text = L"";
 		FormMain->Notebook_Main->PageIndex = 2; // Enter Game Room
 		this->Close();
 	} else {

@@ -292,7 +292,6 @@ __published:	// IDE-managed Components
 	void __fastcall btn_LoginClick(TObject *Sender);
 	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
 	void __fastcall btn_EnterClick(TObject *Sender);
-	void __fastcall btn_QUIT_InGameClick(TObject *Sender);
 	void __fastcall btn_LogOutClick(TObject *Sender);
 	void __fastcall btn_InformationClick(TObject *Sender);
 	void __fastcall btn_DebugClick(TObject *Sender);
@@ -305,6 +304,7 @@ __published:	// IDE-managed Components
 	void __fastcall ClickEnterRoomButton(TObject *Sender);
 	void __fastcall btn_Send_InGameChatClick(TObject *Sender);
 	void __fastcall ed_Chat_InGameKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
+	void __fastcall btn_QUIT_InGameClick(TObject *Sender);
 
 
 private:	// User declarations
@@ -339,6 +339,7 @@ public:
 	BYTE m_MyRoomIdx;
 	ROOMSTATUS m_RoomStatus;
 	PLAYER m_Player[5];
+	BYTE m_RoomMasterIdx;
 
 public: // Prepare Communication
 	bool __fastcall CreateTCPSocket();
@@ -350,6 +351,7 @@ public: // Do Communication
 	int __fastcall Send_LobbyChatMessage();
 	int __fastcall Send_InGameChatMessage();
 	bool __fastcall Send_EnterRoomMessage(int _RoomIdx);
+	bool __fastcall Send_EscapeRoomMessage(int _RoomIdx);
 
 
 
@@ -358,6 +360,7 @@ public: // Receive Routine
 	void __fastcall Receive_SignInResult(SERVERDATA _serverData);
 	void __fastcall Receive_MakingRoomResult(SERVERDATA _serverData);
 	void __fastcall Receive_EnterRoomResult(SERVERDATA _serverData);
+	void __fastcall Receive_EscapeRoomResult(SERVERDATA _serverData);
 
 	void __fastcall Receive_LobbyChatData(SERVERDATA _serverData);
 	void __fastcall Receive_InGameChatData(SERVERDATA _serverData);

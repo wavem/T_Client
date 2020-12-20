@@ -109,6 +109,7 @@ void __fastcall TFormMain::InitProgram() {
 	m_DefCount = 0;
 	m_WinRate = 0;
 	m_MyRoomIdx = 0;
+	m_RoomMasterIdx = 0;
 
 	// Init Lobby Game Room
 	InitLobbyGameRoom();
@@ -327,11 +328,6 @@ void __fastcall TFormMain::btn_EnterClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TFormMain::btn_QUIT_InGameClick(TObject *Sender)
-{
-	Notebook_Main->PageIndex = 1; // Lobby
-}
-//---------------------------------------------------------------------------
 void __fastcall TFormMain::btn_LogOutClick(TObject *Sender)
 {
 	Notebook_Main->PageIndex = 0; // Log In Screen
@@ -643,6 +639,7 @@ void __fastcall TFormMain::ReceiveServerData(TMessage &_msg) {
 		break;
 
 	case DATA_TYPE_ESCAPE_GAME_ROOM:
+		Receive_EscapeRoomResult(t_serverData);
 		break;
 
 	case DATA_TYPE_HEART_BEAT:
@@ -732,6 +729,7 @@ void __fastcall TFormMain::Receive_MakingRoomResult(SERVERDATA _serverData) {
 	} else { // Receive Room Number
 		t_rst = ERR_MAKING_ROOM_SUCCESS;
 		m_MyIdx = 1; // My Idx is 1. Because, this room is created by me.
+		m_RoomMasterIdx = m_MyIdx; // I am Room Master !!
 		lb_MyPlayNumber->Caption = m_MyIdx;
 		m_MyRoomIdx = t_resultData;
 	}
@@ -1055,6 +1053,9 @@ void __fastcall TFormMain::Receive_LobbyRoomStatusData(SERVERDATA _serverData) {
 		if(t_State == 0) {
 			// Reset Empty Game Room
 			ResetGameRoom(i);
+			// Roop End Routine
+			memset(temp, 0, sizeof(temp));
+			t_BuffIdx += 33;
 			continue;
 		}
 
@@ -1193,6 +1194,7 @@ void __fastcall TFormMain::Receive_InnerRoomStatusData(SERVERDATA _serverData) {
 	m_RoomStatus.RoomNumber = _serverData.Data[8];
 	memcpy(t_Title, &_serverData.Data[9], 28);
 	m_RoomStatus.Title = t_Title;
+	m_RoomMasterIdx = _serverData.Data[253];
 
 	// Player Info
 	//t_BuffIdx = 37;
@@ -1229,6 +1231,13 @@ void __fastcall TFormMain::RefreshInnerGameRoom() {
 	// Common
 	UnicodeString tempStr = L"";
 	TLabel* p_lb = NULL;
+
+	// Room Master Check
+	if(m_RoomMasterIdx == m_MyIdx) {
+		btn_StartGame->Enabled = true;
+	} else {
+		btn_StartGame->Enabled = false;
+	}
 
 	// Refresh Inner Game Room UI
 	for(int i = 0 ; i < 5 ; i++) {
@@ -1330,18 +1339,15 @@ bool __fastcall TFormMain::Send_EnterRoomMessage(int _RoomIdx) {
 
 void __fastcall TFormMain::Receive_EnterRoomResult(SERVERDATA _serverData) {
 
-	// Common
-	UnicodeString tempStr = L"";
-
 	m_MyIdx = _serverData.Data[4];
-
-	//tempStr.sprintf(L"%d received room enter", m_MyIdx);
-	//ShowMessage(tempStr);
 
 	if(m_MyIdx != 0) {
 		lb_MyPlayNumber->Caption = m_MyIdx;
 		lb_MyID->Caption = m_ID;
 		lb_MyGrade->Caption = m_Grade;
+		memo_Chat_Game->Clear();
+		ed_Chat_InGame->Text = L"";
+		btn_StartGame->Enabled = false;
 		Notebook_Main->PageIndex = 2; // GAME
 	} else {
 		ShowMessage(L"Room is Full...");
@@ -1445,3 +1451,86 @@ void __fastcall TFormMain::Receive_InGameChatData(SERVERDATA _serverData) {
 	delete[] temp;
 }
 //---------------------------------------------------------------------------
+
+void __fastcall TFormMain::btn_QUIT_InGameClick(TObject *Sender)
+{
+	if(Send_EscapeRoomMessage(m_MyRoomIdx) == false) Application->MessageBoxW(L"Error", L"Escape Room", MB_OK | MB_ICONERROR);
+}
+//---------------------------------------------------------------------------
+
+bool __fastcall TFormMain::Send_EscapeRoomMessage(int _RoomIdx) {
+
+	// Common
+	UnicodeString tempStr = L"";
+	int t_sendrst = 0;
+	unsigned short t_PacketLen = 5; // Fixed
+
+	// Check Client Socket
+	if(m_sock_Client == INVALID_SOCKET) {
+		tempStr.sprintf(L"Client socket is invalid");
+		PrintLog(tempStr);
+		return false;
+	}
+
+	// Check Client Thread
+	if(m_ClientThread == NULL) {
+		tempStr.sprintf(L"Client Thread is invalid");
+		PrintLog(tempStr);
+		return false;
+	}
+
+	// Check Connection
+	if(m_ClientThread->isConnected == false) {
+		tempStr.sprintf(L"Client is not connected");
+		PrintLog(tempStr);
+		return false;
+	}
+
+	// Reset Send Buffer
+	memset(m_ClientThread->sendBuff, 0, TCP_SEND_BUF_SIZE);
+	m_ClientThread->p_sendText = NULL;
+
+	// Set Header Data
+	m_ClientThread->sendBuff[0] = 0x47;
+	memcpy(&m_ClientThread->sendBuff[1], &t_PacketLen, 2);
+	m_ClientThread->sendBuff[3] = DATA_TYPE_ESCAPE_GAME_ROOM;
+
+	// Input Data Into Packet Data
+	m_ClientThread->sendBuff[4] = (BYTE)_RoomIdx;
+
+	// Send to Server
+	t_sendrst = send(m_sock_Client, (char*)m_ClientThread->sendBuff, t_PacketLen, 0);
+	if(t_sendrst == 0) return false;
+
+	// Function End Routine
+	tempStr.sprintf(L"Send Byte(Escape Room) : %d", t_sendrst);
+	PrintLog(tempStr);
+	return true;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::Receive_EscapeRoomResult(SERVERDATA _serverData) {
+
+	BYTE t_rst = _serverData.Data[4];
+	if(t_rst != 0) { // Success
+		m_MyIdx = 0; // Init '0'
+		m_MyRoomIdx = 0;
+		memset(&m_RoomStatus, 0, sizeof(m_RoomStatus));
+		for(int i = 0 ; i < 5 ; i++) {
+			memset(&m_Player[i], 0, sizeof(PLAYER));
+		}
+
+		lb_MyPlayNumber->Caption = L"";
+		lb_MyID->Caption = L"";
+		lb_MyGrade->Caption = L"";
+		memo_Chat_Game->Clear();
+		ed_Chat_InGame->Text = L"";
+		btn_StartGame->Enabled = false;
+		Notebook_Main->PageIndex = 1; // LOBBY
+	} else {
+		Application->MessageBoxW(L"Fail to escape Room", L"Escape Room", MB_OK | MB_ICONERROR);
+	}
+}
+//---------------------------------------------------------------------------
+
+
