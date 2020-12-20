@@ -356,6 +356,41 @@ public:
 
 
 
+public: // Prepare Communication
+	bool __fastcall CreateTCPSocket();
+	bool __fastcall CreateClientThread();
+
+public: // Do Communication
+	int __fastcall Send_SignUpMessage(SIGNUPINFO _info);
+	int __fastcall Send_MakingRoomMessage(MAKINGROOMINFO _info);
+	int __fastcall Send_LobbyChatMessage();
+	int __fastcall Send_InGameChatMessage();
+	bool __fastcall Send_EnterRoomMessage(int _RoomIdx);
+	bool __fastcall Send_EscapeRoomMessage(int _RoomIdx);
+	bool __fastcall Send_GameStartMessage(int _RoomIdx);
+
+
+
+public: // Receive Routine
+	void __fastcall Receive_SignUpResult(SERVERDATA _serverData);
+	void __fastcall Receive_SignInResult(SERVERDATA _serverData);
+	void __fastcall Receive_MakingRoomResult(SERVERDATA _serverData);
+	void __fastcall Receive_EnterRoomResult(SERVERDATA _serverData);
+	void __fastcall Receive_EscapeRoomResult(SERVERDATA _serverData);
+
+	void __fastcall Receive_LobbyChatData(SERVERDATA _serverData);
+	void __fastcall Receive_InGameChatData(SERVERDATA _serverData);
+	void __fastcall Receive_LobbyPlayerListData(SERVERDATA _serverData);
+	void __fastcall Receive_LobbyRoomStatusData(SERVERDATA _serverData);
+	void __fastcall Receive_InnerRoomStatusData(SERVERDATA _serverData);
+	void __fastcall Receive_InnerRoomCMDData(SERVERDATA _serverData);
+	void __fastcall Receive_BlockRoomStatusData(SERVERDATA _serverData);
+
+
+
+
+
+
 
 
 // MEMBER VARIABLES : IN GAME
@@ -371,6 +406,7 @@ public:
 // MEMBER FUNCTIONS : IN GAME
 public:
 	void __fastcall InitTetris();
+	void __fastcall StartGame();
 
 public: // Control Information
 	void __fastcall AddScore(int _Value);
@@ -378,7 +414,6 @@ public: // Control Information
 	int m_ComboCnt;
 	int m_OldScore;
 	int m_CleardLineCnt;
-
 
 public: // Display
 	void __fastcall RefreshMyGameView();
@@ -425,34 +460,6 @@ public: // ITEM
 
 
 
-
-public: // Prepare Communication
-	bool __fastcall CreateTCPSocket();
-	bool __fastcall CreateClientThread();
-
-public: // Do Communication
-	int __fastcall Send_SignUpMessage(SIGNUPINFO _info);
-	int __fastcall Send_MakingRoomMessage(MAKINGROOMINFO _info);
-	int __fastcall Send_LobbyChatMessage();
-	int __fastcall Send_InGameChatMessage();
-	bool __fastcall Send_EnterRoomMessage(int _RoomIdx);
-	bool __fastcall Send_EscapeRoomMessage(int _RoomIdx);
-
-
-
-public: // Receive Routine
-	void __fastcall Receive_SignUpResult(SERVERDATA _serverData);
-	void __fastcall Receive_SignInResult(SERVERDATA _serverData);
-	void __fastcall Receive_MakingRoomResult(SERVERDATA _serverData);
-	void __fastcall Receive_EnterRoomResult(SERVERDATA _serverData);
-	void __fastcall Receive_EscapeRoomResult(SERVERDATA _serverData);
-
-	void __fastcall Receive_LobbyChatData(SERVERDATA _serverData);
-	void __fastcall Receive_InGameChatData(SERVERDATA _serverData);
-	void __fastcall Receive_LobbyPlayerListData(SERVERDATA _serverData);
-	void __fastcall Receive_LobbyRoomStatusData(SERVERDATA _serverData);
-	void __fastcall Receive_InnerRoomStatusData(SERVERDATA _serverData);
-	void __fastcall Receive_BlockRoomStatusData(SERVERDATA _serverData);
 
 
 public: // Message Handler

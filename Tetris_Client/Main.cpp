@@ -662,6 +662,7 @@ void __fastcall TFormMain::ReceiveServerData(TMessage &_msg) {
 		break;
 
 	case DATA_TYPE_INGAME_CMD:
+		Receive_InnerRoomCMDData(t_serverData);
 		break;
 
 	case DATA_TYPE_MAKE_GAME_ROOM:
@@ -1570,39 +1571,168 @@ void __fastcall TFormMain::Receive_EscapeRoomResult(SERVERDATA _serverData) {
 
 void __fastcall TFormMain::btn_StartGameClick(TObject *Sender)
 {
-	//if(m_IsSingleMode) {
-		//ShowMessage(L"Single Mode Start");
+	if(m_IsSingleMode) {
+		StartGame();
+		return;
+	}
 
-		///***** INIT BEFORE GAME START *****///
-		m_Score = 0;
-		m_ComboCnt = 0;
-		m_OldScore = 0;
-		m_CleardLineCnt = 0;
-		//lb_Combo_Value->Caption = m_ComboCnt;
-		//lb_Time_Value->Caption = L"00:00:00";
-		m_time_H = 0;
-		m_time_M = 0;
-		m_time_S = 0;
-		m_Speed = 1000;
-		m_time_cnt = 0;
-		tm_Level->Interval = m_Speed;
+	if(Send_GameStartMessage(m_MyRoomIdx) == false) {
+		ShowMessage(L"Send Fail..");
+	}
+	// Send Start CMD
+}
+//---------------------------------------------------------------------------
 
-		AddScore(m_Score);
-		memset(&(m_MyView[0][0]), 0, MAX_GRID_X * MAX_GRID_Y);
-		//RefreshOthersGameView(); // THIS FUNC MUST BE HERE (after memset 0)
-		int num = 0;
-		num = rand() % 7;
-		//if(ed_BLOCK->Text != L"") num = StrToInt(ed_BLOCK->Text);
-		m_Block = new C_BLOCK(num, m_MyView, &m_CreateSuccess);
-		RefreshMyGameView();
-		tm_Level->Enabled = true;
-		tm_PlayTime->Enabled = true;
-		grid_Mine->SetFocus();
+void __fastcall TFormMain::StartGame() {
 
-		///***** SETTING NEXT BLOCK *****///
-		m_NextBlockIdx = rand() % 7;
-		RefreshNextBlock();
-	//}
+	///***** INIT BEFORE GAME START *****///
+	m_Score = 0;
+	m_ComboCnt = 0;
+	m_OldScore = 0;
+	m_CleardLineCnt = 0;
+	//lb_Combo_Value->Caption = m_ComboCnt;
+	//lb_Time_Value->Caption = L"00:00:00";
+	m_time_H = 0;
+	m_time_M = 0;
+	m_time_S = 0;
+	m_Speed = 1000;
+	m_time_cnt = 0;
+	tm_Level->Interval = m_Speed;
+
+	AddScore(m_Score);
+	memset(&(m_MyView[0][0]), 0, MAX_GRID_X * MAX_GRID_Y);
+	//RefreshOthersGameView(); // THIS FUNC MUST BE HERE (after memset 0)
+	int num = 0;
+	num = rand() % 7;
+	//if(ed_BLOCK->Text != L"") num = StrToInt(ed_BLOCK->Text);
+	m_Block = new C_BLOCK(num, m_MyView, &m_CreateSuccess);
+	RefreshMyGameView();
+	tm_Level->Enabled = true;
+	tm_PlayTime->Enabled = true;
+	grid_Mine->SetFocus();
+
+	///***** SETTING NEXT BLOCK *****///
+	m_NextBlockIdx = rand() % 7;
+	RefreshNextBlock();
+}
+//---------------------------------------------------------------------------
+
+bool __fastcall TFormMain::Send_GameStartMessage(int _RoomIdx) {
+
+	// Common
+	UnicodeString tempStr = L"";
+	int t_sendrst = 0;
+	unsigned short t_PacketLen = 30; // Fixed
+
+	// Check Client Socket
+	if(m_sock_Client == INVALID_SOCKET) {
+		tempStr.sprintf(L"Client socket is invalid");
+		PrintLog(tempStr);
+		return false;
+	}
+
+	// Check Client Thread
+	if(m_ClientThread == NULL) {
+		tempStr.sprintf(L"Client Thread is invalid");
+		PrintLog(tempStr);
+		return false;
+	}
+
+	// Check Connection
+	if(m_ClientThread->isConnected == false) {
+		tempStr.sprintf(L"Client is not connected");
+		PrintLog(tempStr);
+		return false;
+	}
+
+	// Reset Send Buffer
+	memset(m_ClientThread->sendBuff, 0, TCP_SEND_BUF_SIZE);
+	m_ClientThread->p_sendText = NULL;
+
+	// Set Header Data
+	m_ClientThread->sendBuff[0] = 0x47;
+	memcpy(&m_ClientThread->sendBuff[1], &t_PacketLen, 2);
+	m_ClientThread->sendBuff[3] = DATA_TYPE_INGAME_CMD;
+
+	// Input Data Into Packet Data
+	m_ClientThread->sendBuff[4] = (BYTE)_RoomIdx;
+	m_ClientThread->sendBuff[5] = 0x01; // Start Signal
+
+	// Send to Server
+	t_sendrst = send(m_sock_Client, (char*)m_ClientThread->sendBuff, t_PacketLen, 0);
+	if(t_sendrst == 0) return false;
+
+	// Function End Routine
+	tempStr.sprintf(L"Send Byte(Game Start Button) : %d", t_sendrst);
+	PrintLog(tempStr);
+	return true;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::Receive_InnerRoomCMDData(SERVERDATA _serverData) {
+
+	// Common
+	UnicodeString tempStr = L"";
+	int t_BuffIdx = 0;
+	int t_PlayerIdx = 0;
+	int t_CurrentIdx = 0;
+	wchar_t t_Title[28];
+	wchar_t t_UserID[30];
+	BYTE t_RoomNumber = 0;
+	BYTE t_StartSignal = 0;
+
+	// Check Room Number
+	t_RoomNumber = _serverData.Data[4];
+	if(t_RoomNumber != m_MyRoomIdx) {
+		return;
+	}
+
+	t_StartSignal = _serverData.Data[5];
+	if(t_StartSignal == 0x01) {
+		StartGame();
+		return;
+	}
+
+
+#if 0
+	// Room Info
+	m_RoomStatus.State = _serverData.Data[4];
+	m_RoomStatus.TeamType = _serverData.Data[5];
+	m_RoomStatus.ItemType = _serverData.Data[6];
+	m_RoomStatus.SpeedLevel = _serverData.Data[7];
+	m_RoomStatus.RoomNumber = _serverData.Data[8];
+	memcpy(t_Title, &_serverData.Data[9], 28);
+	m_RoomStatus.Title = t_Title;
+	m_RoomMasterIdx = _serverData.Data[253];
+
+	// Player Info
+	//t_BuffIdx = 37;
+	for(int i = 0 ; i < 6 ; i++) {
+		t_BuffIdx = 37 + (36 * i);
+		t_CurrentIdx += 1;
+		if(t_CurrentIdx == m_MyIdx) {
+			// 여기서 레벨을 받기보단 로그인 했을 때 받는게 나을꺼같은데
+			// 여기다 한 이유는... 혹시라도 게임하다가 레벨업 할까봐....ㅎㅎ
+			lb_MyPlayNumber->Caption = m_MyIdx;
+			m_Grade = GetLevelString(_serverData.Data[t_BuffIdx + 31]);
+			continue;
+		}
+
+		m_Player[t_PlayerIdx].Connected = _serverData.Data[t_BuffIdx];
+		memcpy(t_UserID, &_serverData.Data[t_BuffIdx + 1], 30);
+		tempStr = t_UserID;
+		m_Player[t_PlayerIdx].UserID = tempStr;
+		m_Player[t_PlayerIdx].Grade = _serverData.Data[t_BuffIdx + 31];
+		m_Player[t_PlayerIdx].Life = _serverData.Data[t_BuffIdx + 32];
+		m_Player[t_PlayerIdx].State = _serverData.Data[t_BuffIdx + 33];
+		m_Player[t_PlayerIdx].TeamIdx = _serverData.Data[t_BuffIdx + 34];
+		m_Player[t_PlayerIdx].Win = _serverData.Data[t_BuffIdx + 35];
+		m_Player[t_PlayerIdx].ServerIdx = i;
+		t_PlayerIdx++;
+	}
+
+	RefreshInnerGameRoom();
+#endif
 }
 //---------------------------------------------------------------------------
 
@@ -1805,6 +1935,7 @@ void __fastcall TFormMain::grid_MineKeyDown(TObject *Sender, WORD &Key, TShiftSt
 
 	///***** KEY MAP *****///
 	if(Key == VK_ESCAPE) {
+		if(m_IsSingleMode == false) return;
 		m_IsPause = !m_IsPause;
 		if(m_IsPause) {
 			tm_Level->Enabled = false;
@@ -1881,7 +2012,7 @@ void __fastcall TFormMain::tm_LevelTimer(TObject *Sender)
 		delete m_Block;
 		m_Block = NULL;
 		m_Block = new C_BLOCK(m_NextBlockIdx, m_MyView, &m_CreateSuccess);
-		CheckCombo();
+		//CheckCombo();
 
 		///***** SETTING NEXT BLOCK *****///
 		m_NextBlockIdx = rand() % 7;
@@ -1918,9 +2049,9 @@ void __fastcall TFormMain::tm_PlayTimeTimer(TObject *Sender)
 
 	m_time_cnt++;
 	if(m_time_cnt % 60 == 0) {
-		m_Speed -= 100;
-		tm_Level->Interval = m_Speed;
-		tempStr.sprintf(L"SPEED UP : %.1f Sec", (double)m_Speed / 1000);
+		//m_Speed -= 100;
+		//tm_Level->Interval = m_Speed;
+		//tempStr.sprintf(L"SPEED UP : %.1f Sec", (double)m_Speed / 1000);
 		//PringMsg(tempStr);
 		//if(m_Speed == 100) PrintMsg(L"MAX SPEED");
 	}
