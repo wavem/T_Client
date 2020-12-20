@@ -108,6 +108,7 @@ void __fastcall TFormMain::InitProgram() {
 	m_WinCount = 0;
 	m_DefCount = 0;
 	m_WinRate = 0;
+	m_MyRoomIdx = 0;
 
 	// Init Lobby Game Room
 	InitLobbyGameRoom();
@@ -210,6 +211,11 @@ void __fastcall TFormMain::ExitProgram() {
 
 void __fastcall TFormMain::PrintChat_Lobby(UnicodeString _str) {
 	int t_Idx = memo_Chat_Lobby->Lines->Add(_str);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::PrintChat_InGame(UnicodeString _str) {
+	int t_Idx = memo_Chat_Game->Lines->Add(_str);
 }
 //---------------------------------------------------------------------------
 
@@ -619,6 +625,7 @@ void __fastcall TFormMain::ReceiveServerData(TMessage &_msg) {
 		break;
 
 	case DATA_TYPE_INGAME_CHATTING:
+		Receive_InGameChatData(t_serverData);
 		break;
 
 	case DATA_TYPE_CHANGE_USER_INFO:
@@ -720,12 +727,13 @@ void __fastcall TFormMain::Receive_MakingRoomResult(SERVERDATA _serverData) {
 	BYTE t_resultData = _serverData.Data[4];
 
 	// Send Message To Making Room Dlg
-	if(t_resultData == 0) { // Success
+	if(t_resultData == 0) { // Fail
+		t_rst = ERR_MAKING_ROOM_FAILED;
+	} else { // Receive Room Number
 		t_rst = ERR_MAKING_ROOM_SUCCESS;
 		m_MyIdx = 1; // My Idx is 1. Because, this room is created by me.
 		lb_MyPlayNumber->Caption = m_MyIdx;
-	} else {
-		t_rst = ERR_MAKING_ROOM_FAILED;
+		m_MyRoomIdx = t_resultData;
 	}
 	SendMessage(m_pDlgMakingRoom->Handle, MSG_TRY_TO_MAKING_ROOM, (unsigned int)&t_rst, 0x10);
 }
@@ -1261,9 +1269,11 @@ void __fastcall TFormMain::RefreshInnerGameRoom() {
 
 void __fastcall TFormMain::ClickEnterRoomButton(TObject *Sender)
 {
-	if(!Send_EnterRoomMessage(((TAdvGlassButton*)Sender)->Tag)) {
-    	Application->MessageBoxW(L"Fail to enter the room", L"Entering Room", MB_OK | MB_ICONERROR);
+	TAdvGlassButton* p_btn = (TAdvGlassButton*)Sender;
+	if(!Send_EnterRoomMessage(p_btn->Tag)) {
+		Application->MessageBoxW(L"Fail to enter the room", L"Entering Room", MB_OK | MB_ICONERROR);
 	}
+	m_MyRoomIdx = (BYTE)(p_btn->Tag);
 }
 //---------------------------------------------------------------------------
 
@@ -1339,3 +1349,99 @@ void __fastcall TFormMain::Receive_EnterRoomResult(SERVERDATA _serverData) {
 }
 //---------------------------------------------------------------------------
 
+void __fastcall TFormMain::btn_Send_InGameChatClick(TObject *Sender)
+{
+	//Send_LobbyChatMessage();
+	Send_InGameChatMessage();
+}
+//---------------------------------------------------------------------------
+
+int __fastcall TFormMain::Send_InGameChatMessage() {
+
+	// Common
+	UnicodeString tempStr = L"";
+	int t_TextLen = 0;
+	int t_sendrst = 0;
+	unsigned short t_PacketLen = 0;
+
+	// Check Client Socket
+	if(m_sock_Client == INVALID_SOCKET) {
+		tempStr.sprintf(L"Client socket is invalid");
+		PrintLog(tempStr);
+		return ERR_DEFAULT_SOCKET;
+	}
+
+	// Check Client Thread
+	if(m_ClientThread == NULL) {
+		tempStr.sprintf(L"Client thread is invalid");
+		PrintLog(tempStr);
+		return ERR_DEFAULT_THREAD;
+	}
+
+	// Check Connection
+	if(m_ClientThread->isConnected == false) {
+		tempStr.sprintf(L"Client is not connected");
+		PrintLog(tempStr);
+		return ERR_DEFAULT_COMM;
+	}
+
+	// Reset Send Buffer
+	memset(m_ClientThread->sendBuff, 0, TCP_SEND_BUF_SIZE);
+	m_ClientThread->p_sendText = NULL;
+
+	// Extract Chatting Text Data from Edit Control
+	tempStr = m_ID;
+	tempStr += L" : ";
+	tempStr += ed_Chat_InGame->Text;
+	t_TextLen = tempStr.Length() * 2 + 2;// 2 is NULL
+	t_PacketLen = t_TextLen + 4 + 1; // +1 is Room Number
+	m_ClientThread->p_sendText = (unsigned char*)tempStr.c_str();
+
+	// Set Header Data
+	m_ClientThread->sendBuff[0] = 0x47;
+	memcpy(&m_ClientThread->sendBuff[1], &t_PacketLen, 2);
+	m_ClientThread->sendBuff[3] = DATA_TYPE_INGAME_CHATTING;
+	m_ClientThread->sendBuff[4] = m_MyRoomIdx;
+	memcpy(&m_ClientThread->sendBuff[5], m_ClientThread->p_sendText, t_TextLen);
+
+	// Send to Server
+	t_sendrst = send(m_sock_Client, (char*)m_ClientThread->sendBuff, t_PacketLen, 0);
+
+	// Function End Routine
+	ed_Chat_InGame->Text = L"";
+	PrintLog(t_sendrst);
+	return ERR_DEFAULT_SUCCESS;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::ed_Chat_InGameKeyDown(TObject *Sender, WORD &Key, TShiftState Shift)
+{
+	if(Key == VK_RETURN) {
+		Send_InGameChatMessage();
+	} else if(Key == VK_ESCAPE) {
+		ed_Chat_InGame->Text = L"";
+	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::Receive_InGameChatData(SERVERDATA _serverData) {
+
+	// Common
+	UnicodeString tempStr = L"";
+	UnicodeString str_Chat = L"";
+	unsigned short t_RecvSize = 0;
+	SERVERDATA t_serverData = _serverData;
+
+	// Extract Information
+	memcpy(&t_RecvSize, &t_serverData.Data[1], 2);
+	//str_Chat.sprintf(L"Client[%02d] : ", t_ClientIdx);
+
+	// Receive Chatting Text and Print Out
+	wchar_t* temp = new wchar_t[t_RecvSize - 5];
+	memcpy(temp, &t_serverData.Data[5], t_RecvSize - 5);
+	tempStr = temp;
+	//str_Chat += tempStr; // Merge Text Message
+	PrintChat_InGame(tempStr);
+	delete[] temp;
+}
+//---------------------------------------------------------------------------

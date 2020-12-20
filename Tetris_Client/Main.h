@@ -303,6 +303,9 @@ __published:	// IDE-managed Components
 	void __fastcall ed_Chat_LobbyKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall btn_MakeRoomClick(TObject *Sender);
 	void __fastcall ClickEnterRoomButton(TObject *Sender);
+	void __fastcall btn_Send_InGameChatClick(TObject *Sender);
+	void __fastcall ed_Chat_InGameKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
+
 
 private:	// User declarations
 public:		// User declarations
@@ -315,6 +318,7 @@ public: // BASIC FUNCTIONS
 	void __fastcall ExitProgram();
 	void __fastcall PrintLog(UnicodeString _str);
 	void __fastcall PrintChat_Lobby(UnicodeString _str);
+	void __fastcall PrintChat_InGame(UnicodeString _str);
 	UnicodeString __fastcall GetLevelString(BYTE _num);
 	void __fastcall InitLobbyGameRoom();
 	void __fastcall ResetGameRoom(int _Num);
@@ -332,6 +336,7 @@ public:
 	int m_DefCount;
 	int m_WinRate;
 	BYTE m_MyIdx;
+	BYTE m_MyRoomIdx;
 	ROOMSTATUS m_RoomStatus;
 	PLAYER m_Player[5];
 
@@ -343,6 +348,7 @@ public: // Do Communication
 	int __fastcall Send_SignUpMessage(SIGNUPINFO _info);
 	int __fastcall Send_MakingRoomMessage(MAKINGROOMINFO _info);
 	int __fastcall Send_LobbyChatMessage();
+	int __fastcall Send_InGameChatMessage();
 	bool __fastcall Send_EnterRoomMessage(int _RoomIdx);
 
 
@@ -354,6 +360,7 @@ public: // Receive Routine
 	void __fastcall Receive_EnterRoomResult(SERVERDATA _serverData);
 
 	void __fastcall Receive_LobbyChatData(SERVERDATA _serverData);
+	void __fastcall Receive_InGameChatData(SERVERDATA _serverData);
 	void __fastcall Receive_LobbyPlayerListData(SERVERDATA _serverData);
 	void __fastcall Receive_LobbyRoomStatusData(SERVERDATA _serverData);
 	void __fastcall Receive_InnerRoomStatusData(SERVERDATA _serverData);

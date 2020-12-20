@@ -424,6 +424,7 @@ object FormMain: TFormMain
             BorderColor = 10240280
             EditAlign = eaDefault
             EmptyTextStyle = []
+            FocusFontColor = clMoneyGreen
             SoftBorder = True
             LabelFont.Charset = DEFAULT_CHARSET
             LabelFont.Color = clWindowText
@@ -441,7 +442,7 @@ object FormMain: TFormMain
             BorderStyle = bsNone
             Color = 7422746
             Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindow
+            Font.Color = clAqua
             Font.Height = -15
             Font.Name = #47569#51008' '#44256#46357
             Font.Style = [fsBold]
@@ -6331,6 +6332,7 @@ object FormMain: TFormMain
             BorderColor = 10240280
             EditAlign = eaDefault
             EmptyTextStyle = []
+            FocusFontColor = clMoneyGreen
             SoftBorder = True
             LabelFont.Charset = DEFAULT_CHARSET
             LabelFont.Color = clWindowText
@@ -6348,7 +6350,7 @@ object FormMain: TFormMain
             BorderStyle = bsNone
             Color = 7422746
             Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
+            Font.Color = clWhite
             Font.Height = -15
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
@@ -6357,6 +6359,7 @@ object FormMain: TFormMain
             TabOrder = 8
             Text = ''
             Visible = True
+            OnKeyDown = ed_Chat_InGameKeyDown
             Version = '3.3.5.3'
           end
           object btn_Send_InGameChat: TAdvGlassButton
@@ -6382,6 +6385,7 @@ object FormMain: TFormMain
             ShineColor = 15335424
             TabOrder = 9
             Version = '1.3.0.2'
+            OnClick = btn_Send_InGameChatClick
           end
           object btn_QUIT_InGame: TAdvGlassButton
             Left = 939
