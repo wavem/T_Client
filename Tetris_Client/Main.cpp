@@ -681,6 +681,7 @@ void __fastcall TFormMain::ReceiveServerData(TMessage &_msg) {
 		break;
 
 	case DATA_TYPE_INGAME_DATA:
+		Receive_InGameData(t_serverData);
 		break;
 
 	case DATA_TYPE_LOBBY_ROOMSTATUS:
@@ -1736,6 +1737,164 @@ void __fastcall TFormMain::Receive_InnerRoomCMDData(SERVERDATA _serverData) {
 }
 //---------------------------------------------------------------------------
 
+bool __fastcall TFormMain::Send_InGameDataMessage(int _RoomIdx) {
+
+	// Common
+	UnicodeString tempStr = L"";
+	int t_sendrst = 0;
+	unsigned short t_PacketLen = TCP_SEND_BUF_SIZE; // Fixed
+	int t_BuffIdx = 0;
+
+	// Check Client Socket
+	if(m_sock_Client == INVALID_SOCKET) {
+		tempStr.sprintf(L"Client socket is invalid");
+		PrintLog(tempStr);
+		return false;
+	}
+
+	// Check Client Thread
+	if(m_ClientThread == NULL) {
+		tempStr.sprintf(L"Client Thread is invalid");
+		PrintLog(tempStr);
+		return false;
+	}
+
+	// Check Connection
+	if(m_ClientThread->isConnected == false) {
+		tempStr.sprintf(L"Client is not connected");
+		PrintLog(tempStr);
+		return false;
+	}
+
+	// Reset Send Buffer
+	memset(m_ClientThread->sendBuff, 0, TCP_SEND_BUF_SIZE);
+	m_ClientThread->p_sendText = NULL;
+
+	// Set Header Data
+	m_ClientThread->sendBuff[0] = 0x47;
+	memcpy(&m_ClientThread->sendBuff[1], &t_PacketLen, 2);
+	m_ClientThread->sendBuff[3] = DATA_TYPE_INGAME_DATA;
+
+	// Input Data Into Packet Data
+	m_ClientThread->sendBuff[4] = (BYTE)_RoomIdx;
+	m_ClientThread->sendBuff[5] = m_MyIdx;
+
+	t_BuffIdx = 10;
+	for(int x = 0 ; x < MAX_GRID_X ; x++) {
+		for(int y = 3 ; y < MAX_GRID_Y ; y++) {
+			m_ClientThread->sendBuff[t_BuffIdx] = m_MyView[x][y];
+			t_BuffIdx++;
+		}
+	}
+
+	// Send to Server
+	t_sendrst = send(m_sock_Client, (char*)m_ClientThread->sendBuff, t_PacketLen, 0);
+	if(t_sendrst == 0) return false;
+
+	// Function End Routine
+	tempStr.sprintf(L"Send Byte(In Game Data) : %d", t_sendrst);
+	PrintLog(tempStr);
+	return true;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::Receive_InGameData(SERVERDATA _serverData) {
+
+	// Common
+	UnicodeString tempStr = L"";
+	int t_BuffIdx = 0;
+	int t_PlayerIdx = 0;
+	int t_CurrentIdx = 0;
+	BYTE t_RoomNumber = 0;
+
+	// Check Room Number
+	t_RoomNumber = _serverData.Data[4];
+	if(t_RoomNumber != m_MyRoomIdx) {
+		return;
+	}
+
+	// Input Received Data into Room Player Structure
+	for(int i = 0 ; i < 6 ; i++) {
+		t_BuffIdx = 10 + (200 * i);
+		t_CurrentIdx += 1;
+		if(t_CurrentIdx == m_MyIdx) {
+			continue;
+		}
+
+		for(int x = 0 ; x < 10 ; x++) {
+			for(int y = 0 ; y < 20 ; y++) {
+				m_Player[t_PlayerIdx].Block[x][y] = _serverData.Data[t_BuffIdx++];
+			}
+		}
+		t_PlayerIdx++;
+	}
+
+	// Refresh Other Game View Routine Here...
+	RefreshOthersGameView();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::RefreshOthersGameView() {
+	TAdvStringGrid *p_grid = NULL;
+	UnicodeString tempStr = L"";
+
+	for(int i = 1 ; i < 6 ; i++) {
+		tempStr.sprintf(L"grid_P%d", i);
+		p_grid = (TAdvStringGrid*)FindComponent(tempStr);
+		if(!p_grid) continue;
+		p_grid->Refresh();
+	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::OnDrawCell_OtherPlayer(TObject *Sender, int ACol, int ARow,
+		  TRect &Rect, TGridDrawState State)
+{
+	// Common
+	TAdvStringGrid *p_grid = (TAdvStringGrid*)Sender;
+	int t_PlayerTag = p_grid->Tag;
+	int t_FixedIdx = t_PlayerTag - 1;
+	BYTE t_Byte = 0;
+
+	// Extract
+	t_Byte = GetBlockData(m_Player[t_FixedIdx].Block[ACol][ARow]);
+	switch(t_Byte) {
+		case TYPE_BLOCK_O:
+			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_O];
+			break;
+		case TYPE_BLOCK_I:
+			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_I];
+			break;
+		case TYPE_BLOCK_T:
+			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_T];
+			break;
+		case TYPE_BLOCK_J:
+			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_J];
+			break;
+		case TYPE_BLOCK_L:
+			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_L];
+			break;
+		case TYPE_BLOCK_S:
+			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_S];
+			break;
+		case TYPE_BLOCK_Z:
+			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_Z];
+			break;
+		case TYPE_STATUS_ROCK:
+			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_R];
+			break;
+		case TYPE_ITEM_PLUS:
+			p_grid->Canvas->Brush->Bitmap = m_BmpList[ITEM_P];
+			break;
+		default:
+			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_N];
+			break;
+	}
+	p_grid->Canvas->FillRect(Rect);
+}
+//---------------------------------------------------------------------------
+
+
 
 
 
@@ -1958,6 +2117,7 @@ void __fastcall TFormMain::grid_MineKeyDown(TObject *Sender, WORD &Key, TShiftSt
 	if(Key == VK_DOWN) {
 		t_ret = m_Block->MoveDown();
 		if(t_ret) {
+			if(!m_IsSingleMode) Send_InGameDataMessage(m_MyRoomIdx);
 			delete m_Block;
 			m_Block = NULL;
 			//RefreshOthersGameView();
@@ -1972,6 +2132,7 @@ void __fastcall TFormMain::grid_MineKeyDown(TObject *Sender, WORD &Key, TShiftSt
 	if(Key == VK_SPACE) {
 		t_ret = m_Block->Drop();
 		if(t_ret) {
+			if(!m_IsSingleMode) Send_InGameDataMessage(m_MyRoomIdx);
 			delete m_Block;
 			m_Block = NULL;
 			//RefreshOthersGameView();
@@ -2009,6 +2170,7 @@ void __fastcall TFormMain::tm_LevelTimer(TObject *Sender)
 
 	bool t_ret = m_Block->MoveDown();
 	if(t_ret) {
+		if(!m_IsSingleMode) Send_InGameDataMessage(m_MyRoomIdx);
 		delete m_Block;
 		m_Block = NULL;
 		m_Block = new C_BLOCK(m_NextBlockIdx, m_MyView, &m_CreateSuccess);
@@ -2041,7 +2203,7 @@ void __fastcall TFormMain::tm_PlayTimeTimer(TObject *Sender)
 			++m_time_H;
 		}
 	}
-	tempStr.sprintf(L"%02d:%02d:%02d", m_time_H, m_time_M, m_time_S);
+	//tempStr.sprintf(L"%02d:%02d:%02d", m_time_H, m_time_M, m_time_S);
 	//lb_Time_Value->Caption = tempStr;
 
 	// SPEED UP

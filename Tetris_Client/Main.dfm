@@ -5372,6 +5372,7 @@ object FormMain: TFormMain
             ParentFont = False
           end
           object grid_P1: TAdvStringGrid
+            Tag = 1
             Left = 32
             Top = 32
             Width = 164
@@ -5392,6 +5393,7 @@ object FormMain: TFormMain
             Options = [goVertLine, goHorzLine]
             ScrollBars = ssNone
             TabOrder = 0
+            OnDrawCell = OnDrawCell_OtherPlayer
             HoverRowCells = [hcNormal, hcSelected]
             ActiveCellFont.Charset = DEFAULT_CHARSET
             ActiveCellFont.Color = clWindowText
@@ -5499,6 +5501,7 @@ object FormMain: TFormMain
             Version = '7.8.0.1'
           end
           object grid_P2: TAdvStringGrid
+            Tag = 2
             Left = 206
             Top = 32
             Width = 164
@@ -5519,6 +5522,7 @@ object FormMain: TFormMain
             Options = [goVertLine, goHorzLine]
             ScrollBars = ssNone
             TabOrder = 1
+            OnDrawCell = OnDrawCell_OtherPlayer
             HoverRowCells = [hcNormal, hcSelected]
             ActiveCellFont.Charset = DEFAULT_CHARSET
             ActiveCellFont.Color = clWindowText
@@ -5626,6 +5630,7 @@ object FormMain: TFormMain
             Version = '7.8.0.1'
           end
           object grid_P3: TAdvStringGrid
+            Tag = 3
             Left = 32
             Top = 415
             Width = 164
@@ -5646,6 +5651,7 @@ object FormMain: TFormMain
             Options = [goVertLine, goHorzLine]
             ScrollBars = ssNone
             TabOrder = 2
+            OnDrawCell = OnDrawCell_OtherPlayer
             HoverRowCells = [hcNormal, hcSelected]
             ActiveCellFont.Charset = DEFAULT_CHARSET
             ActiveCellFont.Color = clWindowText
@@ -5753,6 +5759,7 @@ object FormMain: TFormMain
             Version = '7.8.0.1'
           end
           object grid_P4: TAdvStringGrid
+            Tag = 4
             Left = 206
             Top = 415
             Width = 164
@@ -5773,6 +5780,7 @@ object FormMain: TFormMain
             Options = [goVertLine, goHorzLine]
             ScrollBars = ssNone
             TabOrder = 3
+            OnDrawCell = OnDrawCell_OtherPlayer
             HoverRowCells = [hcNormal, hcSelected]
             ActiveCellFont.Charset = DEFAULT_CHARSET
             ActiveCellFont.Color = clWindowText
@@ -5880,6 +5888,7 @@ object FormMain: TFormMain
             Version = '7.8.0.1'
           end
           object grid_P5: TAdvStringGrid
+            Tag = 5
             Left = 380
             Top = 415
             Width = 164
@@ -5900,6 +5909,7 @@ object FormMain: TFormMain
             Options = [goVertLine, goHorzLine]
             ScrollBars = ssNone
             TabOrder = 4
+            OnDrawCell = OnDrawCell_OtherPlayer
             HoverRowCells = [hcNormal, hcSelected]
             ActiveCellFont.Charset = DEFAULT_CHARSET
             ActiveCellFont.Color = clWindowText

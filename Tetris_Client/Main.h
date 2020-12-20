@@ -314,6 +314,8 @@ __published:	// IDE-managed Components
 	void __fastcall grid_MineKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall tm_LevelTimer(TObject *Sender);
 	void __fastcall tm_PlayTimeTimer(TObject *Sender);
+	void __fastcall OnDrawCell_OtherPlayer(TObject *Sender, int ACol, int ARow, TRect &Rect,
+          TGridDrawState State);
 
 
 
@@ -368,6 +370,7 @@ public: // Do Communication
 	bool __fastcall Send_EnterRoomMessage(int _RoomIdx);
 	bool __fastcall Send_EscapeRoomMessage(int _RoomIdx);
 	bool __fastcall Send_GameStartMessage(int _RoomIdx);
+	bool __fastcall Send_InGameDataMessage(int _RoomIdx);
 
 
 
@@ -384,6 +387,7 @@ public: // Receive Routine
 	void __fastcall Receive_LobbyRoomStatusData(SERVERDATA _serverData);
 	void __fastcall Receive_InnerRoomStatusData(SERVERDATA _serverData);
 	void __fastcall Receive_InnerRoomCMDData(SERVERDATA _serverData);
+	void __fastcall Receive_InGameData(SERVERDATA _serverData);
 	void __fastcall Receive_BlockRoomStatusData(SERVERDATA _serverData);
 
 
