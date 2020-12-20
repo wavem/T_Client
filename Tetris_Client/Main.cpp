@@ -1674,13 +1674,13 @@ void __fastcall TFormMain::Receive_InnerRoomCMDData(SERVERDATA _serverData) {
 
 	// Common
 	UnicodeString tempStr = L"";
-	int t_BuffIdx = 0;
-	int t_PlayerIdx = 0;
 	int t_CurrentIdx = 0;
-	wchar_t t_Title[28];
-	wchar_t t_UserID[30];
 	BYTE t_RoomNumber = 0;
 	BYTE t_StartSignal = 0;
+	BYTE t_StateMessage = 0;
+	BYTE t_PlayerIdx = 0;
+	BYTE t_ReceivedPlayerIdx = 0;
+	TAdvSmoothPanel* p_pn = NULL;
 
 	// Check Room Number
 	t_RoomNumber = _serverData.Data[4];
@@ -1693,6 +1693,25 @@ void __fastcall TFormMain::Receive_InnerRoomCMDData(SERVERDATA _serverData) {
 		StartGame();
 		return;
 	}
+
+	t_StateMessage = _serverData.Data[9];
+	t_ReceivedPlayerIdx = _serverData.Data[7];
+
+	if(t_ReceivedPlayerIdx == m_MyIdx) {
+		pn_Dead->Visible = true;
+		return;
+	}
+	for(int i = 0 ; i < 5 ; i++) {
+		if(m_Player[i].ServerIdx + 1 == t_ReceivedPlayerIdx) {
+			tempStr = L"pn_Dead_";
+			tempStr += (i + 1);
+			p_pn = (TAdvSmoothPanel*)FindComponent(tempStr);
+			if(p_pn != NULL) p_pn->Visible = true;
+			return;
+		}
+	}
+
+
 
 
 #if 0
@@ -1891,6 +1910,59 @@ void __fastcall TFormMain::OnDrawCell_OtherPlayer(TObject *Sender, int ACol, int
 			break;
 	}
 	p_grid->Canvas->FillRect(Rect);
+}
+//---------------------------------------------------------------------------
+
+bool __fastcall TFormMain::Send_DieMessage(int _RoomIdx) {
+
+	// Common
+	UnicodeString tempStr = L"";
+	int t_sendrst = 0;
+	unsigned short t_PacketLen = 30; // Fixed
+
+	// Check Client Socket
+	if(m_sock_Client == INVALID_SOCKET) {
+		tempStr.sprintf(L"Client socket is invalid");
+		PrintLog(tempStr);
+		return false;
+	}
+
+	// Check Client Thread
+	if(m_ClientThread == NULL) {
+		tempStr.sprintf(L"Client Thread is invalid");
+		PrintLog(tempStr);
+		return false;
+	}
+
+	// Check Connection
+	if(m_ClientThread->isConnected == false) {
+		tempStr.sprintf(L"Client is not connected");
+		PrintLog(tempStr);
+		return false;
+	}
+
+	// Reset Send Buffer
+	memset(m_ClientThread->sendBuff, 0, TCP_SEND_BUF_SIZE);
+	m_ClientThread->p_sendText = NULL;
+
+	// Set Header Data
+	m_ClientThread->sendBuff[0] = 0x47;
+	memcpy(&m_ClientThread->sendBuff[1], &t_PacketLen, 2);
+	m_ClientThread->sendBuff[3] = DATA_TYPE_INGAME_CMD;
+
+	// Input Data Into Packet Data
+	m_ClientThread->sendBuff[4] = (BYTE)_RoomIdx;
+	m_ClientThread->sendBuff[7] = m_MyIdx;
+	m_ClientThread->sendBuff[9] = 0x01; // I'm Dead...
+
+	// Send to Server
+	t_sendrst = send(m_sock_Client, (char*)m_ClientThread->sendBuff, t_PacketLen, 0);
+	if(t_sendrst == 0) return false;
+
+	// Function End Routine
+	tempStr.sprintf(L"Send Byte(Deadman Message) : %d", t_sendrst);
+	PrintLog(tempStr);
+	return true;
 }
 //---------------------------------------------------------------------------
 
@@ -2155,7 +2227,8 @@ void __fastcall TFormMain::grid_MineKeyDown(TObject *Sender, WORD &Key, TShiftSt
 		m_Block = NULL;
 		tm_Level->Enabled = false;
 		tm_PlayTime->Enabled = false;
-		ShowMessage(L"GAME OVER");
+		//ShowMessage(L"GAME OVER");
+		Send_DieMessage(m_MyRoomIdx);
 
 		///***** RESET NEXT BLOCK IMAGE *****///
 		m_NextBlockIdx = -1; // -1 means nothing just black screen
@@ -2188,7 +2261,8 @@ void __fastcall TFormMain::tm_LevelTimer(TObject *Sender)
 		m_Block = NULL;
 		tm_Level->Enabled = false;
 		tm_PlayTime->Enabled = false;
-		ShowMessage(L"GAME OVER");
+		//ShowMessage(L"GAME OVER");
+		Send_DieMessage(m_MyRoomIdx);
 	}
 }
 //---------------------------------------------------------------------------
@@ -2286,5 +2360,3 @@ void __fastcall TFormMain::USE_ITEM_MINUS() {
 	m_Block->ClearLine(MAX_GRID_Y - 1);
 }
 //---------------------------------------------------------------------------
-
-

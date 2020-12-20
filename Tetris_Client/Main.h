@@ -289,6 +289,18 @@ __published:	// IDE-managed Components
 	TLabel *lb_MyPlayNumber;
 	TLabel *lb_MyID;
 	TLabel *lb_MyGrade;
+	TAdvSmoothPanel *pn_Dead;
+	TLabel *lb_Dead;
+	TAdvSmoothPanel *pn_Dead_1;
+	TLabel *Label1;
+	TAdvSmoothPanel *pn_Dead_2;
+	TLabel *Label2;
+	TAdvSmoothPanel *pn_Dead_3;
+	TLabel *Label3;
+	TAdvSmoothPanel *pn_Dead_4;
+	TLabel *Label4;
+	TAdvSmoothPanel *pn_Dead_5;
+	TLabel *Label5;
 	void __fastcall btn_SingleModeClick(TObject *Sender);
 	void __fastcall btn_SignUpClick(TObject *Sender);
 	void __fastcall btn_Login_QuitClick(TObject *Sender);
@@ -371,6 +383,7 @@ public: // Do Communication
 	bool __fastcall Send_EscapeRoomMessage(int _RoomIdx);
 	bool __fastcall Send_GameStartMessage(int _RoomIdx);
 	bool __fastcall Send_InGameDataMessage(int _RoomIdx);
+	bool __fastcall Send_DieMessage(int _RoomIdx);
 
 
 

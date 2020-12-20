@@ -6,9 +6,9 @@
 #include <System.Classes.hpp>
 
 // COMM
-#define IP_SERVER "127.0.0.1"
+//#define IP_SERVER "127.0.0.1"
 //#define IP_SERVER "192.168.0.10"
-//#define IP_SERVER "192.168.35.9"
+#define IP_SERVER "192.168.35.9"
 //#define IP_SERVER "192.168.0.47"
 #define TCP_SERVER_PORT 14759
 
