@@ -283,6 +283,9 @@ __published:	// IDE-managed Components
 	TLabel *lb_PlayerNumber_5;
 	TLabel *lb_PlayerID_5;
 	TLabel *lb_PlayerGrade_5;
+	TTimer *tm_Level;
+	TTimer *tm_PlayTime;
+	TAdvSmoothPanel *pn_Cover;
 	TLabel *lb_MyPlayNumber;
 	TLabel *lb_MyID;
 	TLabel *lb_MyGrade;
@@ -305,6 +308,13 @@ __published:	// IDE-managed Components
 	void __fastcall btn_Send_InGameChatClick(TObject *Sender);
 	void __fastcall ed_Chat_InGameKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall btn_QUIT_InGameClick(TObject *Sender);
+	void __fastcall btn_StartGameClick(TObject *Sender);
+	void __fastcall grid_MineDrawCell(TObject *Sender, int ACol, int ARow, TRect &Rect,
+          TGridDrawState State);
+	void __fastcall grid_MineKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
+	void __fastcall tm_LevelTimer(TObject *Sender);
+	void __fastcall tm_PlayTimeTimer(TObject *Sender);
+
 
 
 private:	// User declarations
@@ -319,12 +329,14 @@ public: // BASIC FUNCTIONS
 	void __fastcall PrintLog(UnicodeString _str);
 	void __fastcall PrintChat_Lobby(UnicodeString _str);
 	void __fastcall PrintChat_InGame(UnicodeString _str);
+	void __fastcall LoadBMPFiles();
+
 	UnicodeString __fastcall GetLevelString(BYTE _num);
 	void __fastcall InitLobbyGameRoom();
 	void __fastcall ResetGameRoom(int _Num);
 	void __fastcall RefreshInnerGameRoom();
 
-// MEMBER VARIABLES
+// MEMBER VARIABLES : SYSTEM
 public:
 	TFormSignUp* m_pDlgSignUp;
 	TFormMakingRoomDlg* m_pDlgMakingRoom;
@@ -340,6 +352,79 @@ public:
 	ROOMSTATUS m_RoomStatus;
 	PLAYER m_Player[5];
 	BYTE m_RoomMasterIdx;
+	bool m_IsSingleMode;
+
+
+
+
+
+// MEMBER VARIABLES : IN GAME
+public:
+	TBitmap *m_BmpList[256];
+	int m_row;
+	int m_col;
+	BYTE m_MyView[MAX_GRID_X][MAX_GRID_Y];
+	C_BLOCK *m_Block;
+	bool m_CreateSuccess;
+	int m_Score;
+
+// MEMBER FUNCTIONS : IN GAME
+public:
+	void __fastcall InitTetris();
+
+public: // Control Information
+	void __fastcall AddScore(int _Value);
+	void __fastcall CheckCombo();
+	int m_ComboCnt;
+	int m_OldScore;
+	int m_CleardLineCnt;
+
+
+public: // Display
+	void __fastcall RefreshMyGameView();
+	void __fastcall RefreshOthersGameView();
+	void __fastcall RefreshNextBlock();
+
+public: // ITEM
+	void __fastcall CreateRandomItem();
+	void __fastcall GetItem(int _Idx);
+
+	///***** USING ITEM *****///
+	void __fastcall USE_ITEM_PLUS();
+	void __fastcall USE_ITEM_MINUS();
+
+///***** GAME SYSTEM *****///
+	// TIME
+	int m_time_H;
+	int m_time_M;
+	int m_time_S;
+	int m_time_cnt;
+
+	bool m_IsPause;
+
+	// NEXT BLOCK
+	int m_NextBlockIdx;
+
+	int m_Speed;
+
+	// Common Functions
+	bool __fastcall GetBitStatus(BYTE _src, int _bit);
+	BYTE __fastcall GetBlockData(BYTE _src);
+	void __fastcall SetBlockData(BYTE &_src);
+	BYTE __fastcall _BitSetting(BYTE _src, int _bitIdx, bool _bool);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 public: // Prepare Communication
 	bool __fastcall CreateTCPSocket();

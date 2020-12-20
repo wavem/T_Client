@@ -110,6 +110,12 @@ void __fastcall TFormMain::InitProgram() {
 	m_WinRate = 0;
 	m_MyRoomIdx = 0;
 	m_RoomMasterIdx = 0;
+	m_IsSingleMode = false;
+
+	// Init ETC
+	InitTetris();
+	srand((unsigned int)GetTickCount());
+	LoadBMPFiles();
 
 	// Init Lobby Game Room
 	InitLobbyGameRoom();
@@ -139,6 +145,32 @@ void __fastcall TFormMain::InitProgram() {
 
 	// Create T Client Thread
 	if(CreateClientThread() == false) return;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::LoadBMPFiles() {
+
+	///***** BLOCKS *****///
+	m_BmpList[BLOCK_O] = new TBitmap;
+	m_BmpList[BLOCK_O]->LoadFromFile(L".\\IMG\\O.bmp");
+	m_BmpList[BLOCK_I] = new TBitmap;
+	m_BmpList[BLOCK_I]->LoadFromFile(L".\\IMG\\I.bmp");
+	m_BmpList[BLOCK_T] = new TBitmap;
+	m_BmpList[BLOCK_T]->LoadFromFile(L".\\IMG\\T.bmp");
+	m_BmpList[BLOCK_J] = new TBitmap;
+	m_BmpList[BLOCK_J]->LoadFromFile(L".\\IMG\\J.bmp");
+	m_BmpList[BLOCK_L] = new TBitmap;
+	m_BmpList[BLOCK_L]->LoadFromFile(L".\\IMG\\L.bmp");
+	m_BmpList[BLOCK_S] = new TBitmap;
+	m_BmpList[BLOCK_S]->LoadFromFile(L".\\IMG\\S.bmp");
+	m_BmpList[BLOCK_Z] = new TBitmap;
+	m_BmpList[BLOCK_Z]->LoadFromFile(L".\\IMG\\Z.bmp");
+	m_BmpList[BLOCK_N] = new TBitmap;
+	m_BmpList[BLOCK_N]->LoadFromFile(L".\\IMG\\N.bmp");
+	m_BmpList[BLOCK_R] = new TBitmap;
+	m_BmpList[BLOCK_R]->LoadFromFile(L".\\IMG\\R.bmp");
+	m_BmpList[ITEM_P] = new TBitmap;
+	m_BmpList[ITEM_P]->LoadFromFile(L".\\IMG\\P.bmp");
 }
 //---------------------------------------------------------------------------
 
@@ -311,7 +343,9 @@ void __fastcall TFormMain::btn_SignUpClick(TObject *Sender)
 void __fastcall TFormMain::btn_SingleModeClick(TObject *Sender)
 {
 	// Button Single Mode
-	Notebook_Main->PageIndex = 1; // Lobby
+	m_IsSingleMode = true;
+	btn_StartGame->Enabled = true;
+	Notebook_Main->PageIndex = 2; // GAME
 }
 //---------------------------------------------------------------------------
 
@@ -1454,6 +1488,7 @@ void __fastcall TFormMain::Receive_InGameChatData(SERVERDATA _serverData) {
 
 void __fastcall TFormMain::btn_QUIT_InGameClick(TObject *Sender)
 {
+	if(m_IsSingleMode) this->Close();
 	if(Send_EscapeRoomMessage(m_MyRoomIdx) == false) Application->MessageBoxW(L"Error", L"Escape Room", MB_OK | MB_ICONERROR);
 }
 //---------------------------------------------------------------------------
@@ -1530,6 +1565,432 @@ void __fastcall TFormMain::Receive_EscapeRoomResult(SERVERDATA _serverData) {
 	} else {
 		Application->MessageBoxW(L"Fail to escape Room", L"Escape Room", MB_OK | MB_ICONERROR);
 	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::btn_StartGameClick(TObject *Sender)
+{
+	//if(m_IsSingleMode) {
+		//ShowMessage(L"Single Mode Start");
+
+		///***** INIT BEFORE GAME START *****///
+		m_Score = 0;
+		m_ComboCnt = 0;
+		m_OldScore = 0;
+		m_CleardLineCnt = 0;
+		//lb_Combo_Value->Caption = m_ComboCnt;
+		//lb_Time_Value->Caption = L"00:00:00";
+		m_time_H = 0;
+		m_time_M = 0;
+		m_time_S = 0;
+		m_Speed = 1000;
+		m_time_cnt = 0;
+		tm_Level->Interval = m_Speed;
+
+		AddScore(m_Score);
+		memset(&(m_MyView[0][0]), 0, MAX_GRID_X * MAX_GRID_Y);
+		//RefreshOthersGameView(); // THIS FUNC MUST BE HERE (after memset 0)
+		int num = 0;
+		num = rand() % 7;
+		//if(ed_BLOCK->Text != L"") num = StrToInt(ed_BLOCK->Text);
+		m_Block = new C_BLOCK(num, m_MyView, &m_CreateSuccess);
+		RefreshMyGameView();
+		tm_Level->Enabled = true;
+		tm_PlayTime->Enabled = true;
+		grid_Mine->SetFocus();
+
+		///***** SETTING NEXT BLOCK *****///
+		m_NextBlockIdx = rand() % 7;
+		RefreshNextBlock();
+	//}
+}
+//---------------------------------------------------------------------------
+
+
+
+
+
+
+
+void __fastcall TFormMain::RefreshMyGameView() {
+	grid_Mine->Refresh();
+
+#if 0
+	BYTE t_Byte = 0;
+	for(int i = 0 ; i < MAX_GRID_X ; i++) {
+		for(int j = 0 ; j < MAX_GRID_Y ; j++) {
+			t_Byte = GetBlockData(m_MyView[i][j]);
+
+			switch(t_Byte) {
+				case TYPE_BLOCK_O:
+					grid_Mine->Colors[i][j] = clYellow;
+					break;
+				case TYPE_BLOCK_I:
+					grid_Mine->Colors[i][j] = clBlue;
+					break;
+				case TYPE_BLOCK_T:
+					grid_Mine->Colors[i][j] = clPurple;
+					break;
+				case TYPE_BLOCK_J:
+					grid_Mine->Colors[i][j] = clGreen;
+					break;
+				case TYPE_BLOCK_L:
+					grid_Mine->Colors[i][j] = clMenuHighlight;
+					break;
+				case TYPE_BLOCK_S:
+					grid_Mine->Colors[i][j] = clRed;
+					break;
+				case TYPE_BLOCK_Z:
+					grid_Mine->Colors[i][j] = clFuchsia;
+					break;
+				default:
+					grid_Mine->Colors[i][j] = clBlack;
+					break;
+			}
+        }
+	}
+#endif
+}
+//---------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+bool __fastcall TFormMain::GetBitStatus(BYTE _src, int _bit) {
+	if(_bit < 8 && _bit >= 0)	return (_src >> _bit) & 0x01;
+	return false;
+}
+//---------------------------------------------------------------------------
+
+BYTE __fastcall TFormMain::GetBlockData(BYTE _src) {
+	return _src &= 0x3F; // 0011 1111
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::SetBlockData(BYTE &_src) {
+	//return _src &= 0x3F; // 0011 1111
+}
+//---------------------------------------------------------------------------
+
+BYTE __fastcall TFormMain::_BitSetting(BYTE _src, int _bitIdx, bool _bool) {
+	BYTE t_byte = _src;
+	BYTE t_01 = 0x01;
+	t_01 <<= _bitIdx;
+	if(_bool) t_byte |= t_01;
+	else t_byte &= ~t_01; // if toggle : ^= t_01;
+	return t_byte;
+}
+//---------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void __fastcall TFormMain::grid_MineDrawCell(TObject *Sender, int ACol, int ARow,
+          TRect &Rect, TGridDrawState State)
+{
+	TAdvStringGrid *p_grid = (TAdvStringGrid*)Sender;
+
+	BYTE t_Byte = 0;
+	t_Byte = GetBlockData(m_MyView[ACol][ARow]);
+	switch(t_Byte) {
+		case TYPE_BLOCK_O:
+			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_O];
+			break;
+		case TYPE_BLOCK_I:
+			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_I];
+			break;
+		case TYPE_BLOCK_T:
+			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_T];
+			break;
+		case TYPE_BLOCK_J:
+			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_J];
+			break;
+		case TYPE_BLOCK_L:
+			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_L];
+			break;
+		case TYPE_BLOCK_S:
+			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_S];
+			break;
+		case TYPE_BLOCK_Z:
+			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_Z];
+			break;
+		case TYPE_STATUS_ROCK:
+			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_R];
+			break;
+		case TYPE_ITEM_PLUS:
+			p_grid->Canvas->Brush->Bitmap = m_BmpList[ITEM_P];
+			break;
+		default:
+			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_N];
+			break;
+	}
+	p_grid->Canvas->FillRect(Rect);
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::grid_MineKeyDown(TObject *Sender, WORD &Key, TShiftState Shift)
+{
+	///***** PRE RETURN *****///
+	if(!m_Block) return;
+	bool t_ret = false;
+
+	///***** COMMON INIT *****///
+	//int num = rand() % 7;
+
+	///***** KEY MAP *****///
+	if(Key == VK_ESCAPE) {
+		m_IsPause = !m_IsPause;
+		if(m_IsPause) {
+			tm_Level->Enabled = false;
+			tm_PlayTime->Enabled = false;
+		} else {
+			tm_Level->Enabled = true;
+			tm_PlayTime->Enabled = true;
+		}
+		pn_Pause->Visible = m_IsPause;
+		return;
+	}
+
+	if(m_IsPause) return;
+	if(Key == VK_RIGHT) t_ret = m_Block->MoveRight();
+	if(Key == VK_LEFT)  t_ret = m_Block->MoveLeft();
+	if(Key == VK_UP)    t_ret = m_Block->RotateRight();
+	if(Key == 0x43)    t_ret = m_Block->RotateRight(); // 0x43 : 'C'
+	if(Key == 0x5A)    t_ret = m_Block->RotateLeft(); // 0x5A : 'Z'
+
+	if(Key == VK_DOWN) {
+		t_ret = m_Block->MoveDown();
+		if(t_ret) {
+			delete m_Block;
+			m_Block = NULL;
+			//RefreshOthersGameView();
+			m_Block = new C_BLOCK(m_NextBlockIdx, m_MyView, &m_CreateSuccess);
+			CheckCombo();
+
+			///***** SETTING NEXT BLOCK *****///
+			m_NextBlockIdx = rand() % 7;
+			RefreshNextBlock();
+		}
+	}
+	if(Key == VK_SPACE) {
+		t_ret = m_Block->Drop();
+		if(t_ret) {
+			delete m_Block;
+			m_Block = NULL;
+			//RefreshOthersGameView();
+			m_Block = new C_BLOCK(m_NextBlockIdx, m_MyView, &m_CreateSuccess);
+			CheckCombo();
+
+			///***** SETTING NEXT BLOCK *****///
+			m_NextBlockIdx = rand() % 7;
+			RefreshNextBlock();
+		}
+	}
+
+	if(Key == 0x31) USE_ITEM_PLUS();
+	if(Key == 0x32) USE_ITEM_MINUS();
+
+	RefreshMyGameView();
+
+	if(!m_CreateSuccess) {
+		delete m_Block;
+		m_Block = NULL;
+		tm_Level->Enabled = false;
+		tm_PlayTime->Enabled = false;
+		ShowMessage(L"GAME OVER");
+
+		///***** RESET NEXT BLOCK IMAGE *****///
+		m_NextBlockIdx = -1; // -1 means nothing just black screen
+        RefreshNextBlock();
+	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::tm_LevelTimer(TObject *Sender)
+{
+	if(!m_Block) return;
+
+	bool t_ret = m_Block->MoveDown();
+	if(t_ret) {
+		delete m_Block;
+		m_Block = NULL;
+		m_Block = new C_BLOCK(m_NextBlockIdx, m_MyView, &m_CreateSuccess);
+		CheckCombo();
+
+		///***** SETTING NEXT BLOCK *****///
+		m_NextBlockIdx = rand() % 7;
+		RefreshNextBlock();
+	}
+
+	RefreshMyGameView();
+
+	if(!m_CreateSuccess) {
+		delete m_Block;
+		m_Block = NULL;
+		tm_Level->Enabled = false;
+		tm_PlayTime->Enabled = false;
+		ShowMessage(L"GAME OVER");
+	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::tm_PlayTimeTimer(TObject *Sender)
+{
+	UnicodeString tempStr = L"";
+	if(++m_time_S == 60) {
+		m_time_S = 0;
+		if(++m_time_M == 60) {
+			m_time_M = 0;
+			++m_time_H;
+		}
+	}
+	tempStr.sprintf(L"%02d:%02d:%02d", m_time_H, m_time_M, m_time_S);
+	//lb_Time_Value->Caption = tempStr;
+
+	// SPEED UP
+	if(m_Speed == 100) return;
+
+	m_time_cnt++;
+	if(m_time_cnt % 60 == 0) {
+		m_Speed -= 100;
+		tm_Level->Interval = m_Speed;
+		tempStr.sprintf(L"SPEED UP : %.1f Sec", (double)m_Speed / 1000);
+		//PringMsg(tempStr);
+		//if(m_Speed == 100) PrintMsg(L"MAX SPEED");
+	}
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TFormMain::USE_ITEM_PLUS() {
+
+	int num = rand() % 9;
+	int t_TopLine = MAX_GRID_Y - 1;
+	bool t_bFindComplete = false;
+	for(int y = 2 ; y <= MAX_GRID_Y - 1 ; y++) {
+		for(int x = 0 ; x < MAX_GRID_X ; x++) {
+			if(GetBlockData(m_MyView[x][y]) != 0 && !GetBitStatus(m_MyView[x][y], 7) && !GetBitStatus(m_MyView[x][y], 6)) {
+				t_TopLine = y;
+				t_bFindComplete = true;
+				break;
+			}
+		}
+		if(t_bFindComplete) break;
+	}
+
+	///***** CASE : THERE IS NOTHING *****///
+	if(!t_bFindComplete) {
+		for(int x = 0 ; x < MAX_GRID_X ; x++) {
+			if(x == num) continue;
+			m_MyView[x][t_TopLine] = TYPE_STATUS_ROCK;
+		}
+		return;
+	}
+
+	///***** CASE : FULL *****///
+	if(t_TopLine == 2) {
+		//PringMsg(L"GAME OVER");
+	}
+
+
+	///***** MOVE UP LINES *****///
+	BYTE t_Byte = 0;
+	bool t_b_IsMovedCurrentBlock = false;
+
+	for(int y = t_TopLine ; y < MAX_GRID_Y ; y++) {
+		for(int x = 0 ; x < MAX_GRID_X ; x++) {
+			t_Byte = m_MyView[x][y];
+			if(GetBitStatus(t_Byte, 7) || GetBitStatus(t_Byte, 6)) {
+				continue;
+			}
+
+			if(GetBitStatus(m_MyView[x][y - 1], 7) && !t_b_IsMovedCurrentBlock) {
+				m_Block->MoveUp();
+				t_b_IsMovedCurrentBlock = true;
+			}
+
+			m_MyView[x][y - 1] = t_Byte;
+			m_MyView[x][y] = 0;
+		}
+		if(y == MAX_GRID_Y - 1) {
+			for(int x = 0 ; x < MAX_GRID_X ; x++) {
+				if(x == num) continue;
+				m_MyView[x][y] = TYPE_STATUS_ROCK;
+			}
+			return;
+		}
+	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::USE_ITEM_MINUS() {
+	m_Block->ClearLine(MAX_GRID_Y - 1);
 }
 //---------------------------------------------------------------------------
 

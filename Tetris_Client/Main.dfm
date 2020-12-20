@@ -5371,50 +5371,6 @@ object FormMain: TFormMain
             Font.Style = [fsBold]
             ParentFont = False
           end
-          object lb_MyPlayNumber: TLabel
-            Left = 925
-            Top = 13
-            Width = 31
-            Height = 71
-            Alignment = taCenter
-            Caption = '6'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clGradientActiveCaption
-            Font.Height = -53
-            Font.Name = #47569#51008' '#44256#46357
-            Font.Style = [fsBold]
-            ParentFont = False
-          end
-          object lb_MyID: TLabel
-            Left = 978
-            Top = 22
-            Width = 172
-            Height = 32
-            Alignment = taCenter
-            AutoSize = False
-            Caption = 'fenix0724'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clGradientActiveCaption
-            Font.Height = -24
-            Font.Name = #47569#51008' '#44256#46357
-            Font.Style = [fsBold]
-            ParentFont = False
-          end
-          object lb_MyGrade: TLabel
-            Left = 1039
-            Top = 63
-            Width = 48
-            Height = 21
-            Alignment = taCenter
-            AutoSize = False
-            Caption = #50689#50885
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clGradientActiveCaption
-            Font.Height = -16
-            Font.Name = #47569#51008' '#44256#46357
-            Font.Style = [fsBold]
-            ParentFont = False
-          end
           object grid_P1: TAdvStringGrid
             Left = 32
             Top = 32
@@ -6074,6 +6030,8 @@ object FormMain: TFormMain
             Options = [goVertLine, goHorzLine]
             ScrollBars = ssNone
             TabOrder = 6
+            OnDrawCell = grid_MineDrawCell
+            OnKeyDown = grid_MineKeyDown
             HoverRowCells = [hcNormal, hcSelected]
             ActiveCellFont.Charset = DEFAULT_CHARSET
             ActiveCellFont.Color = clWindowText
@@ -6436,6 +6394,7 @@ object FormMain: TFormMain
             ShineColor = 15335424
             TabOrder = 11
             Version = '1.3.0.2'
+            OnClick = btn_StartGameClick
           end
           object btn_PauseGame: TAdvGlassButton
             Left = 937
@@ -6538,6 +6497,80 @@ object FormMain: TFormMain
             TabOrder = 15
             Height = 305
             Width = 237
+          end
+          object pn_Cover: TAdvSmoothPanel
+            Left = 577
+            Top = 13
+            Width = 324
+            Height = 84
+            Cursor = crDefault
+            Caption.HTMLFont.Charset = DEFAULT_CHARSET
+            Caption.HTMLFont.Color = clWindowText
+            Caption.HTMLFont.Height = -11
+            Caption.HTMLFont.Name = 'Tahoma'
+            Caption.HTMLFont.Style = []
+            Caption.Font.Charset = DEFAULT_CHARSET
+            Caption.Font.Color = clWindowText
+            Caption.Font.Height = -16
+            Caption.Font.Name = 'Tahoma'
+            Caption.Font.Style = []
+            Fill.Color = clBlack
+            Fill.ColorTo = 5780500
+            Fill.ColorMirror = 5780500
+            Fill.ColorMirrorTo = clBlack
+            Fill.GradientType = gtVertical
+            Fill.GradientMirrorType = gtVertical
+            Fill.BorderColor = clBlack
+            Fill.Rounding = 0
+            Fill.ShadowOffset = 0
+            Fill.Glow = gmNone
+            Version = '1.5.0.0'
+            TabOrder = 16
+            TMSStyle = 4
+            object lb_MyPlayNumber: TLabel
+              Left = 37
+              Top = 0
+              Width = 31
+              Height = 71
+              Alignment = taCenter
+              Caption = '6'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGradientActiveCaption
+              Font.Height = -53
+              Font.Name = #47569#51008' '#44256#46357
+              Font.Style = [fsBold]
+              ParentFont = False
+            end
+            object lb_MyID: TLabel
+              Left = 120
+              Top = 9
+              Width = 172
+              Height = 32
+              Alignment = taCenter
+              AutoSize = False
+              Caption = 'fenix0724'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGradientActiveCaption
+              Font.Height = -24
+              Font.Name = #47569#51008' '#44256#46357
+              Font.Style = [fsBold]
+              ParentFont = False
+            end
+            object lb_MyGrade: TLabel
+              Left = 188
+              Top = 47
+              Width = 48
+              Height = 21
+              Alignment = taCenter
+              AutoSize = False
+              Caption = #50689#50885
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clGradientActiveCaption
+              Font.Height = -16
+              Font.Name = #47569#51008' '#44256#46357
+              Font.Style = [fsBold]
+              ParentFont = False
+            end
           end
         end
       end
@@ -7200,5 +7233,14 @@ object FormMain: TFormMain
         end
       end
     end
+  end
+  object tm_Level: TTimer
+    Enabled = False
+    OnTimer = tm_LevelTimer
+  end
+  object tm_PlayTime: TTimer
+    Enabled = False
+    OnTimer = tm_PlayTimeTimer
+    Left = 28
   end
 end
