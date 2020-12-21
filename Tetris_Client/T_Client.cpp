@@ -5,9 +5,9 @@
 #include <tchar.h>
 //---------------------------------------------------------------------------
 USEFORM("Version.cpp", FormVersion);
-USEFORM("Main.cpp", FormMain);
 USEFORM("SignUpDlg.cpp", FormSignUp);
 USEFORM("MakingRoomDlg.cpp", FormMakingRoomDlg);
+USEFORM("Main.cpp", FormMain);
 //---------------------------------------------------------------------------
 int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 {

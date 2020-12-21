@@ -4,7 +4,7 @@
         <ProjectVersion>16.1</ProjectVersion>
         <FrameworkType>VCL</FrameworkType>
         <AppType>Application</AppType>
-        <MainSource>Tetris_Client.cpp</MainSource>
+        <MainSource>T_Client.cpp</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
@@ -39,12 +39,6 @@
         <CfgParent>Base</CfgParent>
         <Base>true</Base>
     </PropertyGroup>
-    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win64)'!=''">
-        <Cfg_2_Win64>true</Cfg_2_Win64>
-        <CfgParent>Cfg_2</CfgParent>
-        <Cfg_2>true</Cfg_2>
-        <Base>true</Base>
-    </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
         <_TCHARMapping>wchar_t</_TCHARMapping>
         <ILINK_LibraryPath>Z:\wave\010_Project\010_Game\Tetris\Client\010_Source\Tetris_Client\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
@@ -52,7 +46,7 @@
         <AllPackageLibs>rtl.lib;vcl.lib;tmsdXE7.lib;adortl.lib;dbrtl.lib;vclx.lib;xmlrtl.lib;vclactnband.lib;vclimg.lib;vcldb.lib;VclSmp.lib;cxLibraryRS21.lib;dxGDIPlusRS21.lib;dxCoreRS21.lib;dxThemeRS21.lib;cxEditorsRS21.lib;cxDataRS21.lib;dxSkinsCoreRS21.lib;dxSkinBlackRS21.lib;dxSkinBlueprintRS21.lib;dxSkinBlueRS21.lib;dxSkinCaramelRS21.lib;dxSkinCoffeeRS21.lib;dxSkinDarkRoomRS21.lib;dxSkinDarkSideRS21.lib;dxSkinDevExpressDarkStyleRS21.lib;dxSkinDevExpressStyleRS21.lib;dxSkinFoggyRS21.lib;dxSkinGlassOceansRS21.lib;dxSkinHighContrastRS21.lib;dxSkiniMaginaryRS21.lib;dxSkinLilianRS21.lib;dxSkinLiquidSkyRS21.lib;dxSkinLondonLiquidSkyRS21.lib;dxSkinMcSkinRS21.lib;dxSkinMetropolisDarkRS21.lib;dxSkinMetropolisRS21.lib;dxSkinMoneyTwinsRS21.lib;dxSkinOffice2007BlackRS21.lib;dxSkinOffice2007BlueRS21.lib;dxSkinOffice2007GreenRS21.lib;dxSkinOffice2007PinkRS21.lib;dxSkinOffice2007SilverRS21.lib;dxSkinOffice2010BlackRS21.lib;dxSkinOffice2010BlueRS21.lib;dxSkinOffice2010SilverRS21.lib;dxSkinOffice2013DarkGrayRS21.lib;dxSkinOffice2013LightGrayRS21.lib;dxSkinOffice2013WhiteRS21.lib;dxSkinPumpkinRS21.lib;dxSkinSevenClassicRS21.lib;dxSkinSevenRS21.lib;dxSkinSharpPlusRS21.lib;dxSkinSharpRS21.lib;dxSkinSilverRS21.lib;dxSkinSpringTimeRS21.lib;dxSkinStardustRS21.lib;dxSkinSummer2008RS21.lib;dxSkinTheAsphaltWorldRS21.lib;dxSkinValentineRS21.lib;dxSkinVisualStudio2013BlueRS21.lib;dxSkinVisualStudio2013DarkRS21.lib;dxSkinVisualStudio2013LightRS21.lib;dxSkinVS2010RS21.lib;dxSkinWhiteprintRS21.lib;dxSkinXmas2008BlueRS21.lib;tmsexdXE7.lib;DbxCommonDriver.lib;dsnap.lib;soaprtl.lib;inet.lib</AllPackageLibs>
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
         <Multithreaded>true</Multithreaded>
-        <SanitizedProjectName>Tetris_Client</SanitizedProjectName>
+        <SanitizedProjectName>T_Client</SanitizedProjectName>
         <IncludePath>Z:\wave\010_Project\010_Game\Tetris\Client\010_Source\Tetris_Client\;$(IncludePath)</IncludePath>
         <Icon_MainIcon>$(BDS)\bin\cbuilder_PROJECTICON.ico</Icon_MainIcon>
         <DCC_CBuilderOutput>JPHNE</DCC_CBuilderOutput>
@@ -109,9 +103,6 @@
         <Defines>NDEBUG;$(Defines)</Defines>
         <TASM_Debugging>None</TASM_Debugging>
     </PropertyGroup>
-    <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
-        <BCC_PCHName_Clang>Tetris_Client_PCH1.h</BCC_PCHName_Clang>
-    </PropertyGroup>
     <ItemGroup>
         <CppCompile Include="Define.cpp">
             <DependentOn>Define.h</DependentOn>
@@ -143,12 +134,12 @@
             <DependentOn>TcpSocketThread.h</DependentOn>
             <BuildOrder>6</BuildOrder>
         </CppCompile>
-        <CppCompile Include="Tetris_Client.cpp">
-            <BuildOrder>0</BuildOrder>
-        </CppCompile>
         <PCHCompile Include="Tetris_Client_PCH1.h">
             <BuildOrder>1</BuildOrder>
         </PCHCompile>
+        <CppCompile Include="T_Client.cpp">
+            <BuildOrder>0</BuildOrder>
+        </CppCompile>
         <CppCompile Include="Version.cpp">
             <Form>FormVersion</Form>
             <FormType>dfm</FormType>
@@ -156,9 +147,9 @@
             <BuildOrder>5</BuildOrder>
         </CppCompile>
         <FormResources Include="Version.dfm"/>
-        <FormResources Include="Main.dfm"/>
         <FormResources Include="SignUpDlg.dfm"/>
         <FormResources Include="MakingRoomDlg.dfm"/>
+        <FormResources Include="Main.dfm"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -183,7 +174,7 @@
                     <ProjectProperties Name="IndexFiles">False</ProjectProperties>
                 </ProjectProperties>
                 <Source>
-                    <Source Name="MainSource">Tetris_Client.cpp</Source>
+                    <Source Name="MainSource">T_Client.cpp</Source>
                 </Source>
             </CPlusPlusBuilder.Personality>
             <Deployment>
@@ -202,20 +193,15 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName=".\Win32\Debug\Tetris_Client.tds" Configuration="Debug" Class="DebugSymbols">
+                <DeployFile LocalName=".\Win32\Debug\Tetris_Client.tds" Configuration="Debug" Class="DebugSymbols"/>
+                <DeployFile LocalName=".\Win32\Debug\T_Client.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteName>Tetris_Client.tds</RemoteName>
+                        <RemoteName>T_Client.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
                 <DeployFile Condition="'$(DynamicRTL)'=='true'" LocalName="$(BDS)\Redist\osx32\libcgcrtl.dylib" Class="DependencyModule">
                     <Platform Name="OSX32">
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName=".\Win32\Debug\Tetris_Client.exe" Configuration="Debug" Class="ProjectOutput">
-                    <Platform Name="Win32">
-                        <RemoteName>Tetris_Client.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -227,6 +213,12 @@
                 </DeployFile>
                 <DeployFile Condition="'$(UsingDelphiRTL)'=='true'" LocalName="$(BDS)\bin\borlndmm.dll" Class="DependencyModule">
                     <Platform Name="Win32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName=".\Win32\Debug\T_Client.tds" Configuration="Debug" Class="DebugSymbols">
+                    <Platform Name="Win32">
+                        <RemoteName>T_Client.tds</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
