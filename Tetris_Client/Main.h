@@ -349,6 +349,7 @@ public: // BASIC FUNCTIONS
 	void __fastcall InitLobbyGameRoom();
 	void __fastcall ResetGameRoom(int _Num);
 	void __fastcall RefreshInnerGameRoom();
+	void __fastcall ForceExitGame();
 
 // MEMBER VARIABLES : SYSTEM
 public:
@@ -424,6 +425,7 @@ public:
 public:
 	void __fastcall InitTetris();
 	void __fastcall StartGame();
+	void __fastcall ResetPlayerGrid();
 
 public: // Control Information
 	void __fastcall AddScore(int _Value);

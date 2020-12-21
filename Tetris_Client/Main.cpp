@@ -1550,6 +1550,13 @@ void __fastcall TFormMain::Receive_EscapeRoomResult(SERVERDATA _serverData) {
 
 	BYTE t_rst = _serverData.Data[4];
 	if(t_rst != 0) { // Success
+		ForceExitGame();
+		TRect t_Rect;
+		t_Rect.init(0, 0, img_NextBlock->Width, img_NextBlock->Height);
+		img_NextBlock->Canvas->Brush->Color = clBlack;
+		img_NextBlock->Canvas->FillRect(t_Rect);
+		memset(m_MyView, 0, MAX_GRID_X * MAX_GRID_Y);
+		grid_Mine->Refresh();
 		m_MyIdx = 0; // Init '0'
 		m_MyRoomIdx = 0;
 		memset(&m_RoomStatus, 0, sizeof(m_RoomStatus));
@@ -1564,8 +1571,19 @@ void __fastcall TFormMain::Receive_EscapeRoomResult(SERVERDATA _serverData) {
 		ed_Chat_InGame->Text = L"";
 		btn_StartGame->Enabled = false;
 		Notebook_Main->PageIndex = 1; // LOBBY
+
 	} else {
 		Application->MessageBoxW(L"Fail to escape Room", L"Escape Room", MB_OK | MB_ICONERROR);
+	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::ForceExitGame() {
+	tm_Level->Enabled = false;
+	tm_PlayTime->Enabled = false;
+	if(m_Block) {
+		delete m_Block;
+		m_Block = NULL;
 	}
 }
 //---------------------------------------------------------------------------
@@ -1681,6 +1699,7 @@ void __fastcall TFormMain::Receive_InnerRoomCMDData(SERVERDATA _serverData) {
 	BYTE t_PlayerIdx = 0;
 	BYTE t_ReceivedPlayerIdx = 0;
 	TAdvSmoothPanel* p_pn = NULL;
+	TAdvStringGrid* p_grid = NULL;
 
 	// Check Room Number
 	t_RoomNumber = _serverData.Data[4];
@@ -1690,10 +1709,12 @@ void __fastcall TFormMain::Receive_InnerRoomCMDData(SERVERDATA _serverData) {
 
 	t_StartSignal = _serverData.Data[5];
 	if(t_StartSignal == 0x01) {
+		ResetPlayerGrid();
 		StartGame();
 		return;
 	}
 
+	// Check Defeat
 	t_StateMessage = _serverData.Data[9];
 	t_ReceivedPlayerIdx = _serverData.Data[7];
 
@@ -1753,6 +1774,33 @@ void __fastcall TFormMain::Receive_InnerRoomCMDData(SERVERDATA _serverData) {
 
 	RefreshInnerGameRoom();
 #endif
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::ResetPlayerGrid() {
+
+	// Common
+	UnicodeString tempStr = L"";
+	TAdvSmoothPanel* p_pn = NULL;
+	TAdvStringGrid* p_grid = NULL;
+
+	// Reset My Game Area
+	memset(m_MyView, 0, MAX_GRID_X * MAX_GRID_Y);
+	pn_Dead->Visible = false;
+
+	// Reset Player Game Area
+	for(int i = 0 ; i < 5 ; i++) {
+		tempStr = L"pn_Dead_";
+		tempStr += (i + 1);
+		p_pn = (TAdvSmoothPanel*)FindComponent(tempStr);
+		if(p_pn != NULL) p_pn->Visible = false;
+
+		tempStr = L"grid_P";
+		tempStr += (i + 1);
+		p_grid = (TAdvStringGrid*)FindComponent(tempStr);
+		memset(m_Player[i].Block, 0, 200);
+		if(p_grid != NULL) p_grid->Refresh();
+	}
 }
 //---------------------------------------------------------------------------
 
