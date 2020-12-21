@@ -768,6 +768,8 @@ void __fastcall TFormMain::Receive_MakingRoomResult(SERVERDATA _serverData) {
 		m_RoomMasterIdx = m_MyIdx; // I am Room Master !!
 		lb_MyPlayNumber->Caption = m_MyIdx;
 		m_MyRoomIdx = t_resultData;
+		lb_MyID->Caption = m_ID;
+		lb_MyGrade->Caption = m_Grade;
 	}
 	SendMessage(m_pDlgMakingRoom->Handle, MSG_TRY_TO_MAKING_ROOM, (unsigned int)&t_rst, 0x10);
 }
