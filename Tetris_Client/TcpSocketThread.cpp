@@ -104,7 +104,7 @@ void __fastcall CTcpSocketThread::Execute() {
 		if(Receive()) {
 			memset(&recvData, 0, sizeof(recvData));
 			memcpy(recvData.Data, recvBuff, TCP_RECV_BUF_SIZE);
-			SendMessage(FormMain->Handle, MSG_SERVER_DATA, (unsigned int)&recvData, 0x10);
+			PostMessage(FormMain->Handle, MSG_SERVER_DATA, (unsigned int)&recvData, 0x10);
 		} else {
 			t_Str = L"Fail to Receive";
 			SendMessage(FormMain->Handle, MSG_LOG_FROM_THREAD, (unsigned int)&t_Str, 0x10);

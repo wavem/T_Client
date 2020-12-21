@@ -326,8 +326,6 @@ __published:	// IDE-managed Components
 	void __fastcall grid_MineKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall tm_LevelTimer(TObject *Sender);
 	void __fastcall tm_PlayTimeTimer(TObject *Sender);
-	void __fastcall OnDrawCell_OtherPlayer(TObject *Sender, int ACol, int ARow, TRect &Rect,
-          TGridDrawState State);
 
 
 
@@ -350,6 +348,7 @@ public: // BASIC FUNCTIONS
 	void __fastcall ResetGameRoom(int _Num);
 	void __fastcall RefreshInnerGameRoom();
 	void __fastcall ForceExitGame();
+	void __fastcall RefreshPlayerGame();
 
 // MEMBER VARIABLES : SYSTEM
 public:
@@ -368,6 +367,7 @@ public:
 	PLAYER m_Player[5];
 	BYTE m_RoomMasterIdx;
 	bool m_IsSingleMode;
+	int m_Test;
 
 
 

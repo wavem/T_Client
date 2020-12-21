@@ -6,9 +6,9 @@
 #include <System.Classes.hpp>
 
 // COMM
-#define IP_SERVER "127.0.0.1"
+//#define IP_SERVER "127.0.0.1"
 //#define IP_SERVER "192.168.0.10"
-//#define IP_SERVER "192.168.35.9"
+#define IP_SERVER "192.168.35.9"
 //#define IP_SERVER "192.168.0.47"
 #define TCP_SERVER_PORT 14759
 
@@ -125,6 +125,7 @@ typedef struct ST_PLAYER {
 	BYTE TeamIdx; // 0 == Private, 1 or 2 == Team Number
 	BYTE Win; // 0 == Unknown, 1 == Win, 2 == Defeat.
 	BYTE Block[10][20];
+	BYTE BlockTempBuffer[10][20];
 } PLAYER;
 
 // For Sending to Server

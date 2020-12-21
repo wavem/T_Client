@@ -5393,7 +5393,6 @@ object FormMain: TFormMain
             Options = [goVertLine, goHorzLine]
             ScrollBars = ssNone
             TabOrder = 0
-            OnDrawCell = OnDrawCell_OtherPlayer
             HoverRowCells = [hcNormal, hcSelected]
             ActiveCellFont.Charset = DEFAULT_CHARSET
             ActiveCellFont.Color = clWindowText
@@ -5522,7 +5521,6 @@ object FormMain: TFormMain
             Options = [goVertLine, goHorzLine]
             ScrollBars = ssNone
             TabOrder = 1
-            OnDrawCell = OnDrawCell_OtherPlayer
             HoverRowCells = [hcNormal, hcSelected]
             ActiveCellFont.Charset = DEFAULT_CHARSET
             ActiveCellFont.Color = clWindowText
@@ -5651,7 +5649,6 @@ object FormMain: TFormMain
             Options = [goVertLine, goHorzLine]
             ScrollBars = ssNone
             TabOrder = 2
-            OnDrawCell = OnDrawCell_OtherPlayer
             HoverRowCells = [hcNormal, hcSelected]
             ActiveCellFont.Charset = DEFAULT_CHARSET
             ActiveCellFont.Color = clWindowText
@@ -5780,7 +5777,6 @@ object FormMain: TFormMain
             Options = [goVertLine, goHorzLine]
             ScrollBars = ssNone
             TabOrder = 3
-            OnDrawCell = OnDrawCell_OtherPlayer
             HoverRowCells = [hcNormal, hcSelected]
             ActiveCellFont.Charset = DEFAULT_CHARSET
             ActiveCellFont.Color = clWindowText
@@ -5909,7 +5905,6 @@ object FormMain: TFormMain
             Options = [goVertLine, goHorzLine]
             ScrollBars = ssNone
             TabOrder = 4
-            OnDrawCell = OnDrawCell_OtherPlayer
             HoverRowCells = [hcNormal, hcSelected]
             ActiveCellFont.Charset = DEFAULT_CHARSET
             ActiveCellFont.Color = clWindowText

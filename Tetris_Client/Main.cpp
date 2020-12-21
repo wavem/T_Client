@@ -1904,62 +1904,80 @@ void __fastcall TFormMain::Receive_InGameData(SERVERDATA _serverData) {
 //---------------------------------------------------------------------------
 
 void __fastcall TFormMain::RefreshOthersGameView() {
-	TAdvStringGrid *p_grid = NULL;
-	UnicodeString tempStr = L"";
 
-	for(int i = 1 ; i < 6 ; i++) {
-		tempStr.sprintf(L"grid_P%d", i);
-		p_grid = (TAdvStringGrid*)FindComponent(tempStr);
-		if(!p_grid) continue;
-		p_grid->Refresh();
+	RefreshPlayerGame();
+	for(int i = 0 ; i < 5 ; i++) {
+		memcpy(m_Player[i].BlockTempBuffer, m_Player[i].Block, 200);
 	}
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TFormMain::OnDrawCell_OtherPlayer(TObject *Sender, int ACol, int ARow,
-		  TRect &Rect, TGridDrawState State)
-{
+void __fastcall TFormMain::RefreshPlayerGame() {
+
 	// Common
-	TAdvStringGrid *p_grid = (TAdvStringGrid*)Sender;
-	int t_PlayerTag = p_grid->Tag;
-	int t_FixedIdx = t_PlayerTag - 1;
+	UnicodeString tempStr = L"";
+	TAdvStringGrid *p_grid = NULL;
+	TRect t_Rect;
+	int t_PlayerIdx = 0;
 	BYTE t_Byte = 0;
 
-	// Extract
-	t_Byte = GetBlockData(m_Player[t_FixedIdx].Block[ACol][ARow]);
-	switch(t_Byte) {
-		case TYPE_BLOCK_O:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_O];
-			break;
-		case TYPE_BLOCK_I:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_I];
-			break;
-		case TYPE_BLOCK_T:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_T];
-			break;
-		case TYPE_BLOCK_J:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_J];
-			break;
-		case TYPE_BLOCK_L:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_L];
-			break;
-		case TYPE_BLOCK_S:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_S];
-			break;
-		case TYPE_BLOCK_Z:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_Z];
-			break;
-		case TYPE_STATUS_ROCK:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_R];
-			break;
-		case TYPE_ITEM_PLUS:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList[ITEM_P];
-			break;
-		default:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_N];
-			break;
+	for(int i = 0 ; i < 6 ; i++) {
+		// Find Grid Component
+		tempStr.sprintf(L"grid_P%d", i + 1);
+		p_grid = (TAdvStringGrid*)FindComponent(tempStr);
+		if(!p_grid) continue; // NULL Exception
+
+		t_PlayerIdx = p_grid->Tag - 1;
+
+		// Draw Cells
+		for(int x = 0 ; x < 10 ; x++) {
+			for(int y = 0 ; y < 20 ; y++) {
+				// Check Overwriting
+				if(memcmp(&(m_Player[t_PlayerIdx].BlockTempBuffer[x][y]), &(m_Player[t_PlayerIdx].Block[x][y]), 1) == 0) continue;
+
+				t_Byte = GetBlockData(m_Player[t_PlayerIdx].Block[x][y]);
+				t_Rect = p_grid->CellRect(x, y);
+				t_Rect.left += 0.1;
+				t_Rect.right -= 0.1;
+				t_Rect.top += 0.1;
+				t_Rect.bottom -= 0.1;
+
+				switch(t_Byte) {
+				case TYPE_BLOCK_O:
+					p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_O];
+					break;
+				case TYPE_BLOCK_I:
+					p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_I];
+					break;
+				case TYPE_BLOCK_T:
+					p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_T];
+					break;
+				case TYPE_BLOCK_J:
+					p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_J];
+					break;
+				case TYPE_BLOCK_L:
+					p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_L];
+					break;
+				case TYPE_BLOCK_S:
+					p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_S];
+					break;
+				case TYPE_BLOCK_Z:
+					p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_Z];
+					break;
+				case TYPE_STATUS_ROCK:
+					p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_R];
+					break;
+				case TYPE_ITEM_PLUS:
+					p_grid->Canvas->Brush->Bitmap = m_BmpList[ITEM_P];
+					break;
+				default:
+					p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_N];
+					break;
+				}
+				p_grid->Canvas->FillRect(t_Rect);
+			}
+		}
 	}
-	p_grid->Canvas->FillRect(Rect);
 }
 //---------------------------------------------------------------------------
 
