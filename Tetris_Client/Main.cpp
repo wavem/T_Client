@@ -346,6 +346,7 @@ void __fastcall TFormMain::btn_SingleModeClick(TObject *Sender)
 	// Button Single Mode
 	m_IsSingleMode = true;
 	btn_StartGame->Enabled = true;
+	//btn_PauseGame->Visible = true;
 	Notebook_Main->PageIndex = 2; // GAME
 }
 //---------------------------------------------------------------------------
@@ -365,7 +366,8 @@ void __fastcall TFormMain::btn_EnterClick(TObject *Sender)
 
 void __fastcall TFormMain::btn_LogOutClick(TObject *Sender)
 {
-	Notebook_Main->PageIndex = 0; // Log In Screen
+	this->Close();
+	//Notebook_Main->PageIndex = 0; // Log In Screen
 }
 //---------------------------------------------------------------------------
 
@@ -1413,6 +1415,13 @@ void __fastcall TFormMain::btn_Send_InGameChatClick(TObject *Sender)
 
 int __fastcall TFormMain::Send_InGameChatMessage() {
 
+	// Pre Return
+	if(m_IsSingleMode) {
+		PrintChat_InGame(ed_Chat_InGame->Text);
+		ed_Chat_InGame->Text = L"";
+		return -1;
+	}
+
 	// Common
 	UnicodeString tempStr = L"";
 	int t_TextLen = 0;
@@ -1806,6 +1815,9 @@ void __fastcall TFormMain::ResetPlayerGrid() {
 //---------------------------------------------------------------------------
 
 bool __fastcall TFormMain::Send_InGameDataMessage(int _RoomIdx) {
+
+	// Pre Return
+	if(m_IsSingleMode) return true;
 
 	// Common
 	UnicodeString tempStr = L"";

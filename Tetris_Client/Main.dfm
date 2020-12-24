@@ -33,7 +33,7 @@ object FormMain: TFormMain
       Width = 1186
       Height = 819
       Align = alClient
-      PageIndex = 2
+      PageIndex = 1
       TabOrder = 0
       object TPage
         Left = 0
@@ -292,7 +292,7 @@ object FormMain: TFormMain
             Height = 32
             Cursor = crHandPoint
             BackColor = clNavy
-            Caption = 'QUIT'
+            Caption = 'EXIT'
             CornerRadius = 16
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clGradientActiveCaption
@@ -643,7 +643,7 @@ object FormMain: TFormMain
             Height = 74
             Cursor = crHandPoint
             BackColor = clNavy
-            Caption = 'LOGOUT'
+            Caption = 'QUIT'
             CornerRadius = 16
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clGradientActiveCaption
@@ -684,6 +684,7 @@ object FormMain: TFormMain
             ShineColor = 15335424
             TabOrder = 5
             Version = '1.3.0.2'
+            Visible = False
             OnClick = btn_EnterClick
           end
           object btn_Log_Lobby: TAdvGlassButton
@@ -709,6 +710,7 @@ object FormMain: TFormMain
             ShineColor = 15335424
             TabOrder = 6
             Version = '1.3.0.2'
+            Visible = False
             OnClick = btn_Log_LobbyClick
           end
           object memo_Chat_Lobby: TcxMemo
@@ -5165,6 +5167,7 @@ object FormMain: TFormMain
             Font.Name = #47569#51008' '#44256#46357
             Font.Style = [fsBold]
             ParentFont = False
+            Visible = False
           end
           object lb_PlayerGrade_1: TLabel
             Left = 120
@@ -5180,6 +5183,7 @@ object FormMain: TFormMain
             Font.Name = #47569#51008' '#44256#46357
             Font.Style = [fsBold]
             ParentFont = False
+            Visible = False
           end
           object lb_PlayerNumber_1: TLabel
             Left = 55
@@ -5194,6 +5198,7 @@ object FormMain: TFormMain
             Font.Name = #47569#51008' '#44256#46357
             Font.Style = [fsBold]
             ParentFont = False
+            Visible = False
           end
           object lb_PlayerNumber_2: TLabel
             Left = 229
@@ -5208,6 +5213,7 @@ object FormMain: TFormMain
             Font.Name = #47569#51008' '#44256#46357
             Font.Style = [fsBold]
             ParentFont = False
+            Visible = False
           end
           object lb_PlayerID_2: TLabel
             Left = 264
@@ -5223,6 +5229,7 @@ object FormMain: TFormMain
             Font.Name = #47569#51008' '#44256#46357
             Font.Style = [fsBold]
             ParentFont = False
+            Visible = False
           end
           object lb_PlayerGrade_2: TLabel
             Left = 294
@@ -5238,6 +5245,7 @@ object FormMain: TFormMain
             Font.Name = #47569#51008' '#44256#46357
             Font.Style = [fsBold]
             ParentFont = False
+            Visible = False
           end
           object lb_PlayerNumber_3: TLabel
             Left = 55
@@ -5252,6 +5260,7 @@ object FormMain: TFormMain
             Font.Name = #47569#51008' '#44256#46357
             Font.Style = [fsBold]
             ParentFont = False
+            Visible = False
           end
           object lb_PlayerID_3: TLabel
             Left = 90
@@ -5267,6 +5276,7 @@ object FormMain: TFormMain
             Font.Name = #47569#51008' '#44256#46357
             Font.Style = [fsBold]
             ParentFont = False
+            Visible = False
           end
           object lb_PlayerGrade_3: TLabel
             Left = 120
@@ -5282,6 +5292,7 @@ object FormMain: TFormMain
             Font.Name = #47569#51008' '#44256#46357
             Font.Style = [fsBold]
             ParentFont = False
+            Visible = False
           end
           object lb_PlayerNumber_4: TLabel
             Left = 229
@@ -5296,6 +5307,7 @@ object FormMain: TFormMain
             Font.Name = #47569#51008' '#44256#46357
             Font.Style = [fsBold]
             ParentFont = False
+            Visible = False
           end
           object lb_PlayerID_4: TLabel
             Left = 264
@@ -5311,6 +5323,7 @@ object FormMain: TFormMain
             Font.Name = #47569#51008' '#44256#46357
             Font.Style = [fsBold]
             ParentFont = False
+            Visible = False
           end
           object lb_PlayerGrade_4: TLabel
             Left = 294
@@ -5326,6 +5339,7 @@ object FormMain: TFormMain
             Font.Name = #47569#51008' '#44256#46357
             Font.Style = [fsBold]
             ParentFont = False
+            Visible = False
           end
           object lb_PlayerNumber_5: TLabel
             Left = 403
@@ -5340,6 +5354,7 @@ object FormMain: TFormMain
             Font.Name = #47569#51008' '#44256#46357
             Font.Style = [fsBold]
             ParentFont = False
+            Visible = False
           end
           object lb_PlayerID_5: TLabel
             Left = 438
@@ -5355,6 +5370,7 @@ object FormMain: TFormMain
             Font.Name = #47569#51008' '#44256#46357
             Font.Style = [fsBold]
             ParentFont = False
+            Visible = False
           end
           object lb_PlayerGrade_5: TLabel
             Left = 468
@@ -5370,6 +5386,7 @@ object FormMain: TFormMain
             Font.Name = #47569#51008' '#44256#46357
             Font.Style = [fsBold]
             ParentFont = False
+            Visible = False
           end
           object grid_P1: TAdvStringGrid
             Tag = 1
@@ -6402,8 +6419,8 @@ object FormMain: TFormMain
             OnClick = btn_StartGameClick
           end
           object btn_PauseGame: TAdvGlassButton
-            Left = 937
-            Top = 255
+            Left = 939
+            Top = 331
             Width = 222
             Height = 32
             Cursor = crHandPoint
@@ -6424,6 +6441,7 @@ object FormMain: TFormMain
             ShineColor = 15335424
             TabOrder = 12
             Version = '1.3.0.2'
+            Visible = False
           end
           object btn_Setting_InGame: TAdvGlassButton
             Left = 939
@@ -6448,10 +6466,11 @@ object FormMain: TFormMain
             ShineColor = 15335424
             TabOrder = 13
             Version = '1.3.0.2'
+            Visible = False
           end
           object btn_Log_InGame: TAdvGlassButton
-            Left = 937
-            Top = 331
+            Left = 939
+            Top = 255
             Width = 222
             Height = 32
             Cursor = crHandPoint
@@ -6472,6 +6491,7 @@ object FormMain: TFormMain
             ShineColor = 15335424
             TabOrder = 14
             Version = '1.3.0.2'
+            Visible = False
             OnClick = btn_Log_InGameClick
           end
           object memo_Chat_Game: TcxMemo
@@ -6553,7 +6573,7 @@ object FormMain: TFormMain
               Height = 32
               Alignment = taCenter
               AutoSize = False
-              Caption = 'fenix0724'
+              Caption = 'Single Mode'
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clGradientActiveCaption
               Font.Height = -24
@@ -6568,7 +6588,6 @@ object FormMain: TFormMain
               Height = 21
               Alignment = taCenter
               AutoSize = False
-              Caption = #50689#50885
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clGradientActiveCaption
               Font.Height = -16
