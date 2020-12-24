@@ -5390,7 +5390,7 @@ object FormMain: TFormMain
           end
           object lb_Time_Title: TLabel
             Left = 403
-            Top = 237
+            Top = 206
             Width = 36
             Height = 18
             Caption = 'Time'
@@ -5403,7 +5403,7 @@ object FormMain: TFormMain
           end
           object lb_Score_Title: TLabel
             Left = 403
-            Top = 293
+            Top = 259
             Width = 43
             Height = 18
             Caption = 'Score'
@@ -5416,7 +5416,7 @@ object FormMain: TFormMain
           end
           object lb_Time: TLabel
             Left = 422
-            Top = 261
+            Top = 230
             Width = 70
             Height = 18
             Caption = '00:00:00'
@@ -5429,7 +5429,33 @@ object FormMain: TFormMain
           end
           object lb_Score: TLabel
             Left = 422
-            Top = 317
+            Top = 283
+            Width = 10
+            Height = 18
+            Caption = '0'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -15
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lb_Combo_Title: TLabel
+            Left = 404
+            Top = 310
+            Width = 50
+            Height = 18
+            Caption = 'Combo'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -15
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lb_Combo: TLabel
+            Left = 422
+            Top = 334
             Width = 10
             Height = 18
             Caption = '0'

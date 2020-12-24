@@ -2326,7 +2326,7 @@ void __fastcall TFormMain::tm_LevelTimer(TObject *Sender)
 		delete m_Block;
 		m_Block = NULL;
 		m_Block = new C_BLOCK(m_NextBlockIdx, m_MyView, &m_CreateSuccess);
-		//CheckCombo();
+		CheckCombo();
 
 		///***** SETTING NEXT BLOCK *****///
 		m_NextBlockIdx = rand() % 7;

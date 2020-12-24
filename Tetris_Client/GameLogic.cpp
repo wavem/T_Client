@@ -46,7 +46,7 @@ void __fastcall TFormMain::AddScore(int _Value) {
 		default:
 			break;
 	}
-	//lb_Score_Value->Caption = m_Score;
+	lb_Score->Caption = m_Score;
 	m_CleardLineCnt = _Value;
 }
 //---------------------------------------------------------------------------
@@ -54,12 +54,12 @@ void __fastcall TFormMain::AddScore(int _Value) {
 void __fastcall TFormMain::CheckCombo() {
 	if(m_OldScore == m_Score) {
 		m_ComboCnt = 0;
-		//lb_Combo_Value->Caption = m_ComboCnt;
+		lb_Combo->Caption = m_ComboCnt;
 		return;
 	}
 	AddScore(m_CleardLineCnt * m_ComboCnt);
 	m_ComboCnt++;
-	//lb_Combo_Value->Caption = m_ComboCnt;
+	lb_Combo->Caption = m_ComboCnt;
 	m_OldScore = m_Score;
 	m_CleardLineCnt = 0;
 	//CreateRandomItem();

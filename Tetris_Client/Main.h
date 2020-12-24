@@ -305,6 +305,8 @@ __published:	// IDE-managed Components
 	TLabel *lb_Score_Title;
 	TLabel *lb_Time;
 	TLabel *lb_Score;
+	TLabel *lb_Combo_Title;
+	TLabel *lb_Combo;
 	void __fastcall btn_SingleModeClick(TObject *Sender);
 	void __fastcall btn_SignUpClick(TObject *Sender);
 	void __fastcall btn_Login_QuitClick(TObject *Sender);
