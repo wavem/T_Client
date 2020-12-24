@@ -301,6 +301,10 @@ __published:	// IDE-managed Components
 	TLabel *Label4;
 	TAdvSmoothPanel *pn_Dead_5;
 	TLabel *Label5;
+	TLabel *lb_Time_Title;
+	TLabel *lb_Score_Title;
+	TLabel *lb_Time;
+	TLabel *lb_Score;
 	void __fastcall btn_SingleModeClick(TObject *Sender);
 	void __fastcall btn_SignUpClick(TObject *Sender);
 	void __fastcall btn_Login_QuitClick(TObject *Sender);

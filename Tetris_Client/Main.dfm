@@ -33,7 +33,7 @@ object FormMain: TFormMain
       Width = 1186
       Height = 819
       Align = alClient
-      PageIndex = 1
+      PageIndex = 2
       TabOrder = 0
       object TPage
         Left = 0
@@ -5387,6 +5387,58 @@ object FormMain: TFormMain
             Font.Style = [fsBold]
             ParentFont = False
             Visible = False
+          end
+          object lb_Time_Title: TLabel
+            Left = 403
+            Top = 237
+            Width = 36
+            Height = 18
+            Caption = 'Time'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -15
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lb_Score_Title: TLabel
+            Left = 403
+            Top = 293
+            Width = 43
+            Height = 18
+            Caption = 'Score'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -15
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lb_Time: TLabel
+            Left = 422
+            Top = 261
+            Width = 70
+            Height = 18
+            Caption = '00:00:00'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -15
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object lb_Score: TLabel
+            Left = 422
+            Top = 317
+            Width = 10
+            Height = 18
+            Caption = '0'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -15
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
           end
           object grid_P1: TAdvStringGrid
             Tag = 1

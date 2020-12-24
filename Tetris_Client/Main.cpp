@@ -2356,19 +2356,19 @@ void __fastcall TFormMain::tm_PlayTimeTimer(TObject *Sender)
 			++m_time_H;
 		}
 	}
-	//tempStr.sprintf(L"%02d:%02d:%02d", m_time_H, m_time_M, m_time_S);
-	//lb_Time_Value->Caption = tempStr;
+	tempStr.sprintf(L"%02d:%02d:%02d", m_time_H, m_time_M, m_time_S);
+	lb_Time->Caption = tempStr;
 
 	// SPEED UP
 	if(m_Speed == 100) return;
 
 	m_time_cnt++;
-	if(m_time_cnt % 60 == 0) {
-		//m_Speed -= 100;
-		//tm_Level->Interval = m_Speed;
-		//tempStr.sprintf(L"SPEED UP : %.1f Sec", (double)m_Speed / 1000);
-		//PringMsg(tempStr);
-		//if(m_Speed == 100) PrintMsg(L"MAX SPEED");
+	if(m_time_cnt % 30 == 0) {
+		m_Speed -= 100;
+		tm_Level->Interval = m_Speed;
+		tempStr.sprintf(L"SPEED UP : %.1f Sec", (double)m_Speed / 1000);
+		PrintChat_InGame(tempStr);
+		if(m_Speed == 100) PrintChat_InGame(L"MAX SPEED");
 	}
 }
 //---------------------------------------------------------------------------
