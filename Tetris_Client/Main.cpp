@@ -770,6 +770,7 @@ void __fastcall TFormMain::Receive_MakingRoomResult(SERVERDATA _serverData) {
 		m_MyRoomIdx = t_resultData;
 		lb_MyID->Caption = m_ID;
 		lb_MyGrade->Caption = m_Grade;
+		ResetPlayerGrid();
 	}
 	SendMessage(m_pDlgMakingRoom->Handle, MSG_TRY_TO_MAKING_ROOM, (unsigned int)&t_rst, 0x10);
 }
@@ -1392,6 +1393,7 @@ void __fastcall TFormMain::Receive_EnterRoomResult(SERVERDATA _serverData) {
 		memo_Chat_Game->Clear();
 		ed_Chat_InGame->Text = L"";
 		btn_StartGame->Enabled = false;
+		ResetPlayerGrid();
 		Notebook_Main->PageIndex = 2; // GAME
 	} else {
 		ShowMessage(L"Room is Full...");
