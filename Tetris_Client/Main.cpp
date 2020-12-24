@@ -111,6 +111,7 @@ void __fastcall TFormMain::InitProgram() {
 	m_MyRoomIdx = 0;
 	m_RoomMasterIdx = 0;
 	m_IsSingleMode = false;
+	m_IsDead = true;
 
 	// Init ETC
 	InitTetris();
@@ -770,6 +771,7 @@ void __fastcall TFormMain::Receive_MakingRoomResult(SERVERDATA _serverData) {
 		m_MyRoomIdx = t_resultData;
 		lb_MyID->Caption = m_ID;
 		lb_MyGrade->Caption = m_Grade;
+		m_IsDead = true;
 		ResetPlayerGrid();
 	}
 	SendMessage(m_pDlgMakingRoom->Handle, MSG_TRY_TO_MAKING_ROOM, (unsigned int)&t_rst, 0x10);
@@ -1259,7 +1261,7 @@ void __fastcall TFormMain::Receive_InnerRoomStatusData(SERVERDATA _serverData) {
 		tempStr = t_UserID;
 		m_Player[t_PlayerIdx].UserID = tempStr;
 		m_Player[t_PlayerIdx].Grade = _serverData.Data[t_BuffIdx + 31];
-		m_Player[t_PlayerIdx].Life = _serverData.Data[t_BuffIdx + 32];
+		//m_Player[t_PlayerIdx].Life = _serverData.Data[t_BuffIdx + 32];
 		m_Player[t_PlayerIdx].State = _serverData.Data[t_BuffIdx + 33];
 		m_Player[t_PlayerIdx].TeamIdx = _serverData.Data[t_BuffIdx + 34];
 		m_Player[t_PlayerIdx].Win = _serverData.Data[t_BuffIdx + 35];
@@ -1394,6 +1396,7 @@ void __fastcall TFormMain::Receive_EnterRoomResult(SERVERDATA _serverData) {
 		ed_Chat_InGame->Text = L"";
 		btn_StartGame->Enabled = false;
 		ResetPlayerGrid();
+		m_IsDead = true;
 		Notebook_Main->PageIndex = 2; // GAME
 	} else {
 		ShowMessage(L"Room is Full...");
@@ -1605,6 +1608,23 @@ void __fastcall TFormMain::btn_StartGameClick(TObject *Sender)
 		return;
 	}
 
+	// Check Is possible to start the game ?
+	bool t_IsAllDead = true;
+	for(int i = 0 ; i < 5 ; i++) {
+		if(m_Player[i].Connected) {
+			if(m_Player[i].Life) {
+				t_IsAllDead = false;
+			}
+		}
+	}
+	if(t_IsAllDead) t_IsAllDead = m_IsDead; // My Death Info.
+	if(t_IsAllDead == false) {
+		ShowMessage(L"The game is not over");
+		return;
+	}
+
+
+	// Send Game Start Request Message To Server
 	if(Send_GameStartMessage(m_MyRoomIdx) == false) {
 		ShowMessage(L"Send Fail..");
 	}
@@ -1720,6 +1740,13 @@ void __fastcall TFormMain::Receive_InnerRoomCMDData(SERVERDATA _serverData) {
 	// Check Game Start Signal
 	t_StartSignal = _serverData.Data[5];
 	if(t_StartSignal == 0x01) {
+		m_IsDead = false;
+		for(int i = 0 ; i < 5 ; i++) {
+			if(m_Player[i].Connected) {
+				m_Player[i].Life = true;
+			}
+		}
+
 		ResetPlayerGrid();
 		StartGame();
 		return;
@@ -1729,62 +1756,25 @@ void __fastcall TFormMain::Receive_InnerRoomCMDData(SERVERDATA _serverData) {
 	t_StateMessage = _serverData.Data[9];
 	t_ReceivedPlayerIdx = _serverData.Data[7];
 
-	if(t_ReceivedPlayerIdx == m_MyIdx) {
-		pn_Dead->Visible = true;
-		return;
-	}
-	for(int i = 0 ; i < 5 ; i++) {
-		if(m_Player[i].ServerIdx + 1 == t_ReceivedPlayerIdx) {
-			tempStr = L"pn_Dead_";
-			tempStr += (i + 1);
-			p_pn = (TAdvSmoothPanel*)FindComponent(tempStr);
-			if(p_pn != NULL) p_pn->Visible = true;
+	if(t_StateMessage == 0x01) { // Means Dead
+		if(t_ReceivedPlayerIdx == m_MyIdx) {
+			pn_Dead->Visible = true;
+			m_IsDead = true;
 			return;
 		}
-	}
 
+		for(int i = 0 ; i < 5 ; i++) {
+			if(m_Player[i].ServerIdx + 1 == t_ReceivedPlayerIdx) {
+				tempStr = L"pn_Dead_";
+				tempStr += (i + 1);
+				p_pn = (TAdvSmoothPanel*)FindComponent(tempStr);
+				if(p_pn != NULL) p_pn->Visible = true;
 
-
-
-#if 0
-	// Room Info
-	m_RoomStatus.State = _serverData.Data[4];
-	m_RoomStatus.TeamType = _serverData.Data[5];
-	m_RoomStatus.ItemType = _serverData.Data[6];
-	m_RoomStatus.SpeedLevel = _serverData.Data[7];
-	m_RoomStatus.RoomNumber = _serverData.Data[8];
-	memcpy(t_Title, &_serverData.Data[9], 28);
-	m_RoomStatus.Title = t_Title;
-	m_RoomMasterIdx = _serverData.Data[253];
-
-	// Player Info
-	//t_BuffIdx = 37;
-	for(int i = 0 ; i < 6 ; i++) {
-		t_BuffIdx = 37 + (36 * i);
-		t_CurrentIdx += 1;
-		if(t_CurrentIdx == m_MyIdx) {
-			// 여기서 레벨을 받기보단 로그인 했을 때 받는게 나을꺼같은데
-			// 여기다 한 이유는... 혹시라도 게임하다가 레벨업 할까봐....ㅎㅎ
-			lb_MyPlayNumber->Caption = m_MyIdx;
-			m_Grade = GetLevelString(_serverData.Data[t_BuffIdx + 31]);
-			continue;
+				m_Player[i].Life = false;
+				return;
+			}
 		}
-
-		m_Player[t_PlayerIdx].Connected = _serverData.Data[t_BuffIdx];
-		memcpy(t_UserID, &_serverData.Data[t_BuffIdx + 1], 30);
-		tempStr = t_UserID;
-		m_Player[t_PlayerIdx].UserID = tempStr;
-		m_Player[t_PlayerIdx].Grade = _serverData.Data[t_BuffIdx + 31];
-		m_Player[t_PlayerIdx].Life = _serverData.Data[t_BuffIdx + 32];
-		m_Player[t_PlayerIdx].State = _serverData.Data[t_BuffIdx + 33];
-		m_Player[t_PlayerIdx].TeamIdx = _serverData.Data[t_BuffIdx + 34];
-		m_Player[t_PlayerIdx].Win = _serverData.Data[t_BuffIdx + 35];
-		m_Player[t_PlayerIdx].ServerIdx = i;
-		t_PlayerIdx++;
 	}
-
-	RefreshInnerGameRoom();
-#endif
 }
 //---------------------------------------------------------------------------
 

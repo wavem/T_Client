@@ -368,6 +368,7 @@ public:
 	BYTE m_RoomMasterIdx;
 	bool m_IsSingleMode;
 	int m_Test;
+	bool m_IsDead;
 
 
 
