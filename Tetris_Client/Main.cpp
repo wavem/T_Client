@@ -1204,7 +1204,13 @@ void __fastcall TFormMain::Receive_LobbyRoomStatusData(SERVERDATA _serverData) {
 		tempStr = L"btn_Room_";
 		tempStr += t_RoomNumber;
 		p_btn = (TAdvGlassButton*)FindComponent(tempStr);
-		if(p_btn != NULL) p_btn->Enabled = true;
+		if(p_btn != NULL) {
+			if(t_State == 1) { // Waiting
+				p_btn->Enabled = true;
+			} else if(t_State == 2) { // In Gaming
+				p_btn->Enabled = false;
+			}
+		}
 		p_btn = NULL;
 
 		// Roop End Routine
@@ -1709,6 +1715,7 @@ void __fastcall TFormMain::Receive_InnerRoomCMDData(SERVERDATA _serverData) {
 		return;
 	}
 
+	// Check Game Start Signal
 	t_StartSignal = _serverData.Data[5];
 	if(t_StartSignal == 0x01) {
 		ResetPlayerGrid();
