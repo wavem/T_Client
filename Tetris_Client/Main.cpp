@@ -699,6 +699,10 @@ void __fastcall TFormMain::ReceiveServerData(TMessage &_msg) {
 		Receive_InnerRoomStatusData(t_serverData);
 		break;
 
+	case DATA_TYPE_VERSION_INFO_REQ:
+		Receive_VersionInfoData(t_serverData);
+		break;
+
 	default:
 		break;
 	}
@@ -2045,13 +2049,6 @@ bool __fastcall TFormMain::Send_DieMessage(int _RoomIdx) {
 }
 //---------------------------------------------------------------------------
 
-
-
-
-
-
-
-
 void __fastcall TFormMain::RefreshMyGameView() {
 	grid_Mine->Refresh();
 
@@ -2090,6 +2087,59 @@ void __fastcall TFormMain::RefreshMyGameView() {
         }
 	}
 #endif
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::TryToGetVersionInfo(TMessage &_msg) {
+
+	// Common
+	UnicodeString tempStr = L"";
+	int t_sendrst = 0;
+	unsigned short t_PacketLen = 4; // Fixed
+
+	// Check Client Socket
+	if(m_sock_Client == INVALID_SOCKET) {
+		tempStr.sprintf(L"Client socket is invalid");
+		PrintLog(tempStr);
+		return;
+	}
+
+	// Check Client Thread
+	if(m_ClientThread == NULL) {
+		tempStr.sprintf(L"Client Thread is invalid");
+		PrintLog(tempStr);
+		return;
+	}
+
+	// Check Connection
+	if(m_ClientThread->isConnected == false) {
+		tempStr.sprintf(L"Client is not connected");
+		PrintLog(tempStr);
+		return;
+	}
+
+	// Reset Send Buffer
+	memset(m_ClientThread->sendBuff, 0, TCP_SEND_BUF_SIZE);
+	m_ClientThread->p_sendText = NULL;
+
+	// Set Header Data
+	m_ClientThread->sendBuff[0] = 0x47;
+	memcpy(&m_ClientThread->sendBuff[1], &t_PacketLen, 2);
+	m_ClientThread->sendBuff[3] = DATA_TYPE_VERSION_INFO_REQ;
+
+	// Send to Server
+	t_sendrst = send(m_sock_Client, (char*)m_ClientThread->sendBuff, t_PacketLen, 0);
+	if(t_sendrst == 0) return;
+
+	// Function End Routine
+	tempStr.sprintf(L"Send Byte(Version Info Request) : %d", t_sendrst);
+	PrintLog(tempStr);
+	return;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::Receive_VersionInfoData(SERVERDATA _serverData) {
+
 }
 //---------------------------------------------------------------------------
 

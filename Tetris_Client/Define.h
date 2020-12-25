@@ -5,6 +5,9 @@
 //---------------------------------------------------------------------------
 #include <System.Classes.hpp>
 
+#define VERSION_MAJOR	1
+#define VERSION_MINOR	0
+
 // COMM
 //#define IP_SERVER "127.0.0.1"
 //#define IP_SERVER "192.168.0.10"
@@ -26,6 +29,7 @@
 #define MSG_TRY_TO_SIGNUP		40001
 #define MSG_SERVER_DATA			40002
 #define MSG_TRY_TO_MAKING_ROOM	40003
+#define MSG_TRY_TO_GET_VERSION_INFO		40004
 
 
 
@@ -68,6 +72,7 @@ typedef struct ST_MAKINGROOMINFO {
 #define DATA_TYPE_LOBBY_PLAYERLIST	0xF2
 #define DATA_TYPE_INNER_ROOM_STATUS	0xF3
 #define DATA_TYPE_BLOCK_ROOM_STATUS 0xF4
+#define DATA_TYPE_VERSION_INFO_REQ	0xF5
 
 
 

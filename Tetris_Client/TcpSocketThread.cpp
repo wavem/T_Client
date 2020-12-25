@@ -87,6 +87,9 @@ void __fastcall CTcpSocketThread::Execute() {
 		return;
 	}
 
+	// Send Version Info Request Message
+	PostMessage(FormMain->Handle, MSG_TRY_TO_GET_VERSION_INFO, 0, 0x10);
+
 	// Receive Routine
 	BYTE recv_buff[TCP_RECV_BUF_SIZE];
 	ZeroMemory( &recv_buff, sizeof(recv_buff));

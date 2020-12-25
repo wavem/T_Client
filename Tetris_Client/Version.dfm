@@ -64,11 +64,11 @@ object FormVersion: TFormVersion
       ParentFont = False
     end
     object lb_Version: TLabel
-      Left = 304
+      Left = 364
       Top = 129
-      Width = 95
+      Width = 25
       Height = 18
-      Caption = 'Version : 0.8'
+      Caption = '0.8'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clGradientActiveCaption
       Font.Height = -15
@@ -95,6 +95,19 @@ object FormVersion: TFormVersion
       Width = 144
       Height = 18
       Caption = 'github.com/wavem'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGradientActiveCaption
+      Font.Height = -15
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object lb_Version_Title: TLabel
+      Left = 291
+      Top = 128
+      Width = 66
+      Height = 18
+      Caption = 'Version :'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clGradientActiveCaption
       Font.Height = -15

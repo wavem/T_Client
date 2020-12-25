@@ -19,6 +19,7 @@ __published:	// IDE-managed Components
 	TLabel *lb_Update_Date;
 	TAdvGlassButton *btn_EXIT;
 	TLabel *lb_Github_URL;
+	TLabel *lb_Version_Title;
 	void __fastcall btn_EXITClick(TObject *Sender);
 private:	// User declarations
 public:		// User declarations

@@ -411,6 +411,8 @@ public: // Receive Routine
 	void __fastcall Receive_InGameData(SERVERDATA _serverData);
 	void __fastcall Receive_BlockRoomStatusData(SERVERDATA _serverData);
 
+	void __fastcall Receive_VersionInfoData(SERVERDATA _serverData);
+
 
 
 
@@ -495,6 +497,7 @@ public: // Message Handler
 	void __fastcall TryToSignUp(TMessage &_msg);
 	void __fastcall TryToMakingRoom(TMessage &_msg);
 	void __fastcall ReceiveServerData(TMessage &_msg);
+	void __fastcall TryToGetVersionInfo(TMessage &_msg);
 
 
 BEGIN_MESSAGE_MAP
@@ -502,6 +505,7 @@ BEGIN_MESSAGE_MAP
 	MESSAGE_HANDLER(MSG_TRY_TO_SIGNUP, TMessage, TryToSignUp)
 	MESSAGE_HANDLER(MSG_TRY_TO_MAKING_ROOM, TMessage, TryToMakingRoom)
 	MESSAGE_HANDLER(MSG_SERVER_DATA, TMessage, ReceiveServerData)
+	MESSAGE_HANDLER(MSG_TRY_TO_GET_VERSION_INFO, TMessage, TryToGetVersionInfo)
 END_MESSAGE_MAP(TForm)
 };
 //---------------------------------------------------------------------------
