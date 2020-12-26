@@ -307,6 +307,8 @@ __published:	// IDE-managed Components
 	TLabel *lb_Score;
 	TLabel *lb_Combo_Title;
 	TLabel *lb_Combo;
+	TLabel *lb_VersionIsDifferent;
+	TLabel *lb_DownloadLink;
 	void __fastcall btn_SingleModeClick(TObject *Sender);
 	void __fastcall btn_SignUpClick(TObject *Sender);
 	void __fastcall btn_Login_QuitClick(TObject *Sender);
@@ -332,6 +334,7 @@ __published:	// IDE-managed Components
 	void __fastcall grid_MineKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall tm_LevelTimer(TObject *Sender);
 	void __fastcall tm_PlayTimeTimer(TObject *Sender);
+	void __fastcall lb_DownloadLinkClick(TObject *Sender);
 
 
 

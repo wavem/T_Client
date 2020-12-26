@@ -2140,8 +2140,35 @@ void __fastcall TFormMain::TryToGetVersionInfo(TMessage &_msg) {
 
 void __fastcall TFormMain::Receive_VersionInfoData(SERVERDATA _serverData) {
 
+	// Common
+	UnicodeString tempStr = L"";
+	BYTE t_MajorVersion = _serverData.Data[4];
+	BYTE t_MinorVersion = _serverData.Data[5];
+
+	// Check Version Info
+	if(t_MajorVersion != VERSION_MAJOR || t_MinorVersion != VERSION_MINOR) {
+		lb_VersionIsDifferent->Visible = true;
+		lb_DownloadLink->Visible = true;
+		btn_SignUp->Enabled = false;
+		btn_Login->Enabled = false;
+		tempStr.sprintf(L"Version Different (%d.%d)", t_MajorVersion, t_MinorVersion);
+		//ShowMessage(tempStr);
+	}
 }
 //---------------------------------------------------------------------------
+
+void __fastcall TFormMain::lb_DownloadLinkClick(TObject *Sender)
+{
+	// Go to Download Link
+	wchar_t szPath[256] = {0, };
+	HFILE h = _lcreat("dummy.htm",0) ;
+	_lclose(h) ;
+	FindExecutable(L"dummy.htm", NULL, szPath);
+	DeleteFile(L"dummy.htm");
+	ShellExecute (NULL, L"open", szPath, L"https://www.notion.so/TETRIS-ONLINE-b18c655376784b69a5ae0a4c72a73b0e", NULL, SW_SHOWNORMAL);
+}
+//---------------------------------------------------------------------------
+
 
 
 
@@ -2489,3 +2516,4 @@ void __fastcall TFormMain::USE_ITEM_MINUS() {
 	m_Block->ClearLine(MAX_GRID_Y - 1);
 }
 //---------------------------------------------------------------------------
+
