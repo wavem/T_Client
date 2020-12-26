@@ -5160,14 +5160,13 @@ object FormMain: TFormMain
             Height = 20
             Alignment = taCenter
             AutoSize = False
-            Caption = 'pdmzzang0724'
+            Caption = 'Player ID'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clGradientActiveCaption
             Font.Height = -13
             Font.Name = #47569#51008' '#44256#46357
             Font.Style = [fsBold]
             ParentFont = False
-            Visible = False
           end
           object lb_PlayerGrade_1: TLabel
             Left = 120
@@ -5176,14 +5175,13 @@ object FormMain: TFormMain
             Height = 20
             Alignment = taCenter
             AutoSize = False
-            Caption = #52488#44256#49688
+            Caption = 'Grade'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clGradientActiveCaption
             Font.Height = -13
             Font.Name = #47569#51008' '#44256#46357
             Font.Style = [fsBold]
             ParentFont = False
-            Visible = False
           end
           object lb_PlayerNumber_1: TLabel
             Left = 55
@@ -5198,7 +5196,6 @@ object FormMain: TFormMain
             Font.Name = #47569#51008' '#44256#46357
             Font.Style = [fsBold]
             ParentFont = False
-            Visible = False
           end
           object lb_PlayerNumber_2: TLabel
             Left = 229
@@ -5213,7 +5210,6 @@ object FormMain: TFormMain
             Font.Name = #47569#51008' '#44256#46357
             Font.Style = [fsBold]
             ParentFont = False
-            Visible = False
           end
           object lb_PlayerID_2: TLabel
             Left = 264
@@ -5222,14 +5218,13 @@ object FormMain: TFormMain
             Height = 20
             Alignment = taCenter
             AutoSize = False
-            Caption = 'fenix24'
+            Caption = 'Player ID'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clGradientActiveCaption
             Font.Height = -13
             Font.Name = #47569#51008' '#44256#46357
             Font.Style = [fsBold]
             ParentFont = False
-            Visible = False
           end
           object lb_PlayerGrade_2: TLabel
             Left = 294
@@ -5238,14 +5233,13 @@ object FormMain: TFormMain
             Height = 20
             Alignment = taCenter
             AutoSize = False
-            Caption = #49888
+            Caption = 'Grade'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clGradientActiveCaption
             Font.Height = -13
             Font.Name = #47569#51008' '#44256#46357
             Font.Style = [fsBold]
             ParentFont = False
-            Visible = False
           end
           object lb_PlayerNumber_3: TLabel
             Left = 55
@@ -5260,7 +5254,6 @@ object FormMain: TFormMain
             Font.Name = #47569#51008' '#44256#46357
             Font.Style = [fsBold]
             ParentFont = False
-            Visible = False
           end
           object lb_PlayerID_3: TLabel
             Left = 90
@@ -5269,14 +5262,13 @@ object FormMain: TFormMain
             Height = 20
             Alignment = taCenter
             AutoSize = False
-            Caption = 'jwm'
+            Caption = 'Player ID'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clGradientActiveCaption
             Font.Height = -13
             Font.Name = #47569#51008' '#44256#46357
             Font.Style = [fsBold]
             ParentFont = False
-            Visible = False
           end
           object lb_PlayerGrade_3: TLabel
             Left = 120
@@ -5285,14 +5277,13 @@ object FormMain: TFormMain
             Height = 20
             Alignment = taCenter
             AutoSize = False
-            Caption = #54616#49688
+            Caption = 'Grade'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clGradientActiveCaption
             Font.Height = -13
             Font.Name = #47569#51008' '#44256#46357
             Font.Style = [fsBold]
             ParentFont = False
-            Visible = False
           end
           object lb_PlayerNumber_4: TLabel
             Left = 229
@@ -5307,7 +5298,6 @@ object FormMain: TFormMain
             Font.Name = #47569#51008' '#44256#46357
             Font.Style = [fsBold]
             ParentFont = False
-            Visible = False
           end
           object lb_PlayerID_4: TLabel
             Left = 264
@@ -5316,14 +5306,13 @@ object FormMain: TFormMain
             Height = 20
             Alignment = taCenter
             AutoSize = False
-            Caption = 'blingjiny'
+            Caption = 'Player ID'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clGradientActiveCaption
             Font.Height = -13
             Font.Name = #47569#51008' '#44256#46357
             Font.Style = [fsBold]
             ParentFont = False
-            Visible = False
           end
           object lb_PlayerGrade_4: TLabel
             Left = 294
@@ -5332,14 +5321,13 @@ object FormMain: TFormMain
             Height = 20
             Alignment = taCenter
             AutoSize = False
-            Caption = #51473#49688
+            Caption = 'Grade'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clGradientActiveCaption
             Font.Height = -13
             Font.Name = #47569#51008' '#44256#46357
             Font.Style = [fsBold]
             ParentFont = False
-            Visible = False
           end
           object lb_PlayerNumber_5: TLabel
             Left = 403
@@ -5354,7 +5342,6 @@ object FormMain: TFormMain
             Font.Name = #47569#51008' '#44256#46357
             Font.Style = [fsBold]
             ParentFont = False
-            Visible = False
           end
           object lb_PlayerID_5: TLabel
             Left = 438
@@ -5363,14 +5350,13 @@ object FormMain: TFormMain
             Height = 20
             Alignment = taCenter
             AutoSize = False
-            Caption = 'kingdom'
+            Caption = 'Player ID'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clGradientActiveCaption
             Font.Height = -13
             Font.Name = #47569#51008' '#44256#46357
             Font.Style = [fsBold]
             ParentFont = False
-            Visible = False
           end
           object lb_PlayerGrade_5: TLabel
             Left = 468
@@ -5379,14 +5365,13 @@ object FormMain: TFormMain
             Height = 20
             Alignment = taCenter
             AutoSize = False
-            Caption = #47336#53412
+            Caption = 'Grade'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clGradientActiveCaption
             Font.Height = -13
             Font.Name = #47569#51008' '#44256#46357
             Font.Style = [fsBold]
             ParentFont = False
-            Visible = False
           end
           object lb_Time_Title: TLabel
             Left = 403
