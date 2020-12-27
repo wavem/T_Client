@@ -2141,7 +2141,6 @@ void __fastcall TFormMain::TryToGetVersionInfo(TMessage &_msg) {
 void __fastcall TFormMain::Receive_VersionInfoData(SERVERDATA _serverData) {
 
 	// Common
-	UnicodeString tempStr = L"";
 	BYTE t_MajorVersion = _serverData.Data[4];
 	BYTE t_MinorVersion = _serverData.Data[5];
 
@@ -2151,8 +2150,6 @@ void __fastcall TFormMain::Receive_VersionInfoData(SERVERDATA _serverData) {
 		lb_DownloadLink->Visible = true;
 		btn_SignUp->Enabled = false;
 		btn_Login->Enabled = false;
-		tempStr.sprintf(L"Version Different (%d.%d)", t_MajorVersion, t_MinorVersion);
-		//ShowMessage(tempStr);
 	}
 }
 //---------------------------------------------------------------------------

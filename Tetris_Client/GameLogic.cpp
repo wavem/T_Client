@@ -59,7 +59,7 @@ void __fastcall TFormMain::CheckCombo() {
 	}
 	AddScore(m_CleardLineCnt * m_ComboCnt);
 	//if(++m_ComboCnt > 1) {
-		CreateRandomItem();
+		//CreateRandomItem();
 	//}
 	lb_Combo->Caption = m_ComboCnt;
 	m_OldScore = m_Score;
