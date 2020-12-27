@@ -123,14 +123,12 @@ object FormMain: TFormMain
             Visible = False
           end
           object lb_DownloadLink: TLabel
-            Left = 266
-            Top = 513
-            Width = 660
+            Left = 512
+            Top = 521
+            Width = 153
             Height = 18
             Cursor = crHandPoint
-            Caption = 
-              'https://www.notion.so/hmit/TETRIS-ONLINE-b18c655376784b69a5ae0a4' +
-              'c72a73b0e'
+            Caption = 'Go to Download Link'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clGradientActiveCaption
             Font.Height = -15
