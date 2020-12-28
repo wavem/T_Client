@@ -263,7 +263,7 @@ void __fastcall TFormMain::RefreshNextBlock() {
 		case BLOCK_O:
 			SX = 37;
 			SY = 37;
-			img_NextBlock->Canvas->Brush->Bitmap = m_BmpList[BLOCK_O];
+			img_NextBlock->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_O];
 
 			x = SX;
 			y = SY;
@@ -289,7 +289,7 @@ void __fastcall TFormMain::RefreshNextBlock() {
 		case BLOCK_I:
 			SX = 4;
 			SY = 54;
-			img_NextBlock->Canvas->Brush->Bitmap = m_BmpList[BLOCK_I];
+			img_NextBlock->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_I];
 
 			x = SX;
 			y = SY;
@@ -312,7 +312,7 @@ void __fastcall TFormMain::RefreshNextBlock() {
 		case BLOCK_T:
 			SX = 20;
 			SY = 67;
-			img_NextBlock->Canvas->Brush->Bitmap = m_BmpList[BLOCK_T];
+			img_NextBlock->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_T];
 
 			x = SX;
 			y = SY;
@@ -336,7 +336,7 @@ void __fastcall TFormMain::RefreshNextBlock() {
 		case BLOCK_J:
 			SX = 23;
 			SY = 38;
-			img_NextBlock->Canvas->Brush->Bitmap = m_BmpList[BLOCK_J];
+			img_NextBlock->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_J];
 
 			x = SX;
 			y = SY;
@@ -360,7 +360,7 @@ void __fastcall TFormMain::RefreshNextBlock() {
 		case BLOCK_L:
 			SX = 24;
 			SY = 66;
-			img_NextBlock->Canvas->Brush->Bitmap = m_BmpList[BLOCK_L];
+			img_NextBlock->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_L];
 
 			x = SX;
 			y = SY;
@@ -384,7 +384,7 @@ void __fastcall TFormMain::RefreshNextBlock() {
 		case BLOCK_S:
 		    SX = 21;
 			SY = 37;
-			img_NextBlock->Canvas->Brush->Bitmap = m_BmpList[BLOCK_S];
+			img_NextBlock->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_S];
 
 			x = SX;
 			y = SY;
@@ -408,7 +408,7 @@ void __fastcall TFormMain::RefreshNextBlock() {
 		case BLOCK_Z:
 		    SX = 54;
 			SY = 37;
-			img_NextBlock->Canvas->Brush->Bitmap = m_BmpList[BLOCK_Z];
+			img_NextBlock->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_Z];
 
 			x = SX;
 			y = SY;

@@ -152,27 +152,55 @@ void __fastcall TFormMain::InitProgram() {
 void __fastcall TFormMain::LoadBMPFiles() {
 
 	///***** BLOCKS *****///
-	m_BmpList[BLOCK_O] = new TBitmap;
-	ImgList->GetBitmap(BLOCK_O, m_BmpList[BLOCK_O]);
-	m_BmpList[BLOCK_I] = new TBitmap;
-	ImgList->GetBitmap(BLOCK_I, m_BmpList[BLOCK_I]);
-	m_BmpList[BLOCK_T] = new TBitmap;
-	ImgList->GetBitmap(BLOCK_T, m_BmpList[BLOCK_T]);
-	m_BmpList[BLOCK_J] = new TBitmap;
-	ImgList->GetBitmap(BLOCK_J, m_BmpList[BLOCK_J]);
-	m_BmpList[BLOCK_L] = new TBitmap;
-	ImgList->GetBitmap(BLOCK_L, m_BmpList[BLOCK_L]);
-	m_BmpList[BLOCK_S] = new TBitmap;
-	ImgList->GetBitmap(BLOCK_S, m_BmpList[BLOCK_S]);
-	m_BmpList[BLOCK_Z] = new TBitmap;
-	ImgList->GetBitmap(BLOCK_Z, m_BmpList[BLOCK_Z]);
-	m_BmpList[BLOCK_N] = new TBitmap;
-	ImgList->GetBitmap(BLOCK_N, m_BmpList[BLOCK_N]);
-	m_BmpList[BLOCK_R] = new TBitmap;
-	ImgList->GetBitmap(BLOCK_R, m_BmpList[BLOCK_R]);
+	// My View
+	m_BmpList_My[BLOCK_O] = new TBitmap;
+	ImgList_My->GetBitmap(BLOCK_O, m_BmpList_My[BLOCK_O]);
+	m_BmpList_My[BLOCK_I] = new TBitmap;
+	ImgList_My->GetBitmap(BLOCK_I, m_BmpList_My[BLOCK_I]);
+	m_BmpList_My[BLOCK_T] = new TBitmap;
+	ImgList_My->GetBitmap(BLOCK_T, m_BmpList_My[BLOCK_T]);
+	m_BmpList_My[BLOCK_J] = new TBitmap;
+	ImgList_My->GetBitmap(BLOCK_J, m_BmpList_My[BLOCK_J]);
+	m_BmpList_My[BLOCK_L] = new TBitmap;
+	ImgList_My->GetBitmap(BLOCK_L, m_BmpList_My[BLOCK_L]);
+	m_BmpList_My[BLOCK_S] = new TBitmap;
+	ImgList_My->GetBitmap(BLOCK_S, m_BmpList_My[BLOCK_S]);
+	m_BmpList_My[BLOCK_Z] = new TBitmap;
+	ImgList_My->GetBitmap(BLOCK_Z, m_BmpList_My[BLOCK_Z]);
+	m_BmpList_My[BLOCK_N] = new TBitmap;
+	ImgList_My->GetBitmap(BLOCK_N, m_BmpList_My[BLOCK_N]);
+	m_BmpList_My[BLOCK_R] = new TBitmap;
+	ImgList_My->GetBitmap(BLOCK_R, m_BmpList_My[BLOCK_R]);
 
-	m_BmpList[ITEM_P] = new TBitmap;
-	m_BmpList[ITEM_P]->LoadFromFile(L".\\IMG\\P.bmp");
+	m_BmpList_My[ITEM_P] = new TBitmap;
+	m_BmpList_My[ITEM_P]->LoadFromFile(L".\\IMG\\P.bmp");
+
+
+	// Others View
+	//m_BmpList_Others
+	//ImgList_Others
+	m_BmpList_Others[BLOCK_O] = new TBitmap;
+	ImgList_Others->GetBitmap(BLOCK_O, m_BmpList_Others[BLOCK_O]);
+	m_BmpList_Others[BLOCK_I] = new TBitmap;
+	ImgList_Others->GetBitmap(BLOCK_I, m_BmpList_Others[BLOCK_I]);
+	m_BmpList_Others[BLOCK_T] = new TBitmap;
+	ImgList_Others->GetBitmap(BLOCK_T, m_BmpList_Others[BLOCK_T]);
+	m_BmpList_Others[BLOCK_J] = new TBitmap;
+	ImgList_Others->GetBitmap(BLOCK_J, m_BmpList_Others[BLOCK_J]);
+	m_BmpList_Others[BLOCK_L] = new TBitmap;
+	ImgList_Others->GetBitmap(BLOCK_L, m_BmpList_Others[BLOCK_L]);
+	m_BmpList_Others[BLOCK_S] = new TBitmap;
+	ImgList_Others->GetBitmap(BLOCK_S, m_BmpList_Others[BLOCK_S]);
+	m_BmpList_Others[BLOCK_Z] = new TBitmap;
+	ImgList_Others->GetBitmap(BLOCK_Z, m_BmpList_Others[BLOCK_Z]);
+	m_BmpList_Others[BLOCK_N] = new TBitmap;
+	ImgList_Others->GetBitmap(BLOCK_N, m_BmpList_Others[BLOCK_N]);
+	m_BmpList_Others[BLOCK_R] = new TBitmap;
+	ImgList_Others->GetBitmap(BLOCK_R, m_BmpList_Others[BLOCK_R]);
+
+	m_BmpList_Others[ITEM_P] = new TBitmap;
+	m_BmpList_Others[ITEM_P]->LoadFromFile(L".\\IMG\\P.bmp");
+
 }
 //---------------------------------------------------------------------------
 
@@ -1960,34 +1988,34 @@ void __fastcall TFormMain::RefreshPlayerGame() {
 
 				switch(t_Byte) {
 				case TYPE_BLOCK_O:
-					p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_O];
+					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[BLOCK_O];
 					break;
 				case TYPE_BLOCK_I:
-					p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_I];
+					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[BLOCK_I];
 					break;
 				case TYPE_BLOCK_T:
-					p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_T];
+					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[BLOCK_T];
 					break;
 				case TYPE_BLOCK_J:
-					p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_J];
+					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[BLOCK_J];
 					break;
 				case TYPE_BLOCK_L:
-					p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_L];
+					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[BLOCK_L];
 					break;
 				case TYPE_BLOCK_S:
-					p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_S];
+					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[BLOCK_S];
 					break;
 				case TYPE_BLOCK_Z:
-					p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_Z];
+					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[BLOCK_Z];
 					break;
 				case TYPE_STATUS_ROCK:
-					p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_R];
+					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[BLOCK_R];
 					break;
 				case TYPE_ITEM_PLUS:
-					p_grid->Canvas->Brush->Bitmap = m_BmpList[ITEM_P];
+					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[ITEM_P];
 					break;
 				default:
-					p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_N];
+					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[BLOCK_N];
 					break;
 				}
 				p_grid->Canvas->FillRect(t_Rect);
@@ -2274,34 +2302,34 @@ void __fastcall TFormMain::grid_MineDrawCell(TObject *Sender, int ACol, int ARow
 	t_Byte = GetBlockData(m_MyView[ACol][ARow]);
 	switch(t_Byte) {
 		case TYPE_BLOCK_O:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_O];
+			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_O];
 			break;
 		case TYPE_BLOCK_I:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_I];
+			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_I];
 			break;
 		case TYPE_BLOCK_T:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_T];
+			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_T];
 			break;
 		case TYPE_BLOCK_J:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_J];
+			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_J];
 			break;
 		case TYPE_BLOCK_L:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_L];
+			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_L];
 			break;
 		case TYPE_BLOCK_S:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_S];
+			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_S];
 			break;
 		case TYPE_BLOCK_Z:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_Z];
+			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_Z];
 			break;
 		case TYPE_STATUS_ROCK:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_R];
+			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_R];
 			break;
 		case TYPE_ITEM_PLUS:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList[ITEM_P];
+			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[ITEM_P];
 			break;
 		default:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList[BLOCK_N];
+			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_N];
 			break;
 	}
 	p_grid->Canvas->FillRect(Rect);

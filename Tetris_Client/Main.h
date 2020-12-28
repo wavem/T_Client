@@ -310,7 +310,8 @@ __published:	// IDE-managed Components
 	TLabel *lb_VersionIsDifferent;
 	TLabel *lb_DownloadLink;
 	TImage *Image1;
-	TImageList *ImgList;
+	TImageList *ImgList_My;
+	TImageList *ImgList_Others;
 	void __fastcall btn_SingleModeClick(TObject *Sender);
 	void __fastcall btn_SignUpClick(TObject *Sender);
 	void __fastcall btn_Login_QuitClick(TObject *Sender);
@@ -427,7 +428,8 @@ public: // Receive Routine
 
 // MEMBER VARIABLES : IN GAME
 public:
-	TBitmap *m_BmpList[256];
+	TBitmap *m_BmpList_My[64];
+	TBitmap *m_BmpList_Others[64];
 	int m_row;
 	int m_col;
 	BYTE m_MyView[MAX_GRID_X][MAX_GRID_Y];
