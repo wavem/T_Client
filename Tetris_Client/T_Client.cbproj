@@ -40,6 +40,9 @@
         <Base>true</Base>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
+        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
+        <VerInfo_Locale>1042</VerInfo_Locale>
         <_TCHARMapping>wchar_t</_TCHARMapping>
         <ILINK_LibraryPath>Z:\wave\010_Project\010_Game\Tetris\Client\010_Source\Tetris_Client\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
         <ProjectType>CppVCLApplication</ProjectType>
@@ -48,7 +51,7 @@
         <Multithreaded>true</Multithreaded>
         <SanitizedProjectName>T_Client</SanitizedProjectName>
         <IncludePath>Z:\wave\010_Project\010_Game\Tetris\Client\010_Source\Tetris_Client\;$(IncludePath)</IncludePath>
-        <Icon_MainIcon>$(BDS)\bin\cbuilder_PROJECTICON.ico</Icon_MainIcon>
+        <Icon_MainIcon>T_Client_Icon.ico</Icon_MainIcon>
         <DCC_CBuilderOutput>JPHNE</DCC_CBuilderOutput>
         <DynamicRTL>true</DynamicRTL>
         <UsePackages>true</UsePackages>
@@ -60,10 +63,8 @@
         <ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\release\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
-        <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
-        <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
         <IncludePath>$(BDSINCLUDE)\windows\vcl;$(IncludePath)</IncludePath>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <PackageImports>adortl;bcbie;bcbsmp;bindcomp;bindcompdbx;bindcompfmx;bindcompvcl;bindengine;CloudService;CodeSiteExpressPkg;CustomIPTransport;cxBarEditItemRS21;cxDataRS21;cxEditorsRS21;cxExportRS21;cxGridRS21;cxLibraryRS21;cxPageControlRS21;cxPivotGridChartRS21;cxPivotGridOLAPRS21;cxPivotGridRS21;cxSchedulerGridRS21;cxSchedulerRibbonStyleEventEditorRS21;cxSchedulerRS21;cxSchedulerTreeBrowserRS21;cxTreeListdxBarPopupMenuRS21;cxTreeListRS21;cxVerticalGridRS21;DataSnapClient;DataSnapCommon;DataSnapConnectors;DatasnapConnectorsFreePascal;DataSnapFireDAC;DataSnapIndy10ServerTransport;DataSnapNativeClient;DataSnapProviderClient;DataSnapServer;DataSnapServerMidas;dbexpress;dbrtl;dbxcds;DbxClientDriver;DbxCommonDriver;DBXDb2Driver;DBXFirebirdDriver;DBXInformixDriver;DBXInterBaseDriver;DBXMSSQLDriver;DBXMySQLDriver;DBXOdbcDriver;DBXOracleDriver;DBXSqliteDriver;DBXSybaseASADriver;DBXSybaseASEDriver;dsnap;dsnapcon;dsnapxml;dxADOServerModeRS21;dxBarDBNavRS21;dxBarExtDBItemsRS21;dxBarExtItemsRS21;dxBarRS21;dxComnRS21;dxCoreRS21;dxdborRS21;dxdbtrRS21;dxDBXServerModeRS21;dxDockingRS21;dxFireDACServerModeRS21;dxFlowChartRS21;dxGaugeControlRS21;dxGDIPlusRS21;dxLayoutControlRS21;dxMapControlRS21;dxmdsRS21;dxNavBarRS21;dxorgcRS21;dxPSCoreRS21;dxPScxCommonRS21;dxPScxExtCommonRS21;dxPScxGridLnkRS21;dxPScxPCProdRS21;dxPScxPivotGridLnkRS21;dxPScxSchedulerLnkRS21;dxPScxTLLnkRS21;dxPScxVGridLnkRS21;dxPSdxDBOCLnkRS21;dxPSdxDBTVLnkRS21;dxPSdxFCLnkRS21;dxPSdxGaugeControlLnkRS21;dxPSdxLCLnkRS21;dxPSdxOCLnkRS21;dxPSdxSpreadSheetLnkRS21;dxPSLnksRS21;dxPsPrVwAdvRS21;dxPSPrVwRibbonRS21;dxPSRichEditControlLnkRS21;dxRibbonCustomizationFormRS21;dxRibbonRS21;dxRichEditControlRS21;dxServerModeRS21;dxSkinBlackRS21;dxSkinBlueprintRS21;dxSkinBlueRS21;dxSkinCaramelRS21;dxSkinCoffeeRS21;dxSkinDarkRoomRS21;dxSkinDarkSideRS21;dxSkinDevExpressDarkStyleRS21;dxSkinDevExpressStyleRS21;dxSkinFoggyRS21;dxSkinGlassOceansRS21;dxSkinHighContrastRS21;dxSkiniMaginaryRS21;dxSkinLilianRS21;dxSkinLiquidSkyRS21;dxSkinLondonLiquidSkyRS21;dxSkinMcSkinRS21;dxSkinMetropolisDarkRS21;dxSkinMetropolisRS21;dxSkinMoneyTwinsRS21;dxSkinOffice2007BlackRS21;dxSkinOffice2007BlueRS21;dxSkinOffice2007GreenRS21;dxSkinOffice2007PinkRS21;dxSkinOffice2007SilverRS21;dxSkinOffice2010BlackRS21;dxSkinOffice2010BlueRS21;dxSkinOffice2010SilverRS21;dxSkinOffice2013DarkGrayRS21;dxSkinOffice2013LightGrayRS21;dxSkinOffice2013WhiteRS21;dxSkinPumpkinRS21;dxSkinsCoreRS21;dxSkinscxPCPainterRS21;dxSkinscxSchedulerPainterRS21;dxSkinsdxBarPainterRS21;dxSkinsdxDLPainterRS21;dxSkinsdxNavBarPainterRS21;dxSkinsdxRibbonPainterRS21;dxSkinSevenClassicRS21;dxSkinSevenRS21;dxSkinSharpPlusRS21;dxSkinSharpRS21;dxSkinSilverRS21;dxSkinSpringTimeRS21;dxSkinStardustRS21;dxSkinSummer2008RS21;dxSkinTheAsphaltWorldRS21;dxSkinValentineRS21;dxSkinVisualStudio2013BlueRS21;dxSkinVisualStudio2013DarkRS21;dxSkinVisualStudio2013LightRS21;dxSkinVS2010RS21;dxSkinWhiteprintRS21;dxSkinXmas2008BlueRS21;dxSpellCheckerRS21;dxSpreadSheetRS21;dxTabbedMDIRS21;dxThemeRS21;dxTileControlRS21;dxtrmdRS21;dxWizardControlRS21;emsclient;emsclientfiredac;FireDAC;FireDACADSDriver;FireDACASADriver;FireDACCommon;FireDACCommonDriver;FireDACDb2Driver;FireDACDBXDriver;FireDACDSDriver;FireDACIBDriver;FireDACInfxDriver;FireDACMSAccDriver;FireDACMSSQLDriver;FireDACMySQLDriver;FireDACODBCDriver;FireDACOracleDriver;FireDACPgDriver;FireDACSqliteDriver;fmx;fmxase;fmxdae;fmxFireDAC;fmxobj;FMXTee921;FMXTeeDB921;FMXTeeImport921;FMXTeeLanguage921;FMXTeePro921;FmxTeeUI921;FMXTree21;ibxpress;IndyCore;IndyIPClient;IndyIPCommon;IndyIPServer;IndyProtocols;IndySystem;inet;inetdb;inetdbxpress;Intraweb;IocompCPPXE7;MetropolisUILiveTile;RESTBackendComponents;RESTComponents;rtl;soapmidas;soaprtl;soapserver;svn;Tee921;TeeDB921;TeeGL921;TeeImage921;TeeImport921;TeeLanguage921;TeePro921;TeeTree2D21Tee9;TeeUI921;TeeWorld921;tethering;tmsdXE7;tmsexdXE7;tmswizdXE7;tmsxlsdXE7;vcl;vclactnband;vcldb;vcldsnap;vclFireDAC;vclib;vclie;vclimg;VCLRESTComponents;vclribbon;VclSmp;vcltouch;vclx;xmlrtl;$(PackageImports)</PackageImports>
@@ -96,6 +97,7 @@
         <ILINK_TranslatedLibraryPath>$(BDSLIB)\$(PLATFORM)\debug\$(LANGDIR);$(ILINK_TranslatedLibraryPath)</ILINK_TranslatedLibraryPath>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+        <Icon_MainIcon>T_Client_Icon.ico</Icon_MainIcon>
         <UsePackages>false</UsePackages>
         <DynamicRTL>false</DynamicRTL>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
