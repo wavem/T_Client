@@ -153,23 +153,24 @@ void __fastcall TFormMain::LoadBMPFiles() {
 
 	///***** BLOCKS *****///
 	m_BmpList[BLOCK_O] = new TBitmap;
-	m_BmpList[BLOCK_O]->LoadFromFile(L".\\IMG\\O.bmp");
+	ImgList->GetBitmap(BLOCK_O, m_BmpList[BLOCK_O]);
 	m_BmpList[BLOCK_I] = new TBitmap;
-	m_BmpList[BLOCK_I]->LoadFromFile(L".\\IMG\\I.bmp");
+	ImgList->GetBitmap(BLOCK_I, m_BmpList[BLOCK_I]);
 	m_BmpList[BLOCK_T] = new TBitmap;
-	m_BmpList[BLOCK_T]->LoadFromFile(L".\\IMG\\T.bmp");
+	ImgList->GetBitmap(BLOCK_T, m_BmpList[BLOCK_T]);
 	m_BmpList[BLOCK_J] = new TBitmap;
-	m_BmpList[BLOCK_J]->LoadFromFile(L".\\IMG\\J.bmp");
+	ImgList->GetBitmap(BLOCK_J, m_BmpList[BLOCK_J]);
 	m_BmpList[BLOCK_L] = new TBitmap;
-	m_BmpList[BLOCK_L]->LoadFromFile(L".\\IMG\\L.bmp");
+	ImgList->GetBitmap(BLOCK_L, m_BmpList[BLOCK_L]);
 	m_BmpList[BLOCK_S] = new TBitmap;
-	m_BmpList[BLOCK_S]->LoadFromFile(L".\\IMG\\S.bmp");
+	ImgList->GetBitmap(BLOCK_S, m_BmpList[BLOCK_S]);
 	m_BmpList[BLOCK_Z] = new TBitmap;
-	m_BmpList[BLOCK_Z]->LoadFromFile(L".\\IMG\\Z.bmp");
+	ImgList->GetBitmap(BLOCK_Z, m_BmpList[BLOCK_Z]);
 	m_BmpList[BLOCK_N] = new TBitmap;
-	m_BmpList[BLOCK_N]->LoadFromFile(L".\\IMG\\N.bmp");
+	ImgList->GetBitmap(BLOCK_N, m_BmpList[BLOCK_N]);
 	m_BmpList[BLOCK_R] = new TBitmap;
-	m_BmpList[BLOCK_R]->LoadFromFile(L".\\IMG\\R.bmp");
+	ImgList->GetBitmap(BLOCK_R, m_BmpList[BLOCK_R]);
+
 	m_BmpList[ITEM_P] = new TBitmap;
 	m_BmpList[ITEM_P]->LoadFromFile(L".\\IMG\\P.bmp");
 }

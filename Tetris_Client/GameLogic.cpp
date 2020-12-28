@@ -59,6 +59,7 @@ void __fastcall TFormMain::CheckCombo() {
 	}
 	AddScore(m_CleardLineCnt * m_ComboCnt);
 
+	CreateRandomItem();
 	if(++m_ComboCnt > 2) {
 		//CreateRandomItem();
 	}
