@@ -1090,8 +1090,9 @@ void __fastcall C_BLOCK::ClearLine(int _Num) {
 			if(FormMain->GetBitStatus(p_My[x][y], 7) || FormMain->GetBitStatus(p_My[x][y], 6)) continue;
 			if(FormMain->GetBitStatus(p_My[x][y + 1], 7) || FormMain->GetBitStatus(p_My[x][y + 1], 6)) continue;
 			p_My[x][y + 1] = p_My[x][y];
+			p_My[x][y] = 0;
 		}
-    }
+	}
 }
 //---------------------------------------------------------------------------
 
