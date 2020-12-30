@@ -158,6 +158,7 @@ typedef struct ST_ROOMCMD {
 #define MAX_GRID_X 10
 #define MAX_GRID_Y 23
 
+
 #define BLOCK_O 0
 #define BLOCK_I 1
 #define BLOCK_T 2
@@ -168,7 +169,8 @@ typedef struct ST_ROOMCMD {
 
 #define BLOCK_N 7 // NOTHING
 #define BLOCK_R 8 // ROCK
-#define ITEM_P  9 // ITEM PLUS
+#define ITEM_PLUS  9 // ITEM PLUS
+#define ITEM_MINUS  10 // ITEM MINUS
 
 #define DIRECTION_U 1
 #define DIRECTION_L 2
@@ -188,6 +190,7 @@ typedef struct ST_ROOMCMD {
 #define TYPE_BLOCK_Z 		7
 #define TYPE_STATUS_ROCK	8
 #define TYPE_ITEM_PLUS		9
+#define TYPE_ITEM_MINUS		10
 
 typedef struct ST_POINT {
 	int X;

@@ -172,8 +172,13 @@ void __fastcall TFormMain::LoadBMPFiles() {
 	m_BmpList_My[BLOCK_R] = new TBitmap;
 	ImgList_My->GetBitmap(BLOCK_R, m_BmpList_My[BLOCK_R]);
 
-	m_BmpList_My[ITEM_P] = new TBitmap;
-	m_BmpList_My[ITEM_P]->LoadFromFile(L".\\IMG\\P.bmp");
+	m_BmpList_My[ITEM_PLUS] = new TBitmap;
+	//m_BmpList_My[ITEM_PLUS]->LoadFromFile(L".\\IMG\\P.bmp");
+	ImgList_My->GetBitmap(ITEM_PLUS, m_BmpList_My[ITEM_PLUS]);
+
+	m_BmpList_My[ITEM_MINUS] = new TBitmap;
+	//m_BmpList_My[ITEM_PLUS]->LoadFromFile(L".\\IMG\\P.bmp");
+	ImgList_My->GetBitmap(ITEM_MINUS, m_BmpList_My[ITEM_MINUS]);
 
 
 	// Others View
@@ -198,8 +203,13 @@ void __fastcall TFormMain::LoadBMPFiles() {
 	m_BmpList_Others[BLOCK_R] = new TBitmap;
 	ImgList_Others->GetBitmap(BLOCK_R, m_BmpList_Others[BLOCK_R]);
 
-	m_BmpList_Others[ITEM_P] = new TBitmap;
-	m_BmpList_Others[ITEM_P]->LoadFromFile(L".\\IMG\\P.bmp");
+	m_BmpList_Others[ITEM_PLUS] = new TBitmap;
+	m_BmpList_Others[ITEM_PLUS]->LoadFromFile(L".\\IMG\\P.bmp");
+
+	// temp
+	m_BmpList_Others[ITEM_MINUS] = new TBitmap;
+	//m_BmpList_My[ITEM_PLUS]->LoadFromFile(L".\\IMG\\P.bmp");
+	ImgList_Others->GetBitmap(BLOCK_R, m_BmpList_Others[ITEM_MINUS]);
 
 }
 //---------------------------------------------------------------------------
@@ -2012,7 +2022,10 @@ void __fastcall TFormMain::RefreshPlayerGame() {
 					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[BLOCK_R];
 					break;
 				case TYPE_ITEM_PLUS:
-					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[ITEM_P];
+					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[ITEM_PLUS];
+					break;
+				case TYPE_ITEM_MINUS:
+					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[ITEM_MINUS];
 					break;
 				default:
 					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[BLOCK_N];
@@ -2326,7 +2339,10 @@ void __fastcall TFormMain::grid_MineDrawCell(TObject *Sender, int ACol, int ARow
 			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_R];
 			break;
 		case TYPE_ITEM_PLUS:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[ITEM_P];
+			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[ITEM_PLUS];
+			break;
+		case TYPE_ITEM_MINUS:
+			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[ITEM_MINUS];
 			break;
 		default:
 			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_N];
@@ -2401,6 +2417,7 @@ void __fastcall TFormMain::grid_MineKeyDown(TObject *Sender, WORD &Key, TShiftSt
 
 	if(Key == 0x31) USE_ITEM_PLUS();
 	if(Key == 0x32) USE_ITEM_MINUS();
+	if(Key == 0x33) CreateRandomItem();
 
 	RefreshMyGameView();
 

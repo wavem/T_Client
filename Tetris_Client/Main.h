@@ -309,7 +309,6 @@ __published:	// IDE-managed Components
 	TLabel *lb_Combo;
 	TLabel *lb_VersionIsDifferent;
 	TLabel *lb_DownloadLink;
-	TImage *Image1;
 	TImageList *ImgList_My;
 	TImageList *ImgList_Others;
 	void __fastcall btn_SingleModeClick(TObject *Sender);
