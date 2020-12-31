@@ -5637,6 +5637,7 @@ object FormMain: TFormMain
             TextOffsetX = 0
             TextOffsetY = 0
             Version = '1.2.0.0'
+            Visible = False
           end
           object shp_Team_1: TAdvShape
             Left = 25
@@ -5657,6 +5658,7 @@ object FormMain: TFormMain
             TextOffsetX = 0
             TextOffsetY = 0
             Version = '1.2.0.0'
+            Visible = False
           end
           object shp_Team_3: TAdvShape
             Left = 25
@@ -5677,6 +5679,7 @@ object FormMain: TFormMain
             TextOffsetX = 0
             TextOffsetY = 0
             Version = '1.2.0.0'
+            Visible = False
           end
           object shp_Team_4: TAdvShape
             Left = 199
@@ -5697,6 +5700,7 @@ object FormMain: TFormMain
             TextOffsetX = 0
             TextOffsetY = 0
             Version = '1.2.0.0'
+            Visible = False
           end
           object shp_Team_5: TAdvShape
             Left = 373
@@ -5717,6 +5721,7 @@ object FormMain: TFormMain
             TextOffsetX = 0
             TextOffsetY = 0
             Version = '1.2.0.0'
+            Visible = False
           end
           object shp_Team_Mine: TAdvShape
             Left = 571
@@ -5737,6 +5742,7 @@ object FormMain: TFormMain
             TextOffsetX = 0
             TextOffsetY = 0
             Version = '1.2.0.0'
+            Visible = False
           end
           object grid_P1: TAdvStringGrid
             Tag = 1
