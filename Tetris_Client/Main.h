@@ -87,6 +87,7 @@
 #include "cxTextEdit.hpp"
 #include "dxGDIPlusClasses.hpp"
 #include <Vcl.ImgList.hpp>
+#include "AdvShape.hpp"
 //---------------------------------------------------------------------------
 class TFormSignUp;
 class TFormMakingRoomDlg;
@@ -311,6 +312,12 @@ __published:	// IDE-managed Components
 	TLabel *lb_DownloadLink;
 	TImageList *ImgList_My;
 	TImageList *ImgList_Others;
+	TAdvShape *shp_Team_2;
+	TAdvShape *shp_Team_1;
+	TAdvShape *shp_Team_3;
+	TAdvShape *shp_Team_4;
+	TAdvShape *shp_Team_5;
+	TAdvShape *shp_Team_Mine;
 	void __fastcall btn_SingleModeClick(TObject *Sender);
 	void __fastcall btn_SignUpClick(TObject *Sender);
 	void __fastcall btn_Login_QuitClick(TObject *Sender);

@@ -5618,6 +5618,126 @@ object FormMain: TFormMain
             Font.Style = [fsBold]
             ParentFont = False
           end
+          object shp_Team_2: TAdvShape
+            Left = 199
+            Top = 24
+            Width = 178
+            Height = 338
+            Appearance.Brush.Style = bsClear
+            Appearance.Color = clWhite
+            Appearance.ColorTo = clBtnFace
+            Appearance.Direction = gdHorizontal
+            Appearance.URLColor = clBlue
+            BackGround.Position = bpTopLeft
+            Rounding = 15
+            Shape = stSquare
+            ShapeHeight = 331
+            ShapeWidth = 173
+            Text = ''
+            TextOffsetX = 0
+            TextOffsetY = 0
+            Version = '1.2.0.0'
+          end
+          object shp_Team_1: TAdvShape
+            Left = 25
+            Top = 24
+            Width = 178
+            Height = 338
+            Appearance.Brush.Style = bsClear
+            Appearance.Color = clWhite
+            Appearance.ColorTo = clBtnFace
+            Appearance.Direction = gdHorizontal
+            Appearance.URLColor = clBlue
+            BackGround.Position = bpTopLeft
+            Rounding = 15
+            Shape = stSquare
+            ShapeHeight = 331
+            ShapeWidth = 173
+            Text = ''
+            TextOffsetX = 0
+            TextOffsetY = 0
+            Version = '1.2.0.0'
+          end
+          object shp_Team_3: TAdvShape
+            Left = 25
+            Top = 407
+            Width = 178
+            Height = 338
+            Appearance.Brush.Style = bsClear
+            Appearance.Color = clWhite
+            Appearance.ColorTo = clBtnFace
+            Appearance.Direction = gdHorizontal
+            Appearance.URLColor = clBlue
+            BackGround.Position = bpTopLeft
+            Rounding = 15
+            Shape = stSquare
+            ShapeHeight = 331
+            ShapeWidth = 173
+            Text = ''
+            TextOffsetX = 0
+            TextOffsetY = 0
+            Version = '1.2.0.0'
+          end
+          object shp_Team_4: TAdvShape
+            Left = 199
+            Top = 407
+            Width = 178
+            Height = 338
+            Appearance.Brush.Style = bsClear
+            Appearance.Color = clWhite
+            Appearance.ColorTo = clBtnFace
+            Appearance.Direction = gdHorizontal
+            Appearance.URLColor = clBlue
+            BackGround.Position = bpTopLeft
+            Rounding = 15
+            Shape = stSquare
+            ShapeHeight = 331
+            ShapeWidth = 173
+            Text = ''
+            TextOffsetX = 0
+            TextOffsetY = 0
+            Version = '1.2.0.0'
+          end
+          object shp_Team_5: TAdvShape
+            Left = 373
+            Top = 407
+            Width = 178
+            Height = 338
+            Appearance.Brush.Style = bsClear
+            Appearance.Color = clWhite
+            Appearance.ColorTo = clBtnFace
+            Appearance.Direction = gdHorizontal
+            Appearance.URLColor = clBlue
+            BackGround.Position = bpTopLeft
+            Rounding = 15
+            Shape = stSquare
+            ShapeHeight = 331
+            ShapeWidth = 173
+            Text = ''
+            TextOffsetX = 0
+            TextOffsetY = 0
+            Version = '1.2.0.0'
+          end
+          object shp_Team_Mine: TAdvShape
+            Left = 571
+            Top = 92
+            Width = 335
+            Height = 707
+            Appearance.Brush.Style = bsClear
+            Appearance.Color = clWhite
+            Appearance.ColorTo = clBtnFace
+            Appearance.Direction = gdHorizontal
+            Appearance.URLColor = clBlue
+            BackGround.Position = bpTopLeft
+            Rounding = 15
+            Shape = stSquare
+            ShapeHeight = 701
+            ShapeWidth = 333
+            Text = ''
+            TextOffsetX = 0
+            TextOffsetY = 0
+            Version = '1.2.0.0'
+          end
           object grid_P1: TAdvStringGrid
             Tag = 1
             Left = 32
@@ -7791,7 +7911,7 @@ object FormMain: TFormMain
     Width = 32
     Left = 56
     Bitmap = {
-      494C01010B00A800FC0020002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010B00A800000120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       00000000000036000000280000008000000060000000010020000000000000C0
       0000000000000000000000000000000000007F7F7F007F7F7F007F7F7F007F7F
       7F007F7F7F007F7F7F007F7F7F007F7F7F007F7F7F007F7F7F007F7F7F007F7F
@@ -9385,7 +9505,7 @@ object FormMain: TFormMain
   object ImgList_Others: TImageList
     Left = 84
     Bitmap = {
-      494C0101090024004C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010109002400500010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000003000000001002000000000000030
       0000000000000000000000000000000000007F7F7F007F7F7F007F7F7F007F7F
       7F007F7F7F007F7F7F007F7F7F007F7F7F007F7F7F007F7F7F007F7F7F007F7F

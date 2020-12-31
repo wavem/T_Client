@@ -76,6 +76,7 @@
 #pragma link "cxMemo"
 #pragma link "cxTextEdit"
 #pragma link "dxGDIPlusClasses"
+#pragma link "AdvShape"
 #pragma resource "*.dfm"
 TFormMain *FormMain;
 //---------------------------------------------------------------------------
