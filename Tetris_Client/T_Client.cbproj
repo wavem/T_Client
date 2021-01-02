@@ -130,6 +130,12 @@
             <DependentOn>MakingRoomDlg.h</DependentOn>
             <BuildOrder>7</BuildOrder>
         </CppCompile>
+        <CppCompile Include="ResultDlg.cpp">
+            <Form>Form1</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>ResultDlg.h</DependentOn>
+            <BuildOrder>9</BuildOrder>
+        </CppCompile>
         <CppCompile Include="SignUpDlg.cpp">
             <Form>FormSignUp</Form>
             <FormType>dfm</FormType>
@@ -156,6 +162,7 @@
         <FormResources Include="SignUpDlg.dfm"/>
         <FormResources Include="MakingRoomDlg.dfm"/>
         <FormResources Include="Main.dfm"/>
+        <FormResources Include="ResultDlg.dfm"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
