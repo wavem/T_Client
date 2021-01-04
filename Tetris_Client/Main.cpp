@@ -1828,6 +1828,17 @@ void __fastcall TFormMain::Receive_InnerRoomCMDData(SERVERDATA _serverData) {
 			}
 		}
 	}
+
+	// Check Game End Routine
+	if(_serverData.Data[10] == 0x01) { // Game End Signal
+		// Game End Routine Here
+		ShowMessage(L"GAME OVER");
+
+		// Create Game Result Dialog Here
+
+
+		return;
+	}
 }
 //---------------------------------------------------------------------------
 
