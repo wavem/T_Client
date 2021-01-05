@@ -105,6 +105,7 @@ object FormGameResult: TFormGameResult
           ParentFont = False
           ShineColor = 15335424
           TabOrder = 0
+          TabStop = False
           Version = '1.3.0.2'
           OnClick = btn_OK_WinClick
         end
@@ -191,6 +192,7 @@ object FormGameResult: TFormGameResult
           ParentFont = False
           ShineColor = 15335424
           TabOrder = 0
+          TabStop = False
           Version = '1.3.0.2'
           OnClick = btn_OK_DefeatClick
         end

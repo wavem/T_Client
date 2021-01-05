@@ -114,6 +114,7 @@ void __fastcall TFormMain::InitProgram() {
 	m_RoomMasterIdx = 0;
 	m_IsSingleMode = false;
 	m_IsDead = true;
+	m_IsGameOver = true;
 
 	// Init ETC
 	InitTetris();
@@ -819,6 +820,7 @@ void __fastcall TFormMain::Receive_MakingRoomResult(SERVERDATA _serverData) {
 		lb_MyID->Caption = m_ID;
 		lb_MyGrade->Caption = m_Grade;
 		m_IsDead = true;
+		m_IsGameOver = true;
 		ResetPlayerGrid();
 	}
 	SendMessage(m_pDlgMakingRoom->Handle, MSG_TRY_TO_MAKING_ROOM, (unsigned int)&t_rst, 0x10);
@@ -1444,6 +1446,7 @@ void __fastcall TFormMain::Receive_EnterRoomResult(SERVERDATA _serverData) {
 		btn_StartGame->Enabled = false;
 		ResetPlayerGrid();
 		m_IsDead = true;
+		m_IsGameOver = true;
 		Notebook_Main->PageIndex = 2; // GAME
 	} else {
 		ShowMessage(L"Room is Full...");
@@ -1662,27 +1665,28 @@ void __fastcall TFormMain::btn_StartGameClick(TObject *Sender)
 		return;
 	}
 
-	// Check Is possible to start the game ?
-	bool t_IsAllDead = true;
+	// You can't play alone.
+	bool t_bNoOtherPlayer = true;
 	for(int i = 0 ; i < 5 ; i++) {
 		if(m_Player[i].Connected) {
-			if(m_Player[i].Life) {
-				t_IsAllDead = false;
-			}
+			t_bNoOtherPlayer = false;
 		}
 	}
-	if(t_IsAllDead) t_IsAllDead = m_IsDead; // My Death Info.
-	if(t_IsAllDead == false) {
+	if(t_bNoOtherPlayer) {
+		ShowMessage(L"Sorry, you can't play alone. If you want to play alone, please use single mode in login page.");
+		return;
+	};
+
+	// Check Is possible to start the game ?
+	if(m_IsGameOver == false) {
 		ShowMessage(L"The game is not over");
 		return;
 	}
-
 
 	// Send Game Start Request Message To Server
 	if(Send_GameStartMessage(m_MyRoomIdx) == false) {
 		ShowMessage(L"Send Fail..");
 	}
-	// Send Start CMD
 }
 //---------------------------------------------------------------------------
 
@@ -1708,6 +1712,14 @@ void __fastcall TFormMain::StartGame() {
 	int num = 0;
 	num = rand() % 7;
 	//if(ed_BLOCK->Text != L"") num = StrToInt(ed_BLOCK->Text);
+
+	// Prevent Double Created Block (for single play and for game over when multiplay)
+	if(m_Block) {
+		delete m_Block;
+		m_Block = NULL;
+	}
+
+	// Real Game Start
 	m_Block = new C_BLOCK(num, m_MyView, &m_CreateSuccess);
 	RefreshMyGameView();
 	tm_Level->Enabled = true;
@@ -1794,6 +1806,7 @@ void __fastcall TFormMain::Receive_InnerRoomCMDData(SERVERDATA _serverData) {
 	// Check Game Start Signal
 	t_StartSignal = _serverData.Data[5];
 	if(t_StartSignal == 0x01) {
+		m_IsGameOver = false;
 		m_IsDead = false;
 		for(int i = 0 ; i < 5 ; i++) {
 			if(m_Player[i].Connected) {
@@ -1831,6 +1844,8 @@ void __fastcall TFormMain::Receive_InnerRoomCMDData(SERVERDATA _serverData) {
 
 	// Check Game End Routine
 	if(_serverData.Data[10] == 0x01) { // Game End Signal
+		m_IsGameOver = true;
+
 		// Game Over Routine Here
 		if(m_IsDead) {
 			// Defeat !!!
@@ -1845,9 +1860,7 @@ void __fastcall TFormMain::Receive_InnerRoomCMDData(SERVERDATA _serverData) {
 			}
 			tm_Level->Enabled = false;
 			tm_PlayTime->Enabled = false;
-			Send_DieMessage(m_MyRoomIdx); // Use other function instead of this.
-			// Because you are shown as a dead man to other player...
-			// Make another protocol... like... game end signal..?
+			m_IsDead = true;
 
 			///***** RESET NEXT BLOCK IMAGE *****///
 			m_NextBlockIdx = -1; // -1 means nothing just black screen

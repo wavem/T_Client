@@ -387,6 +387,7 @@ public:
 	bool m_IsSingleMode;
 	int m_Test;
 	bool m_IsDead;
+	bool m_IsGameOver;
 
 
 
