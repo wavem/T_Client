@@ -1813,18 +1813,17 @@ void __fastcall TFormMain::Receive_InnerRoomCMDData(SERVERDATA _serverData) {
 		if(t_ReceivedPlayerIdx == m_MyIdx) {
 			pn_Dead->Visible = true;
 			m_IsDead = true;
-			return;
-		}
+		} else {
+			for(int i = 0 ; i < 5 ; i++) {
+				if(m_Player[i].ServerIdx + 1 == t_ReceivedPlayerIdx) {
+					tempStr = L"pn_Dead_";
+					tempStr += (i + 1);
+					p_pn = (TAdvSmoothPanel*)FindComponent(tempStr);
+					if(p_pn != NULL) p_pn->Visible = true;
 
-		for(int i = 0 ; i < 5 ; i++) {
-			if(m_Player[i].ServerIdx + 1 == t_ReceivedPlayerIdx) {
-				tempStr = L"pn_Dead_";
-				tempStr += (i + 1);
-				p_pn = (TAdvSmoothPanel*)FindComponent(tempStr);
-				if(p_pn != NULL) p_pn->Visible = true;
-
-				m_Player[i].Life = false;
-				return;
+					m_Player[i].Life = false;
+					i = 5; // For Breaking For Loop
+				}
 			}
 		}
 	}
