@@ -4,6 +4,7 @@
 #pragma hdrstop
 
 #include "Main.h"
+#include "ResultDlg.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma link "AdvGrid"
@@ -1831,7 +1832,13 @@ void __fastcall TFormMain::Receive_InnerRoomCMDData(SERVERDATA _serverData) {
 	// Check Game End Routine
 	if(_serverData.Data[10] == 0x01) { // Game End Signal
 		// Game End Routine Here
-		ShowMessage(L"GAME OVER");
+		TFormGameResult* p_dlg = new TFormGameResult(NULL, 0);
+		p_dlg->ShowModal();
+		delete p_dlg;
+
+		TFormGameResult* p_1dlg = new TFormGameResult(NULL, 1);
+		p_dlg->ShowModal();
+		delete p_1dlg;
 
 		// Create Game Result Dialog Here
 

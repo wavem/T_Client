@@ -9,10 +9,35 @@
 #pragma link "AdvGlassButton"
 #pragma link "AdvSmoothPanel"
 #pragma resource "*.dfm"
-TForm1 *Form1;
+TFormGameResult *FormGameResult;
 //---------------------------------------------------------------------------
-__fastcall TForm1::TForm1(TComponent* Owner)
+__fastcall TFormGameResult::TFormGameResult(TComponent* Owner)
 	: TForm(Owner)
 {
 }
 //---------------------------------------------------------------------------
+
+__fastcall TFormGameResult::TFormGameResult(TComponent* Owner, int _mode)
+	: TForm(Owner)
+{
+	if(_mode == 0) {
+		// Win
+		Notebook_GameResult->PageIndex = 0;
+	} else {
+		// Defeat
+		Notebook_GameResult->PageIndex = 1;
+	}
+}
+//---------------------------------------------------------------------------
+void __fastcall TFormGameResult::btn_OK_WinClick(TObject *Sender)
+{
+	this->Close();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormGameResult::btn_OK_DefeatClick(TObject *Sender)
+{
+	this->Close();
+}
+//---------------------------------------------------------------------------
+

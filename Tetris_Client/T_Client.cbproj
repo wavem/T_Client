@@ -131,7 +131,7 @@
             <BuildOrder>7</BuildOrder>
         </CppCompile>
         <CppCompile Include="ResultDlg.cpp">
-            <Form>Form1</Form>
+            <Form>FormGameResult</Form>
             <FormType>dfm</FormType>
             <DependentOn>ResultDlg.h</DependentOn>
             <BuildOrder>9</BuildOrder>
@@ -158,11 +158,11 @@
             <DependentOn>Version.h</DependentOn>
             <BuildOrder>5</BuildOrder>
         </CppCompile>
-        <FormResources Include="Version.dfm"/>
         <FormResources Include="SignUpDlg.dfm"/>
-        <FormResources Include="MakingRoomDlg.dfm"/>
+        <FormResources Include="Version.dfm"/>
         <FormResources Include="Main.dfm"/>
         <FormResources Include="ResultDlg.dfm"/>
+        <FormResources Include="MakingRoomDlg.dfm"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
