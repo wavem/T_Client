@@ -1831,16 +1831,25 @@ void __fastcall TFormMain::Receive_InnerRoomCMDData(SERVERDATA _serverData) {
 
 	// Check Game End Routine
 	if(_serverData.Data[10] == 0x01) { // Game End Signal
-		// Game End Routine Here
-
-
-		// Create Game Result Dialog Here
+		// Game Over Routine Here
 		if(m_IsDead) {
 			// Defeat !!!
 			TFormGameResult* p_dlg = new TFormGameResult(NULL, 1);
 			p_dlg->ShowModal();
 			delete p_dlg;
 		} else {
+			// If you still alive when game is over.
+			if(m_Block) {
+				delete m_Block;
+				m_Block = NULL;
+			}
+			tm_Level->Enabled = false;
+			tm_PlayTime->Enabled = false;
+			Send_DieMessage(m_MyRoomIdx);
+			///***** RESET NEXT BLOCK IMAGE *****///
+			m_NextBlockIdx = -1; // -1 means nothing just black screen
+			RefreshNextBlock();
+
 			// You Win !!!
 			TFormGameResult* p_dlg = new TFormGameResult(NULL, 0);
 			p_dlg->ShowModal();
@@ -2453,7 +2462,7 @@ void __fastcall TFormMain::grid_MineKeyDown(TObject *Sender, WORD &Key, TShiftSt
 
 		///***** RESET NEXT BLOCK IMAGE *****///
 		m_NextBlockIdx = -1; // -1 means nothing just black screen
-        RefreshNextBlock();
+		RefreshNextBlock();
 	}
 }
 //---------------------------------------------------------------------------
@@ -2484,6 +2493,10 @@ void __fastcall TFormMain::tm_LevelTimer(TObject *Sender)
 		tm_PlayTime->Enabled = false;
 		//ShowMessage(L"GAME OVER");
 		Send_DieMessage(m_MyRoomIdx);
+
+		///***** RESET NEXT BLOCK IMAGE *****///
+		m_NextBlockIdx = -1; // -1 means nothing just black screen
+		RefreshNextBlock();
 	}
 }
 //---------------------------------------------------------------------------
