@@ -1845,7 +1845,10 @@ void __fastcall TFormMain::Receive_InnerRoomCMDData(SERVERDATA _serverData) {
 			}
 			tm_Level->Enabled = false;
 			tm_PlayTime->Enabled = false;
-			Send_DieMessage(m_MyRoomIdx);
+			Send_DieMessage(m_MyRoomIdx); // Use other function instead of this.
+			// Because you are shown as a dead man to other player...
+			// Make another protocol... like... game end signal..?
+
 			///***** RESET NEXT BLOCK IMAGE *****///
 			m_NextBlockIdx = -1; // -1 means nothing just black screen
 			RefreshNextBlock();
