@@ -1899,6 +1899,7 @@ void __fastcall TFormMain::ResetPlayerGrid() {
 		tempStr += (i + 1);
 		p_grid = (TAdvStringGrid*)FindComponent(tempStr);
 		memset(m_Player[i].Block, 0, 200);
+		memset(m_Player[i].BlockTempBuffer, 0, 200);
 		if(p_grid != NULL) p_grid->Refresh();
 	}
 }
