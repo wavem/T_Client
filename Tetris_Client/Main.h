@@ -88,6 +88,7 @@
 #include "dxGDIPlusClasses.hpp"
 #include <Vcl.ImgList.hpp>
 #include "AdvShape.hpp"
+#include <vector>
 //---------------------------------------------------------------------------
 class TFormSignUp;
 class TFormMakingRoomDlg;
@@ -368,6 +369,13 @@ public: // BASIC FUNCTIONS
 	void __fastcall ForceExitGame();
 	void __fastcall RefreshPlayerGame();
 
+public: // Item Area
+	void __fastcall ResetItemList();
+	void __fastcall PushItemIntoList(BYTE _Idx);
+	BYTE __fastcall PopItemFromList();
+	void __fastcall RefreshItemList();
+
+
 // MEMBER VARIABLES : SYSTEM
 public:
 	TFormSignUp* m_pDlgSignUp;
@@ -388,6 +396,7 @@ public:
 	int m_Test;
 	bool m_IsDead;
 	bool m_IsGameOver;
+	std::vector<BYTE> m_ItemList;
 
 
 

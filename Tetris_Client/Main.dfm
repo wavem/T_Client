@@ -174,6 +174,8 @@ object FormMain: TFormMain
         Left = 0
         Top = 0
         Caption = 'Lobby'
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object _pnBase_01_Login: TAdvSmoothPanel
           Left = 0
           Top = 0
@@ -484,6 +486,8 @@ object FormMain: TFormMain
         Top = 0
         HelpContext = 1
         Caption = 'Lobby'
+        ExplicitWidth = 0
+        ExplicitHeight = 0
         object _pnBase_02_Lobby: TAdvSmoothPanel
           Left = 0
           Top = 0
@@ -6539,7 +6543,13 @@ object FormMain: TFormMain
             FixedCols = 0
             RowCount = 1
             FixedRows = 0
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clHighlightText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
             Options = [goVertLine, goHorzLine]
+            ParentFont = False
             ScrollBars = ssNone
             TabOrder = 7
             GridLineColor = 1644825
@@ -7917,7 +7927,7 @@ object FormMain: TFormMain
     Width = 32
     Left = 56
     Bitmap = {
-      494C01010B00A800000120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010B00A8000C0120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       00000000000036000000280000008000000060000000010020000000000000C0
       0000000000000000000000000000000000007F7F7F007F7F7F007F7F7F007F7F
       7F007F7F7F007F7F7F007F7F7F007F7F7F007F7F7F007F7F7F007F7F7F007F7F
@@ -9511,7 +9521,7 @@ object FormMain: TFormMain
   object ImgList_Others: TImageList
     Left = 84
     Bitmap = {
-      494C010109002400500010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C0101090024005C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000003000000001002000000000000030
       0000000000000000000000000000000000007F7F7F007F7F7F007F7F7F007F7F
       7F007F7F7F007F7F7F007F7F7F007F7F7F007F7F7F007F7F7F007F7F7F007F7F

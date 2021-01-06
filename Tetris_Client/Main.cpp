@@ -2466,6 +2466,11 @@ void __fastcall TFormMain::grid_MineKeyDown(TObject *Sender, WORD &Key, TShiftSt
 	if(Key == 0x31) USE_ITEM_PLUS();
 	if(Key == 0x32) USE_ITEM_MINUS();
 	if(Key == 0x33) CreateRandomItem();
+	if(Key == 0x34) ResetItemList();
+	static int test = 0;
+	if(Key == 0x35) PushItemIntoList(test++);
+	if(Key == 0x36) PopItemFromList();
+	if(Key == 0x37) RefreshItemList();
 
 	RefreshMyGameView();
 
@@ -2609,6 +2614,49 @@ void __fastcall TFormMain::USE_ITEM_PLUS() {
 
 void __fastcall TFormMain::USE_ITEM_MINUS() {
 	m_Block->ClearLine(MAX_GRID_Y - 1);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::ResetItemList() {
+	m_ItemList.clear();
+	RefreshItemList();
+	PrintChat_InGame(L"Reset");
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::PushItemIntoList(BYTE _Idx) {
+	if(m_ItemList.size() == 10) {
+		m_ItemList.erase(m_ItemList.begin());
+	}
+	m_ItemList.push_back(_Idx);
+	RefreshItemList();
+	PrintChat_InGame(L"Push");
+}
+//---------------------------------------------------------------------------
+
+BYTE __fastcall TFormMain::PopItemFromList() {
+	if(m_ItemList.empty()) return 0;
+	BYTE t_Item = m_ItemList.front();
+	m_ItemList.erase(m_ItemList.begin());
+	RefreshItemList();
+	PrintChat_InGame(L"Pop");
+	return t_Item;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::RefreshItemList() {
+
+	// Reset Item List Grid
+	for(int i = 0 ; i < 10 ; i++) {
+		grid_Items->Cells[i][0] = L"";
+	}
+
+	// Refresh Routine
+	for(int i = 0 ; i < m_ItemList.size() ; i++) {
+		grid_Items->Cells[i][0] = m_ItemList[i];
+	}
+
+	PrintChat_InGame(L"refresh");
 }
 //---------------------------------------------------------------------------
 
