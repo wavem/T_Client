@@ -2653,3 +2653,13 @@ void __fastcall TFormMain::RefreshItemList() {
 }
 //---------------------------------------------------------------------------
 
+void __fastcall TFormMain::GetItemFromLine(int _LineNum) {
+
+	BYTE t_BlockInfo = 0;
+	for(int i = 0 ; i < 10 ; i++) {
+		t_BlockInfo = m_MyView[i][_LineNum];
+		if(t_BlockInfo < 9) continue;
+		PushItemIntoList(t_BlockInfo);
+	}
+}
+//---------------------------------------------------------------------------

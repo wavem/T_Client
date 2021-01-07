@@ -465,6 +465,7 @@ public: // Control Information
 	int m_ComboCnt;
 	int m_OldScore;
 	int m_CleardLineCnt;
+	void __fastcall GetItemFromLine(int _LineNum);
 
 public: // Display
 	void __fastcall RefreshMyGameView();

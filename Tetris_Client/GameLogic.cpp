@@ -1070,6 +1070,7 @@ bool __fastcall C_BLOCK::CheckLineClear() {
 			if(p_My[x][y]) t_CheckCnt++;
 		}
 		if(t_CheckCnt == 10) {
+			FormMain->GetItemFromLine(y); // Get Item Routine
 			ClearLine(y);
 			t_ClearCnt++;
 		}
