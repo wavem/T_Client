@@ -2639,14 +2639,39 @@ BYTE __fastcall TFormMain::PopItemFromList() {
 
 void __fastcall TFormMain::RefreshItemList() {
 
+	// Common
+	UnicodeString tempStr = L"";
+	TRect t_Rect;
+	BYTE t_Byte = 0;
+
 	// Reset Item List Grid
 	for(int i = 0 ; i < 10 ; i++) {
-		grid_Items->Cells[i][0] = L"";
+		//grid_Items->Cells[i][0] = L""; // <--- Do not use this way
+		t_Rect = grid_Items->CellRect(i, 0);
+		t_Rect.left += 0.1;
+		t_Rect.right -= 0.1;
+		t_Rect.top += 0.1;
+		t_Rect.bottom -= 0.1;
+
+		grid_Items->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_N];
+		grid_Items->Canvas->FillRect(t_Rect);
 	}
+
 
 	// Refresh Routine
 	for(int i = 0 ; i < m_ItemList.size() ; i++) {
-		grid_Items->Cells[i][0] = m_ItemList[i];
+		// Pre-Exception Handling
+		if(i > 9) continue;
+
+		// Draw Item Routine
+		t_Rect = grid_Items->CellRect(i, 0);
+		t_Rect.left += 0.1;
+		t_Rect.right -= 0.1;
+		t_Rect.top += 0.1;
+		t_Rect.bottom -= 0.1;
+
+		grid_Items->Canvas->Brush->Bitmap = m_BmpList_My[m_ItemList[i]];
+		grid_Items->Canvas->FillRect(t_Rect);
 	}
 
 	PrintChat_InGame(L"refresh");
