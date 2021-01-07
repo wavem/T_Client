@@ -412,6 +412,7 @@ public: // Do Communication
 	bool __fastcall Send_GameStartMessage(int _RoomIdx);
 	bool __fastcall Send_InGameDataMessage(int _RoomIdx);
 	bool __fastcall Send_DieMessage(int _RoomIdx);
+	bool __fastcall Send_ItemIndex(int _ItemIdx, int _PlayerIdx);
 
 
 
@@ -474,6 +475,7 @@ public: // Display
 public: // ITEM
 	void __fastcall CreateRandomItem();
 	void __fastcall GetItem(int _Idx);
+	void __fastcall Execute_Item(int _ItemIdx);
 
 	///***** USING ITEM *****///
 	void __fastcall USE_ITEM_PLUS();

@@ -1800,6 +1800,7 @@ void __fastcall TFormMain::Receive_InnerRoomCMDData(SERVERDATA _serverData) {
 	BYTE t_StateMessage = 0;
 	BYTE t_PlayerIdx = 0;
 	BYTE t_ReceivedPlayerIdx = 0;
+	BYTE t_TargetPlayerIdx = 0;
 	TAdvSmoothPanel* p_pn = NULL;
 	TAdvStringGrid* p_grid = NULL;
 
@@ -1879,6 +1880,18 @@ void __fastcall TFormMain::Receive_InnerRoomCMDData(SERVERDATA _serverData) {
 		}
 
 		return;
+	}
+
+
+	// Receive Item Index Routine
+	if(_serverData.Data[6] != 0) {
+		t_ReceivedPlayerIdx = _serverData.Data[7];
+		t_TargetPlayerIdx = _serverData.Data[8];
+		tempStr.sprintf(L"%d->%d : Use Item", t_ReceivedPlayerIdx, t_TargetPlayerIdx);
+		PrintChat_InGame(tempStr);
+		if(t_TargetPlayerIdx == m_MyIdx) {
+			Execute_Item((int)_serverData.Data[6]);
+		}
 	}
 }
 //---------------------------------------------------------------------------
@@ -2398,6 +2411,7 @@ void __fastcall TFormMain::grid_MineKeyDown(TObject *Sender, WORD &Key, TShiftSt
 	///***** PRE RETURN *****///
 	if(!m_Block) return;
 	bool t_ret = false;
+	BYTE t_ItemIdx = 0;
 
 	///***** COMMON INIT *****///
 	//int num = rand() % 7;
@@ -2455,6 +2469,23 @@ void __fastcall TFormMain::grid_MineKeyDown(TObject *Sender, WORD &Key, TShiftSt
 		}
 	}
 
+	// Item Routine
+#if 1
+	if(Key >= 0x31 && Key <= 0x36) {
+		if(m_ItemList.empty()) {
+			PrintChat_InGame(L"You don't have any items");
+		} else {
+			t_ItemIdx = PopItemFromList();
+			Send_ItemIndex(t_ItemIdx, Key - 0x31 + 1);
+		}
+	}
+
+	if(Key == 0x37) PushItemIntoList(TYPE_ITEM_PLUS);
+	if(Key == 0x38) PushItemIntoList(TYPE_ITEM_MINUS);
+	if(Key == 0x39) PushItemIntoList(TYPE_ITEM_PLUSPLUS);
+#endif
+
+#if 0
 	if(Key == 0x31) USE_ITEM_PLUS();
 	if(Key == 0x32) USE_ITEM_MINUS();
 	if(Key == 0x33) CreateRandomItem();
@@ -2463,8 +2494,8 @@ void __fastcall TFormMain::grid_MineKeyDown(TObject *Sender, WORD &Key, TShiftSt
 	if(Key == 0x35) PushItemIntoList(test++);
 	if(Key == 0x36) PopItemFromList();
 	if(Key == 0x37) RefreshItemList();
-
 	RefreshMyGameView();
+#endif
 
 	if(!m_CreateSuccess) {
 		delete m_Block;
@@ -2685,5 +2716,85 @@ void __fastcall TFormMain::GetItemFromLine(int _LineNum) {
 		if(t_BlockInfo < 9) continue;
 		PushItemIntoList(t_BlockInfo);
 	}
+}
+//---------------------------------------------------------------------------
+
+bool __fastcall TFormMain::Send_ItemIndex(int _ItemIdx, int _PlayerIdx) {
+
+	// Common
+	UnicodeString tempStr = L"";
+	int t_sendrst = 0;
+	unsigned short t_PacketLen = 30; // Fixed
+
+	// Check Client Socket
+	if(m_sock_Client == INVALID_SOCKET) {
+		tempStr.sprintf(L"Client socket is invalid");
+		PrintLog(tempStr);
+		return false;
+	}
+
+	// Check Client Thread
+	if(m_ClientThread == NULL) {
+		tempStr.sprintf(L"Client Thread is invalid");
+		PrintLog(tempStr);
+		return false;
+	}
+
+	// Check Connection
+	if(m_ClientThread->isConnected == false) {
+		tempStr.sprintf(L"Client is not connected");
+		PrintLog(tempStr);
+		return false;
+	}
+
+	// Reset Send Buffer
+	memset(m_ClientThread->sendBuff, 0, TCP_SEND_BUF_SIZE);
+	m_ClientThread->p_sendText = NULL;
+
+	// Set Header Data
+	m_ClientThread->sendBuff[0] = 0x47;
+	memcpy(&m_ClientThread->sendBuff[1], &t_PacketLen, 2);
+	m_ClientThread->sendBuff[3] = DATA_TYPE_INGAME_CMD;
+
+	// Input Data Into Packet Data
+	m_ClientThread->sendBuff[4] = (BYTE)m_MyRoomIdx;
+	m_ClientThread->sendBuff[6] = (BYTE)_ItemIdx;
+	m_ClientThread->sendBuff[7] = (BYTE)m_MyIdx;
+	m_ClientThread->sendBuff[8] = (BYTE)_PlayerIdx;
+
+	// Send to Server
+	t_sendrst = send(m_sock_Client, (char*)m_ClientThread->sendBuff, t_PacketLen, 0);
+	if(t_sendrst == 0) return false;
+
+	// Function End Routine
+	tempStr.sprintf(L"Send Byte(Item Message) : %d", t_sendrst);
+	PrintLog(tempStr);
+	return true;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::Execute_Item(int _ItemIdx) {
+
+	switch(_ItemIdx) {
+		case TYPE_ITEM_PLUS:
+			USE_ITEM_PLUS();
+			break;
+
+		case TYPE_ITEM_MINUS:
+			USE_ITEM_MINUS();
+			break;
+
+		case TYPE_ITEM_PLUSPLUS:
+			USE_ITEM_PLUS();
+			USE_ITEM_PLUS();
+			break;
+
+		case TYPE_ITEM_MINUSMINUS:
+			USE_ITEM_MINUS();
+			USE_ITEM_MINUS();
+			break;
+	}
+
+	RefreshMyGameView();
 }
 //---------------------------------------------------------------------------
