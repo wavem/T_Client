@@ -339,8 +339,6 @@ __published:	// IDE-managed Components
 	void __fastcall ed_Chat_InGameKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall btn_QUIT_InGameClick(TObject *Sender);
 	void __fastcall btn_StartGameClick(TObject *Sender);
-	void __fastcall grid_MineDrawCell(TObject *Sender, int ACol, int ARow, TRect &Rect,
-          TGridDrawState State);
 	void __fastcall grid_MineKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
 	void __fastcall tm_LevelTimer(TObject *Sender);
 	void __fastcall tm_PlayTimeTimer(TObject *Sender);

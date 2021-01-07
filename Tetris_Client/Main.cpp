@@ -2146,10 +2146,6 @@ bool __fastcall TFormMain::Send_DieMessage(int _RoomIdx) {
 //---------------------------------------------------------------------------
 
 void __fastcall TFormMain::RefreshMyGameView() {
-	//grid_Mine->Refresh();
-
-#if 1
-
 
 	// Common
 	TRect t_Rect;
@@ -2214,8 +2210,6 @@ void __fastcall TFormMain::RefreshMyGameView() {
 	}
 
 	memcpy(m_MyViewTempBuffer, m_MyView, MAX_GRID_X * MAX_GRID_Y);
-
-#endif
 }
 //---------------------------------------------------------------------------
 
@@ -2392,61 +2386,6 @@ BYTE __fastcall TFormMain::_BitSetting(BYTE _src, int _bitIdx, bool _bool) {
 
 
 
-
-void __fastcall TFormMain::grid_MineDrawCell(TObject *Sender, int ACol, int ARow,
-          TRect &Rect, TGridDrawState State)
-{
-	return;
-
-	TAdvStringGrid *p_grid = (TAdvStringGrid*)Sender;
-
-	BYTE t_Byte = 0;
-	t_Byte = GetBlockData(m_MyView[ACol][ARow]);
-	switch(t_Byte) {
-		case TYPE_BLOCK_O:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_O];
-			break;
-		case TYPE_BLOCK_I:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_I];
-			break;
-		case TYPE_BLOCK_T:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_T];
-			break;
-		case TYPE_BLOCK_J:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_J];
-			break;
-		case TYPE_BLOCK_L:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_L];
-			break;
-		case TYPE_BLOCK_S:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_S];
-			break;
-		case TYPE_BLOCK_Z:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_Z];
-			break;
-		case TYPE_STATUS_ROCK:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_R];
-			break;
-		case TYPE_ITEM_PLUS:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[ITEM_PLUS];
-			break;
-		case TYPE_ITEM_MINUS:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[ITEM_MINUS];
-			break;
-		case TYPE_ITEM_PLUSPLUS:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[ITEM_PLUSPLUS];
-			break;
-		case TYPE_ITEM_MINUSMINUS:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[ITEM_MINUSMINUS];
-			break;
-		default:
-			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_N];
-			break;
-	}
-	p_grid->Canvas->FillRect(Rect);
-
-}
-//---------------------------------------------------------------------------
 
 void __fastcall TFormMain::grid_MineKeyDown(TObject *Sender, WORD &Key, TShiftState Shift)
 {
