@@ -171,6 +171,8 @@ typedef struct ST_ROOMCMD {
 #define BLOCK_R 8 // ROCK
 #define ITEM_PLUS  9 // ITEM PLUS
 #define ITEM_MINUS  10 // ITEM MINUS
+#define ITEM_PLUSPLUS  11 // Double Plus
+#define ITEM_MINUSMINUS  12 // Double Minus
 
 #define DIRECTION_U 1
 #define DIRECTION_L 2
@@ -191,6 +193,8 @@ typedef struct ST_ROOMCMD {
 #define TYPE_STATUS_ROCK	8
 #define TYPE_ITEM_PLUS		9
 #define TYPE_ITEM_MINUS		10
+#define TYPE_ITEM_PLUSPLUS		11
+#define TYPE_ITEM_MINUSMINUS	12
 
 typedef struct ST_POINT {
 	int X;

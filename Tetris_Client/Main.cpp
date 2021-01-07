@@ -180,6 +180,10 @@ void __fastcall TFormMain::LoadBMPFiles() {
 	ImgList_My->GetBitmap(ITEM_PLUS, m_BmpList_My[ITEM_PLUS]);
 	m_BmpList_My[ITEM_MINUS] = new TBitmap;
 	ImgList_My->GetBitmap(ITEM_MINUS, m_BmpList_My[ITEM_MINUS]);
+	m_BmpList_My[ITEM_PLUSPLUS] = new TBitmap;
+	ImgList_My->GetBitmap(ITEM_PLUSPLUS, m_BmpList_My[ITEM_PLUSPLUS]);
+	m_BmpList_My[ITEM_MINUSMINUS] = new TBitmap;
+	ImgList_My->GetBitmap(ITEM_MINUSMINUS, m_BmpList_My[ITEM_MINUSMINUS]);
 
 
 	// Others View : Basic Blocks
@@ -207,6 +211,10 @@ void __fastcall TFormMain::LoadBMPFiles() {
 	ImgList_Others->GetBitmap(ITEM_PLUS, m_BmpList_Others[ITEM_PLUS]);
 	m_BmpList_Others[ITEM_MINUS] = new TBitmap;
 	ImgList_Others->GetBitmap(ITEM_MINUS, m_BmpList_Others[ITEM_MINUS]);
+	m_BmpList_Others[ITEM_PLUSPLUS] = new TBitmap;
+	ImgList_Others->GetBitmap(ITEM_PLUSPLUS, m_BmpList_Others[ITEM_PLUSPLUS]);
+	m_BmpList_Others[ITEM_MINUSMINUS] = new TBitmap;
+	ImgList_Others->GetBitmap(ITEM_MINUSMINUS, m_BmpList_Others[ITEM_MINUSMINUS]);
 }
 //---------------------------------------------------------------------------
 
@@ -2384,6 +2392,12 @@ void __fastcall TFormMain::grid_MineDrawCell(TObject *Sender, int ACol, int ARow
 			break;
 		case TYPE_ITEM_MINUS:
 			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[ITEM_MINUS];
+			break;
+		case TYPE_ITEM_PLUSPLUS:
+			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[ITEM_PLUSPLUS];
+			break;
+		case TYPE_ITEM_MINUSMINUS:
+			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[ITEM_MINUSMINUS];
 			break;
 		default:
 			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_N];
