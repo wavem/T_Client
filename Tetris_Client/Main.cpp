@@ -823,6 +823,8 @@ void __fastcall TFormMain::Receive_MakingRoomResult(SERVERDATA _serverData) {
 		m_IsDead = true;
 		m_IsGameOver = true;
 		ResetPlayerGrid();
+		memset(m_MyView, 0, MAX_GRID_X * MAX_GRID_Y);
+		memset(m_MyViewTempBuffer, 0, MAX_GRID_X * MAX_GRID_Y);
 	}
 	SendMessage(m_pDlgMakingRoom->Handle, MSG_TRY_TO_MAKING_ROOM, (unsigned int)&t_rst, 0x10);
 }
@@ -1446,6 +1448,8 @@ void __fastcall TFormMain::Receive_EnterRoomResult(SERVERDATA _serverData) {
 		ed_Chat_InGame->Text = L"";
 		btn_StartGame->Enabled = false;
 		ResetPlayerGrid();
+		memset(m_MyView, 0, MAX_GRID_X * MAX_GRID_Y);
+		memset(m_MyViewTempBuffer, 0, MAX_GRID_X * MAX_GRID_Y);
 		m_IsDead = true;
 		m_IsGameOver = true;
 		Notebook_Main->PageIndex = 2; // GAME
@@ -1627,7 +1631,7 @@ void __fastcall TFormMain::Receive_EscapeRoomResult(SERVERDATA _serverData) {
 		img_NextBlock->Canvas->Brush->Color = clBlack;
 		img_NextBlock->Canvas->FillRect(t_Rect);
 		memset(m_MyView, 0, MAX_GRID_X * MAX_GRID_Y);
-		grid_Mine->Refresh();
+		RefreshMyGameView();
 		m_MyIdx = 0; // Init '0'
 		m_MyRoomIdx = 0;
 		memset(&m_RoomStatus, 0, sizeof(m_RoomStatus));
@@ -1709,6 +1713,7 @@ void __fastcall TFormMain::StartGame() {
 
 	AddScore(m_Score);
 	memset(&(m_MyView[0][0]), 0, MAX_GRID_X * MAX_GRID_Y);
+	memset(&(m_MyViewTempBuffer[0][0]), 0, MAX_GRID_X * MAX_GRID_Y);
 	//RefreshOthersGameView(); // THIS FUNC MUST BE HERE (after memset 0)
 	int num = 0;
 	num = rand() % 7;
@@ -2141,42 +2146,75 @@ bool __fastcall TFormMain::Send_DieMessage(int _RoomIdx) {
 //---------------------------------------------------------------------------
 
 void __fastcall TFormMain::RefreshMyGameView() {
-	grid_Mine->Refresh();
+	//grid_Mine->Refresh();
 
-#if 0
+#if 1
+
+
+	// Common
+	TRect t_Rect;
 	BYTE t_Byte = 0;
-	for(int i = 0 ; i < MAX_GRID_X ; i++) {
-		for(int j = 0 ; j < MAX_GRID_Y ; j++) {
-			t_Byte = GetBlockData(m_MyView[i][j]);
+
+	// Draw Cells
+	for(int x = 0 ; x < MAX_GRID_X ; x++) {
+		for(int y = 0 ; y < MAX_GRID_Y ; y++) {
+			// Check Overwriting
+			if(memcmp(&(m_MyViewTempBuffer[x][y]), &(m_MyView[x][y]), 1) == 0) continue;
+
+			t_Byte = GetBlockData(m_MyView[x][y]);
+			t_Rect = grid_Mine->CellRect(x, y);
+			t_Rect.left += 0.1;
+			t_Rect.right -= 0.1;
+			t_Rect.top += 0.1;
+			t_Rect.bottom -= 0.1;
 
 			switch(t_Byte) {
-				case TYPE_BLOCK_O:
-					grid_Mine->Colors[i][j] = clYellow;
-					break;
-				case TYPE_BLOCK_I:
-					grid_Mine->Colors[i][j] = clBlue;
-					break;
-				case TYPE_BLOCK_T:
-					grid_Mine->Colors[i][j] = clPurple;
-					break;
-				case TYPE_BLOCK_J:
-					grid_Mine->Colors[i][j] = clGreen;
-					break;
-				case TYPE_BLOCK_L:
-					grid_Mine->Colors[i][j] = clMenuHighlight;
-					break;
-				case TYPE_BLOCK_S:
-					grid_Mine->Colors[i][j] = clRed;
-					break;
-				case TYPE_BLOCK_Z:
-					grid_Mine->Colors[i][j] = clFuchsia;
-					break;
-				default:
-					grid_Mine->Colors[i][j] = clBlack;
-					break;
+			case TYPE_BLOCK_O:
+				grid_Mine->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_O];
+				break;
+			case TYPE_BLOCK_I:
+				grid_Mine->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_I];
+				break;
+			case TYPE_BLOCK_T:
+				grid_Mine->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_T];
+				break;
+			case TYPE_BLOCK_J:
+				grid_Mine->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_J];
+				break;
+			case TYPE_BLOCK_L:
+				grid_Mine->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_L];
+				break;
+			case TYPE_BLOCK_S:
+				grid_Mine->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_S];
+				break;
+			case TYPE_BLOCK_Z:
+				grid_Mine->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_Z];
+				break;
+			case TYPE_STATUS_ROCK:
+				grid_Mine->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_R];
+				break;
+			case TYPE_ITEM_PLUS:
+				grid_Mine->Canvas->Brush->Bitmap = m_BmpList_My[ITEM_PLUS];
+				break;
+			case TYPE_ITEM_MINUS:
+				grid_Mine->Canvas->Brush->Bitmap = m_BmpList_My[ITEM_MINUS];
+				break;
+			case TYPE_ITEM_PLUSPLUS:
+				grid_Mine->Canvas->Brush->Bitmap = m_BmpList_My[ITEM_PLUSPLUS];
+				break;
+			case TYPE_ITEM_MINUSMINUS:
+				grid_Mine->Canvas->Brush->Bitmap = m_BmpList_My[ITEM_MINUSMINUS];
+				break;
+			default:
+				grid_Mine->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_N];
+				break;
 			}
-        }
+			grid_Mine->Canvas->FillRect(t_Rect);
+		}
 	}
+
+	memcpy(m_MyViewTempBuffer, m_MyView, MAX_GRID_X * MAX_GRID_Y);
+
 #endif
 }
 //---------------------------------------------------------------------------
@@ -2358,6 +2396,8 @@ BYTE __fastcall TFormMain::_BitSetting(BYTE _src, int _bitIdx, bool _bool) {
 void __fastcall TFormMain::grid_MineDrawCell(TObject *Sender, int ACol, int ARow,
           TRect &Rect, TGridDrawState State)
 {
+	return;
+
 	TAdvStringGrid *p_grid = (TAdvStringGrid*)Sender;
 
 	BYTE t_Byte = 0;
