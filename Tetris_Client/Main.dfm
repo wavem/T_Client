@@ -6413,6 +6413,7 @@ object FormMain: TFormMain
             Options = [goVertLine, goHorzLine]
             ScrollBars = ssNone
             TabOrder = 6
+            OnDrawCell = grid_MineDrawCell
             OnKeyDown = grid_MineKeyDown
             GridLineColor = 1644825
             HoverRowCells = [hcNormal, hcSelected]

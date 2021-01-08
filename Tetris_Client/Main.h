@@ -343,6 +343,8 @@ __published:	// IDE-managed Components
 	void __fastcall tm_LevelTimer(TObject *Sender);
 	void __fastcall tm_PlayTimeTimer(TObject *Sender);
 	void __fastcall lb_DownloadLinkClick(TObject *Sender);
+	void __fastcall grid_MineDrawCell(TObject *Sender, int ACol, int ARow, TRect &Rect,
+          TGridDrawState State);
 
 
 
