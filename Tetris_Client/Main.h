@@ -450,7 +450,7 @@ public:
 	int m_row;
 	int m_col;
 	BYTE m_MyView[MAX_GRID_X][MAX_GRID_Y];
-	BYTE m_MyViewTempBuffer[MAX_GRID_X][MAX_GRID_Y];
+	//BYTE m_MyViewTempBuffer[MAX_GRID_X][MAX_GRID_Y]; // Delete 2021-01-09
 	C_BLOCK *m_Block;
 	bool m_CreateSuccess;
 	int m_Score;
