@@ -2484,9 +2484,9 @@ void __fastcall TFormMain::grid_MineKeyDown(TObject *Sender, WORD &Key, TShiftSt
 		}
 	}
 
-	if(Key == 0x37) PushItemIntoList(TYPE_ITEM_PLUS);
-	if(Key == 0x38) PushItemIntoList(TYPE_ITEM_MINUS);
-	if(Key == 0x39) PushItemIntoList(TYPE_ITEM_PLUSPLUS);
+	//if(Key == 0x37) PushItemIntoList(TYPE_ITEM_PLUS);
+	//if(Key == 0x38) PushItemIntoList(TYPE_ITEM_MINUS);
+	//if(Key == 0x39) PushItemIntoList(TYPE_ITEM_PLUSPLUS);
 	RefreshMyGameView();
 #endif
 

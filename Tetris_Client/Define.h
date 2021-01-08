@@ -6,13 +6,13 @@
 #include <System.Classes.hpp>
 
 #define VERSION_MAJOR	1
-#define VERSION_MINOR	1
+#define VERSION_MINOR	11
 
 // COMM
 //#define IP_SERVER "127.0.0.1"
 //#define IP_SERVER "192.168.0.10"
-#define IP_SERVER "192.168.35.9"
-//#define IP_SERVER "118.223.164.124"
+//#define IP_SERVER "192.168.35.9"
+#define IP_SERVER "118.223.164.124"
 //#define IP_SERVER "192.168.0.47"
 #define TCP_SERVER_PORT 14759
 
