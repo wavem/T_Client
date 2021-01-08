@@ -2648,7 +2648,7 @@ void __fastcall TFormMain::USE_ITEM_MINUS() {
 void __fastcall TFormMain::ResetItemList() {
 	m_ItemList.clear();
 	RefreshItemList();
-	PrintChat_InGame(L"Reset");
+	//PrintChat_InGame(L"Reset");
 }
 //---------------------------------------------------------------------------
 
@@ -2658,7 +2658,7 @@ void __fastcall TFormMain::PushItemIntoList(BYTE _Idx) {
 	}
 	m_ItemList.push_back(_Idx);
 	RefreshItemList();
-	PrintChat_InGame(L"Push");
+	//PrintChat_InGame(L"Push");
 }
 //---------------------------------------------------------------------------
 
@@ -2667,7 +2667,7 @@ BYTE __fastcall TFormMain::PopItemFromList() {
 	BYTE t_Item = m_ItemList.front();
 	m_ItemList.erase(m_ItemList.begin());
 	RefreshItemList();
-	PrintChat_InGame(L"Pop");
+	//PrintChat_InGame(L"Pop");
 	return t_Item;
 }
 //---------------------------------------------------------------------------
@@ -2709,7 +2709,7 @@ void __fastcall TFormMain::RefreshItemList() {
 		grid_Items->Canvas->FillRect(t_Rect);
 	}
 
-	PrintChat_InGame(L"refresh");
+	//PrintChat_InGame(L"refresh");
 }
 //---------------------------------------------------------------------------
 
