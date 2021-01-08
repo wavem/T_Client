@@ -118,6 +118,12 @@
             <DependentOn>GameLogic.h</DependentOn>
             <BuildOrder>8</BuildOrder>
         </CppCompile>
+        <CppCompile Include="HelpDlg.cpp">
+            <Form>Form1</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>HelpDlg.h</DependentOn>
+            <BuildOrder>10</BuildOrder>
+        </CppCompile>
         <CppCompile Include="Main.cpp">
             <Form>FormMain</Form>
             <FormType>dfm</FormType>
@@ -163,6 +169,7 @@
         <FormResources Include="Main.dfm"/>
         <FormResources Include="ResultDlg.dfm"/>
         <FormResources Include="MakingRoomDlg.dfm"/>
+        <FormResources Include="HelpDlg.dfm"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
