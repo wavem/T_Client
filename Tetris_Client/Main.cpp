@@ -825,6 +825,7 @@ void __fastcall TFormMain::Receive_MakingRoomResult(SERVERDATA _serverData) {
 		ResetPlayerGrid();
 		memset(m_MyView, 0, MAX_GRID_X * MAX_GRID_Y);
 		//memset(m_MyViewTempBuffer, 0, MAX_GRID_X * MAX_GRID_Y); // Delete 2021-01-09
+		ResetItemList();
 	}
 	SendMessage(m_pDlgMakingRoom->Handle, MSG_TRY_TO_MAKING_ROOM, (unsigned int)&t_rst, 0x10);
 }
@@ -1450,6 +1451,7 @@ void __fastcall TFormMain::Receive_EnterRoomResult(SERVERDATA _serverData) {
 		ResetPlayerGrid();
 		memset(m_MyView, 0, MAX_GRID_X * MAX_GRID_Y);
 		//memset(m_MyViewTempBuffer, 0, MAX_GRID_X * MAX_GRID_Y); // Delete 2021-01-09
+		ResetItemList();
 		m_IsDead = true;
 		m_IsGameOver = true;
 		Notebook_Main->PageIndex = 2; // GAME
@@ -1714,6 +1716,7 @@ void __fastcall TFormMain::StartGame() {
 	AddScore(m_Score);
 	memset(&(m_MyView[0][0]), 0, MAX_GRID_X * MAX_GRID_Y);
 	//memset(&(m_MyViewTempBuffer[0][0]), 0, MAX_GRID_X * MAX_GRID_Y); // Delete 2021-01-09
+	ResetItemList();
 	//RefreshOthersGameView(); // THIS FUNC MUST BE HERE (after memset 0)
 	int num = 0;
 	num = rand() % 7;
