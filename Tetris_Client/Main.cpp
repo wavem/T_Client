@@ -2167,7 +2167,6 @@ bool __fastcall TFormMain::Send_DieMessage(int _RoomIdx) {
 void __fastcall TFormMain::RefreshMyGameView() {
 
 	grid_Mine->Refresh();
-	return;
 #if 0
 	// Common
 	TRect t_Rect;
