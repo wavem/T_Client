@@ -36,6 +36,7 @@ object FormHelp: TFormHelp
       Width = 1002
       Height = 700
       Align = alBottom
+      PageIndex = 3
       TabOrder = 0
       object TPage
         Left = 0
@@ -88,6 +89,19 @@ object FormHelp: TFormHelp
             Width = 190
             Height = 39
             Caption = 'How to play'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -32
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object Label4: TLabel
+            Left = 357
+            Top = 290
+            Width = 268
+            Height = 39
+            Caption = 'Comming soon...'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clGradientActiveCaption
             Font.Height = -32
@@ -156,6 +170,19 @@ object FormHelp: TFormHelp
             Font.Style = [fsBold]
             ParentFont = False
           end
+          object Label6: TLabel
+            Left = 373
+            Top = 306
+            Width = 268
+            Height = 39
+            Caption = 'Comming soon...'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -32
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
         end
       end
       object TPage
@@ -217,6 +244,19 @@ object FormHelp: TFormHelp
             Font.Style = [fsBold]
             ParentFont = False
           end
+          object Label5: TLabel
+            Left = 365
+            Top = 298
+            Width = 268
+            Height = 39
+            Caption = 'Comming soon...'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -32
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
         end
       end
       object TPage
@@ -269,6 +309,19 @@ object FormHelp: TFormHelp
             Width = 50
             Height = 39
             Caption = 'Tip'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -32
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object Label7: TLabel
+            Left = 381
+            Top = 314
+            Width = 268
+            Height = 39
+            Caption = 'Comming soon...'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clGradientActiveCaption
             Font.Height = -32

@@ -7269,6 +7269,7 @@ object FormMain: TFormMain
             ShineColor = 15335424
             TabOrder = 23
             Version = '1.3.0.2'
+            Visible = False
             OnClick = btn_Help_IngameClick
           end
           object AdvGlassButton1: TAdvGlassButton
@@ -7295,6 +7296,7 @@ object FormMain: TFormMain
             ShineColor = 15335424
             TabOrder = 24
             Version = '1.3.0.2'
+            Visible = False
           end
           object AdvGlassButton2: TAdvGlassButton
             Left = 998
@@ -7320,6 +7322,7 @@ object FormMain: TFormMain
             ShineColor = 15335424
             TabOrder = 25
             Version = '1.3.0.2'
+            Visible = False
           end
         end
       end

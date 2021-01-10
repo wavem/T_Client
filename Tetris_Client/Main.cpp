@@ -1906,6 +1906,7 @@ void __fastcall TFormMain::Receive_InnerRoomCMDData(SERVERDATA _serverData) {
 		if(t_TargetPlayerIdx == m_MyIdx) {
 			Execute_Item((int)_serverData.Data[6]);
 		}
+		if(!m_IsSingleMode) Send_InGameDataMessage(m_MyRoomIdx);
 	}
 }
 //---------------------------------------------------------------------------

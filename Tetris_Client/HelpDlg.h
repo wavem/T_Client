@@ -29,6 +29,10 @@ __published:	// IDE-managed Components
 	TLabel *Label2;
 	TAdvGlassButton *btn_Page_4;
 	TAdvGlassButton *btn_EXIT;
+	TLabel *Label4;
+	TLabel *Label5;
+	TLabel *Label6;
+	TLabel *Label7;
 	void __fastcall ClickPageButton(TObject *Sender);
 	void __fastcall btn_EXITClick(TObject *Sender);
 private:	// User declarations
