@@ -119,7 +119,7 @@
             <BuildOrder>8</BuildOrder>
         </CppCompile>
         <CppCompile Include="HelpDlg.cpp">
-            <Form>Form1</Form>
+            <Form>FormHelp</Form>
             <FormType>dfm</FormType>
             <DependentOn>HelpDlg.h</DependentOn>
             <BuildOrder>10</BuildOrder>

@@ -9,7 +9,7 @@ USEFORM("Version.cpp", FormVersion);
 USEFORM("Main.cpp", FormMain);
 USEFORM("ResultDlg.cpp", FormGameResult);
 USEFORM("MakingRoomDlg.cpp", FormMakingRoomDlg);
-USEFORM("HelpDlg.cpp", Form1);
+USEFORM("HelpDlg.cpp", FormHelp);
 //---------------------------------------------------------------------------
 int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 {
@@ -22,7 +22,7 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 		Application->CreateForm(__classid(TFormVersion), &FormVersion);
 		Application->CreateForm(__classid(TFormMakingRoomDlg), &FormMakingRoomDlg);
 		Application->CreateForm(__classid(TFormGameResult), &FormGameResult);
-		Application->CreateForm(__classid(TForm1), &Form1);
+		Application->CreateForm(__classid(TFormHelp), &FormHelp);
 		Application->Run();
 	}
 	catch (Exception &exception)
