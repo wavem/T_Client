@@ -320,6 +320,9 @@ __published:	// IDE-managed Components
 	TAdvShape *shp_Team_4;
 	TAdvShape *shp_Team_5;
 	TAdvShape *shp_Team_Mine;
+	TAdvGlassButton *btn_Help_Ingame;
+	TAdvGlassButton *AdvGlassButton1;
+	TAdvGlassButton *AdvGlassButton2;
 	void __fastcall btn_SingleModeClick(TObject *Sender);
 	void __fastcall btn_SignUpClick(TObject *Sender);
 	void __fastcall btn_Login_QuitClick(TObject *Sender);
@@ -346,6 +349,7 @@ __published:	// IDE-managed Components
 	void __fastcall lb_DownloadLinkClick(TObject *Sender);
 	void __fastcall grid_MineDrawCell(TObject *Sender, int ACol, int ARow, TRect &Rect,
           TGridDrawState State);
+	void __fastcall btn_Help_IngameClick(TObject *Sender);
 
 
 

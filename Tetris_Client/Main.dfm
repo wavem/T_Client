@@ -168,7 +168,7 @@ object FormMain: TFormMain
       Width = 1186
       Height = 819
       Align = alClient
-      PageIndex = 1
+      PageIndex = 2
       TabOrder = 0
       object TPage
         Left = 0
@@ -6787,8 +6787,8 @@ object FormMain: TFormMain
             OnClick = btn_StartGameClick
           end
           object btn_PauseGame: TAdvGlassButton
-            Left = 939
-            Top = 331
+            Left = 937
+            Top = 254
             Width = 222
             Height = 32
             Cursor = crHandPoint
@@ -6812,8 +6812,8 @@ object FormMain: TFormMain
             Visible = False
           end
           object btn_Setting_InGame: TAdvGlassButton
-            Left = 939
-            Top = 293
+            Left = 937
+            Top = 216
             Width = 222
             Height = 32
             Cursor = crHandPoint
@@ -6837,8 +6837,8 @@ object FormMain: TFormMain
             Visible = False
           end
           object btn_Log_InGame: TAdvGlassButton
-            Left = 939
-            Top = 255
+            Left = 937
+            Top = 178
             Width = 222
             Height = 32
             Cursor = crHandPoint
@@ -7245,6 +7245,81 @@ object FormMain: TFormMain
               ParentColor = False
               ParentFont = False
             end
+          end
+          object btn_Help_Ingame: TAdvGlassButton
+            Left = 1058
+            Top = 294
+            Width = 114
+            Height = 72
+            Cursor = crHandPoint
+            BackColor = clNavy
+            Caption = 'HELP'
+            CornerRadius = 16
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -16
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ForeColor = clWhite
+            ForceTransparent = True
+            GlowColor = clOlive
+            InnerBorderColor = clBlack
+            OuterBorderColor = clNavy
+            ParentFont = False
+            ShineColor = 15335424
+            TabOrder = 23
+            Version = '1.3.0.2'
+            OnClick = btn_Help_IngameClick
+          end
+          object AdvGlassButton1: TAdvGlassButton
+            Left = 938
+            Top = 295
+            Width = 53
+            Height = 72
+            Cursor = crHandPoint
+            BackColor = clNavy
+            Caption = 'A'
+            CornerRadius = 16
+            Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -16
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ForeColor = clWhite
+            ForceTransparent = True
+            GlowColor = clOlive
+            InnerBorderColor = clBlack
+            OuterBorderColor = clNavy
+            ParentFont = False
+            ShineColor = 15335424
+            TabOrder = 24
+            Version = '1.3.0.2'
+          end
+          object AdvGlassButton2: TAdvGlassButton
+            Left = 998
+            Top = 295
+            Width = 53
+            Height = 72
+            Cursor = crHandPoint
+            BackColor = clNavy
+            Caption = 'B'
+            CornerRadius = 16
+            Enabled = False
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clGradientActiveCaption
+            Font.Height = -16
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            ForeColor = clWhite
+            ForceTransparent = True
+            GlowColor = clOlive
+            InnerBorderColor = clBlack
+            OuterBorderColor = clNavy
+            ParentFont = False
+            ShineColor = 15335424
+            TabOrder = 25
+            Version = '1.3.0.2'
           end
         end
       end

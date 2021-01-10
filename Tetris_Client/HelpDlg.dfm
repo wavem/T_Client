@@ -83,11 +83,11 @@ object FormHelp: TFormHelp
           ExplicitHeight = 164
           TMSStyle = 4
           object lb_Title_Defeat: TLabel
-            Left = 556
-            Top = 409
-            Width = 118
+            Left = 397
+            Top = 25
+            Width = 190
             Height = 39
-            Caption = 'Control'
+            Caption = 'How to play'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clGradientActiveCaption
             Font.Height = -32
@@ -144,11 +144,11 @@ object FormHelp: TFormHelp
           ExplicitHeight = 164
           TMSStyle = 4
           object Label3: TLabel
-            Left = 350
-            Top = 265
-            Width = 78
+            Left = 379
+            Top = 25
+            Width = 276
             Height = 39
-            Caption = 'Item'
+            Caption = 'Item information'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clGradientActiveCaption
             Font.Height = -32
@@ -205,11 +205,11 @@ object FormHelp: TFormHelp
           ExplicitHeight = 164
           TMSStyle = 4
           object Label1: TLabel
-            Left = 598
-            Top = 409
-            Width = 85
+            Left = 406
+            Top = 25
+            Width = 199
             Height = 39
-            Caption = 'Level'
+            Caption = 'Level design'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clGradientActiveCaption
             Font.Height = -32
@@ -264,8 +264,8 @@ object FormHelp: TFormHelp
           ExplicitTop = 104
           TMSStyle = 4
           object Label2: TLabel
-            Left = 574
-            Top = 329
+            Left = 478
+            Top = 25
             Width = 50
             Height = 39
             Caption = 'Tip'

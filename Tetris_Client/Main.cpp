@@ -410,6 +410,14 @@ void __fastcall TFormMain::btn_HelpClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
+void __fastcall TFormMain::btn_Help_IngameClick(TObject *Sender)
+{
+	TFormHelp* p_dlg = new TFormHelp(NULL);
+	p_dlg->ShowModal();
+	delete p_dlg;
+}
+//---------------------------------------------------------------------------
+
 void __fastcall TFormMain::btn_LogOutClick(TObject *Sender)
 {
 	this->Close();
@@ -2861,4 +2869,3 @@ void __fastcall TFormMain::grid_MineDrawCell(TObject *Sender, int ACol, int ARow
 	p_grid->Canvas->FillRect(Rect);
 }
 //---------------------------------------------------------------------------
-
