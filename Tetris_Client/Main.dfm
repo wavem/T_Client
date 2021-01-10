@@ -168,7 +168,7 @@ object FormMain: TFormMain
       Width = 1186
       Height = 819
       Align = alClient
-      PageIndex = 2
+      PageIndex = 1
       TabOrder = 0
       object TPage
         Left = 0
@@ -828,14 +828,14 @@ object FormMain: TFormMain
             Version = '1.3.0.2'
             OnClick = btn_LogOutClick
           end
-          object btn_Enter: TAdvGlassButton
+          object btn_Help: TAdvGlassButton
             Left = 436
             Top = 22
             Width = 120
             Height = 74
             Cursor = crHandPoint
             BackColor = clNavy
-            Caption = 'ENTER'
+            Caption = 'HELP'
             CornerRadius = 16
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clGradientActiveCaption
@@ -851,8 +851,7 @@ object FormMain: TFormMain
             ShineColor = 15335424
             TabOrder = 5
             Version = '1.3.0.2'
-            Visible = False
-            OnClick = btn_EnterClick
+            OnClick = btn_HelpClick
           end
           object btn_Log_Lobby: TAdvGlassButton
             Left = 310
@@ -7923,7 +7922,7 @@ object FormMain: TFormMain
     Width = 32
     Left = 56
     Bitmap = {
-      494C01010D00A800300120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D00A800340120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000800000008000000001002000000000000000
       010000000000000000000000000000000000000000FF000000FF000000FF0000
       00FF000000FF000000FF000000FF000000FF000000FF000000FF000000FF0000
@@ -10045,7 +10044,7 @@ object FormMain: TFormMain
   object ImgList_Others: TImageList
     Left = 84
     Bitmap = {
-      494C01010D0024008C0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01010D002400900010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000004000000001002000000000000040
       000000000000000000000000000000000000000000FF000000FF000000FF0000
       00FF000000FF000000FF000000FF000000FF000000FF000000FF3C3CD0FF4041

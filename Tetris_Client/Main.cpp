@@ -401,9 +401,12 @@ void __fastcall TFormMain::btn_Login_QuitClick(TObject *Sender)
 	//Application->Terminate();
 }
 //---------------------------------------------------------------------------
-void __fastcall TFormMain::btn_EnterClick(TObject *Sender)
+
+void __fastcall TFormMain::btn_HelpClick(TObject *Sender)
 {
-	Notebook_Main->PageIndex = 2; // GAME
+	TFormHelp* p_dlg = new TFormHelp(NULL);
+	p_dlg->ShowModal();
+	delete p_dlg;
 }
 //---------------------------------------------------------------------------
 

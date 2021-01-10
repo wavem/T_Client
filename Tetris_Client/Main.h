@@ -8,6 +8,7 @@
 #include "SignUpDlg.h"
 #include "Version.h"
 #include "MakingRoomDlg.h"
+#include "HelpDlg.h"
 //---------------------------------------------------------------------------
 #include <System.Classes.hpp>
 #include <Vcl.Controls.hpp>
@@ -129,7 +130,7 @@ __published:	// IDE-managed Components
 	TLabel *lb_Lobby_11;
 	TLabel *lb_Lobby_12;
 	TAdvGlassButton *btn_LogOut;
-	TAdvGlassButton *btn_Enter;
+	TAdvGlassButton *btn_Help;
 	TAdvEdit *ed_Chat_InGame;
 	TAdvGlassButton *btn_Send_InGameChat;
 	TAdvGlassButton *btn_QUIT_InGame;
@@ -324,7 +325,7 @@ __published:	// IDE-managed Components
 	void __fastcall btn_Login_QuitClick(TObject *Sender);
 	void __fastcall btn_LoginClick(TObject *Sender);
 	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
-	void __fastcall btn_EnterClick(TObject *Sender);
+	void __fastcall btn_HelpClick(TObject *Sender);
 	void __fastcall btn_LogOutClick(TObject *Sender);
 	void __fastcall btn_InformationClick(TObject *Sender);
 	void __fastcall btn_DebugClick(TObject *Sender);
