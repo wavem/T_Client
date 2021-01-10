@@ -36,7 +36,6 @@ object FormHelp: TFormHelp
       Width = 1002
       Height = 700
       Align = alBottom
-      PageIndex = 3
       TabOrder = 0
       object TPage
         Left = 0
@@ -84,8 +83,8 @@ object FormHelp: TFormHelp
           ExplicitHeight = 164
           TMSStyle = 4
           object lb_Title_Defeat: TLabel
-            Left = 70
-            Top = 33
+            Left = 556
+            Top = 409
             Width = 118
             Height = 39
             Caption = 'Control'
@@ -95,31 +94,6 @@ object FormHelp: TFormHelp
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
             ParentFont = False
-          end
-          object btn_OK_Defeat: TAdvGlassButton
-            Left = 46
-            Top = 98
-            Width = 172
-            Height = 32
-            Cursor = crHandPoint
-            BackColor = clNavy
-            Caption = 'OK'
-            CornerRadius = 16
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clGradientActiveCaption
-            Font.Height = -16
-            Font.Name = 'Tahoma'
-            Font.Style = [fsBold]
-            ForeColor = clWhite
-            ForceTransparent = True
-            GlowColor = clOlive
-            InnerBorderColor = clBlack
-            OuterBorderColor = clNavy
-            ParentFont = False
-            ShineColor = 15335424
-            TabOrder = 0
-            TabStop = False
-            Version = '1.3.0.2'
           end
         end
       end
@@ -131,13 +105,12 @@ object FormHelp: TFormHelp
         ExplicitWidth = 0
         ExplicitHeight = 0
         object _pnBase_02_Item: TAdvSmoothPanel
-          Left = 224
-          Top = 144
-          Width = 263
-          Height = 164
+          Left = 0
+          Top = 0
+          Width = 1002
+          Height = 700
           Cursor = crDefault
           ResizeHandle = False
-          Caption.Text = 'AdvSmoothPanel3'
           Caption.HTMLFont.Charset = DEFAULT_CHARSET
           Caption.HTMLFont.Color = clWindowText
           Caption.HTMLFont.Height = -11
@@ -145,9 +118,9 @@ object FormHelp: TFormHelp
           Caption.HTMLFont.Style = []
           Caption.Font.Charset = DEFAULT_CHARSET
           Caption.Font.Color = clWindowText
-          Caption.Font.Height = -16
+          Caption.Font.Height = -19
           Caption.Font.Name = 'Tahoma'
-          Caption.Font.Style = []
+          Caption.Font.Style = [fsBold]
           Fill.Color = 2622464
           Fill.ColorTo = 9588224
           Fill.ColorMirror = 9588224
@@ -157,17 +130,22 @@ object FormHelp: TFormHelp
           Fill.BorderColor = clBlack
           Fill.Rounding = 10
           Fill.ShadowColor = clRed
-          Fill.ShadowOffset = 10
+          Fill.ShadowOffset = 5
           Fill.ShadowType = stSurround
           Fill.Glow = gmRadialGradient
           Fill.GlowGradientColor = clBlack
           Fill.GlowRadialColor = clBlack
           Version = '1.5.0.0'
+          Align = alClient
           TabOrder = 0
+          ExplicitLeft = 224
+          ExplicitTop = 144
+          ExplicitWidth = 263
+          ExplicitHeight = 164
           TMSStyle = 4
           object Label3: TLabel
-            Left = 70
-            Top = 33
+            Left = 350
+            Top = 265
             Width = 78
             Height = 39
             Caption = 'Item'
@@ -177,31 +155,6 @@ object FormHelp: TFormHelp
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
             ParentFont = False
-          end
-          object AdvGlassButton3: TAdvGlassButton
-            Left = 46
-            Top = 98
-            Width = 172
-            Height = 32
-            Cursor = crHandPoint
-            BackColor = clNavy
-            Caption = 'OK'
-            CornerRadius = 16
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clGradientActiveCaption
-            Font.Height = -16
-            Font.Name = 'Tahoma'
-            Font.Style = [fsBold]
-            ForeColor = clWhite
-            ForceTransparent = True
-            GlowColor = clOlive
-            InnerBorderColor = clBlack
-            OuterBorderColor = clNavy
-            ParentFont = False
-            ShineColor = 15335424
-            TabOrder = 0
-            TabStop = False
-            Version = '1.3.0.2'
           end
         end
       end
@@ -213,13 +166,12 @@ object FormHelp: TFormHelp
         ExplicitWidth = 0
         ExplicitHeight = 0
         object _pnBase_02_Level: TAdvSmoothPanel
-          Left = 176
-          Top = 96
-          Width = 263
-          Height = 164
+          Left = 0
+          Top = 0
+          Width = 1002
+          Height = 700
           Cursor = crDefault
           ResizeHandle = False
-          Caption.Text = 'AdvSmoothPanel1'
           Caption.HTMLFont.Charset = DEFAULT_CHARSET
           Caption.HTMLFont.Color = clWindowText
           Caption.HTMLFont.Height = -11
@@ -239,17 +191,22 @@ object FormHelp: TFormHelp
           Fill.BorderColor = clBlack
           Fill.Rounding = 10
           Fill.ShadowColor = clRed
-          Fill.ShadowOffset = 10
+          Fill.ShadowOffset = 5
           Fill.ShadowType = stSurround
           Fill.Glow = gmRadialGradient
           Fill.GlowGradientColor = clBlack
           Fill.GlowRadialColor = clBlack
           Version = '1.5.0.0'
+          Align = alClient
           TabOrder = 0
+          ExplicitLeft = 176
+          ExplicitTop = 96
+          ExplicitWidth = 263
+          ExplicitHeight = 164
           TMSStyle = 4
           object Label1: TLabel
-            Left = 70
-            Top = 33
+            Left = 598
+            Top = 409
             Width = 85
             Height = 39
             Caption = 'Level'
@@ -259,31 +216,6 @@ object FormHelp: TFormHelp
             Font.Name = 'Tahoma'
             Font.Style = [fsBold]
             ParentFont = False
-          end
-          object AdvGlassButton1: TAdvGlassButton
-            Left = 46
-            Top = 98
-            Width = 172
-            Height = 32
-            Cursor = crHandPoint
-            BackColor = clNavy
-            Caption = 'OK'
-            CornerRadius = 16
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clGradientActiveCaption
-            Font.Height = -16
-            Font.Name = 'Tahoma'
-            Font.Style = [fsBold]
-            ForeColor = clWhite
-            ForceTransparent = True
-            GlowColor = clOlive
-            InnerBorderColor = clBlack
-            OuterBorderColor = clNavy
-            ParentFont = False
-            ShineColor = 15335424
-            TabOrder = 0
-            TabStop = False
-            Version = '1.3.0.2'
           end
         end
       end
@@ -301,7 +233,6 @@ object FormHelp: TFormHelp
           Height = 700
           Cursor = crDefault
           ResizeHandle = False
-          Caption.Text = 'AdvSmoothPanel1'
           Caption.HTMLFont.Charset = DEFAULT_CHARSET
           Caption.HTMLFont.Color = clWindowText
           Caption.HTMLFont.Height = -11
@@ -321,7 +252,7 @@ object FormHelp: TFormHelp
           Fill.BorderColor = clBlack
           Fill.Rounding = 10
           Fill.ShadowColor = clRed
-          Fill.ShadowOffset = 10
+          Fill.ShadowOffset = 5
           Fill.ShadowType = stSurround
           Fill.Glow = gmRadialGradient
           Fill.GlowGradientColor = clBlack
@@ -333,8 +264,8 @@ object FormHelp: TFormHelp
           ExplicitTop = 104
           TMSStyle = 4
           object Label2: TLabel
-            Left = 70
-            Top = 33
+            Left = 574
+            Top = 329
             Width = 50
             Height = 39
             Caption = 'Tip'
@@ -345,46 +276,21 @@ object FormHelp: TFormHelp
             Font.Style = [fsBold]
             ParentFont = False
           end
-          object AdvGlassButton6: TAdvGlassButton
-            Left = 46
-            Top = 98
-            Width = 172
-            Height = 32
-            Cursor = crHandPoint
-            BackColor = clNavy
-            Caption = 'OK'
-            CornerRadius = 16
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clGradientActiveCaption
-            Font.Height = -16
-            Font.Name = 'Tahoma'
-            Font.Style = [fsBold]
-            ForeColor = clWhite
-            ForceTransparent = True
-            GlowColor = clOlive
-            InnerBorderColor = clBlack
-            OuterBorderColor = clNavy
-            ParentFont = False
-            ShineColor = 15335424
-            TabOrder = 0
-            TabStop = False
-            Version = '1.3.0.2'
-          end
         end
       end
     end
-    object AdvGlassButton2: TAdvGlassButton
-      Left = 22
-      Top = 18
-      Width = 172
-      Height = 32
+    object btn_Page_1: TAdvGlassButton
+      Left = 13
+      Top = 5
+      Width = 136
+      Height = 60
       Cursor = crHandPoint
       BackColor = clNavy
       Caption = 'Control'
       CornerRadius = 16
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clGradientActiveCaption
-      Font.Height = -16
+      Font.Height = -19
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ForeColor = clWhite
@@ -397,19 +303,21 @@ object FormHelp: TFormHelp
       TabOrder = 1
       TabStop = False
       Version = '1.3.0.2'
+      OnClick = ClickPageButton
     end
-    object AdvGlassButton4: TAdvGlassButton
-      Left = 200
-      Top = 18
-      Width = 172
-      Height = 32
+    object btn_Page_2: TAdvGlassButton
+      Tag = 1
+      Left = 159
+      Top = 5
+      Width = 136
+      Height = 60
       Cursor = crHandPoint
       BackColor = clNavy
       Caption = 'Item'
       CornerRadius = 16
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clGradientActiveCaption
-      Font.Height = -16
+      Font.Height = -19
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ForeColor = clWhite
@@ -422,19 +330,21 @@ object FormHelp: TFormHelp
       TabOrder = 2
       TabStop = False
       Version = '1.3.0.2'
+      OnClick = ClickPageButton
     end
-    object AdvGlassButton5: TAdvGlassButton
-      Left = 378
-      Top = 18
-      Width = 172
-      Height = 32
+    object btn_Page_3: TAdvGlassButton
+      Tag = 2
+      Left = 305
+      Top = 5
+      Width = 136
+      Height = 60
       Cursor = crHandPoint
       BackColor = clNavy
       Caption = 'Level'
       CornerRadius = 16
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clGradientActiveCaption
-      Font.Height = -16
+      Font.Height = -19
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ForeColor = clWhite
@@ -447,19 +357,21 @@ object FormHelp: TFormHelp
       TabOrder = 3
       TabStop = False
       Version = '1.3.0.2'
+      OnClick = ClickPageButton
     end
-    object AdvGlassButton7: TAdvGlassButton
-      Left = 556
-      Top = 18
-      Width = 172
-      Height = 32
+    object btn_Page_4: TAdvGlassButton
+      Tag = 3
+      Left = 451
+      Top = 5
+      Width = 136
+      Height = 60
       Cursor = crHandPoint
       BackColor = clNavy
       Caption = 'Tip'
       CornerRadius = 16
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clGradientActiveCaption
-      Font.Height = -16
+      Font.Height = -19
       Font.Name = 'Tahoma'
       Font.Style = [fsBold]
       ForeColor = clWhite
@@ -472,6 +384,33 @@ object FormHelp: TFormHelp
       TabOrder = 4
       TabStop = False
       Version = '1.3.0.2'
+      OnClick = ClickPageButton
+    end
+    object btn_EXIT: TAdvGlassButton
+      Left = 852
+      Top = 5
+      Width = 136
+      Height = 60
+      Cursor = crHandPoint
+      BackColor = clNavy
+      Caption = 'EXIT'
+      CornerRadius = 16
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGradientActiveCaption
+      Font.Height = -19
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ForeColor = clWhite
+      ForceTransparent = True
+      GlowColor = clOlive
+      InnerBorderColor = clBlack
+      OuterBorderColor = clNavy
+      ParentFont = False
+      ShineColor = 15335424
+      TabOrder = 5
+      TabStop = False
+      Version = '1.3.0.2'
+      OnClick = btn_EXITClick
     end
   end
 end

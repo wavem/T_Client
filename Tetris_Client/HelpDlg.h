@@ -18,20 +18,19 @@ __published:	// IDE-managed Components
 	TNotebook *Notebook_Help;
 	TAdvSmoothPanel *_pnBase_01_Control;
 	TLabel *lb_Title_Defeat;
-	TAdvGlassButton *btn_OK_Defeat;
 	TAdvSmoothPanel *_pnBase_02_Level;
 	TLabel *Label1;
-	TAdvGlassButton *AdvGlassButton1;
 	TAdvSmoothPanel *_pnBase_02_Item;
 	TLabel *Label3;
-	TAdvGlassButton *AdvGlassButton3;
-	TAdvGlassButton *AdvGlassButton2;
-	TAdvGlassButton *AdvGlassButton4;
-	TAdvGlassButton *AdvGlassButton5;
+	TAdvGlassButton *btn_Page_1;
+	TAdvGlassButton *btn_Page_2;
+	TAdvGlassButton *btn_Page_3;
 	TAdvSmoothPanel *_pnBase_03_Tip;
 	TLabel *Label2;
-	TAdvGlassButton *AdvGlassButton6;
-	TAdvGlassButton *AdvGlassButton7;
+	TAdvGlassButton *btn_Page_4;
+	TAdvGlassButton *btn_EXIT;
+	void __fastcall ClickPageButton(TObject *Sender);
+	void __fastcall btn_EXITClick(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
 	__fastcall TFormHelp(TComponent* Owner);

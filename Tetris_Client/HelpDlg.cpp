@@ -14,5 +14,19 @@ TFormHelp *FormHelp;
 __fastcall TFormHelp::TFormHelp(TComponent* Owner)
 	: TForm(Owner)
 {
+	Notebook_Help->PageIndex = 0; // Default Setting
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormHelp::ClickPageButton(TObject *Sender)
+{
+	int t_Tag = ((TAdvGlassButton*)Sender)->Tag;
+	Notebook_Help->PageIndex = t_Tag;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormHelp::btn_EXITClick(TObject *Sender)
+{
+	this->Close();
 }
 //---------------------------------------------------------------------------
