@@ -190,6 +190,8 @@ void __fastcall TFormMain::LoadBMPFiles() {
 	ImgList_My->GetBitmap(ITEM_TWISTTWIST, m_BmpList_My[ITEM_TWISTTWIST]);
 	m_BmpList_My[ITEM_CLEAR_ALL] = new TBitmap;
 	ImgList_My->GetBitmap(ITEM_CLEAR_ALL, m_BmpList_My[ITEM_CLEAR_ALL]);
+	m_BmpList_My[ITEM_CLEAR_HALF] = new TBitmap;
+	ImgList_My->GetBitmap(ITEM_CLEAR_HALF, m_BmpList_My[ITEM_CLEAR_HALF]);
 
 
 	// Others View : Basic Blocks
@@ -227,6 +229,8 @@ void __fastcall TFormMain::LoadBMPFiles() {
 	ImgList_Others->GetBitmap(ITEM_TWISTTWIST, m_BmpList_Others[ITEM_TWISTTWIST]);
 	m_BmpList_Others[ITEM_CLEAR_ALL] = new TBitmap;
 	ImgList_Others->GetBitmap(ITEM_CLEAR_ALL, m_BmpList_Others[ITEM_CLEAR_ALL]);
+	m_BmpList_Others[ITEM_CLEAR_HALF] = new TBitmap;
+	ImgList_Others->GetBitmap(ITEM_CLEAR_HALF, m_BmpList_Others[ITEM_CLEAR_HALF]);
 }
 //---------------------------------------------------------------------------
 
@@ -1997,12 +2001,12 @@ bool __fastcall TFormMain::Send_InGameDataMessage(int _RoomIdx) {
 	m_ClientThread->sendBuff[4] = (BYTE)_RoomIdx;
 	m_ClientThread->sendBuff[5] = m_MyIdx;
 
-	t_BuffIdx = 10;
+	t_BuffIdx = 9;
 	for(int x = 0 ; x < MAX_GRID_X ; x++) {
 		for(int y = 3 ; y < MAX_GRID_Y ; y++) {
+			t_BuffIdx++;
 			if(GetBitStatus(m_MyView[x][y], 7) || GetBitStatus(m_MyView[x][y], 6)) continue;
 			m_ClientThread->sendBuff[t_BuffIdx] = m_MyView[x][y];
-			t_BuffIdx++;
 		}
 	}
 
@@ -2137,6 +2141,8 @@ void __fastcall TFormMain::RefreshPlayerGame() {
 					break;
 				case TYPE_ITEM_CLEAR_ALL:
 					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[ITEM_CLEAR_ALL];
+				case TYPE_ITEM_CLEAR_HALF:
+					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[ITEM_CLEAR_HALF];
 					break;
 				default:
 					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[BLOCK_N];
@@ -2522,8 +2528,8 @@ void __fastcall TFormMain::grid_MineKeyDown(TObject *Sender, WORD &Key, TShiftSt
 		}
 	}
 
-	if(Key == 0x37) USE_ITEM_CLEAR_ALL();
-	if(Key == 0x38) PushItemIntoList(TYPE_ITEM_TWIST);
+	if(Key == 0x37) USE_ITEM_CLEAR_DROP();
+	if(Key == 0x38) PushItemIntoList(TYPE_ITEM_CLEAR_HALF);
 	if(Key == 0x39) PushItemIntoList(TYPE_ITEM_TWISTTWIST);
 	RefreshMyGameView();
 #endif
@@ -2603,7 +2609,7 @@ void __fastcall TFormMain::tm_PlayTimeTimer(TObject *Sender)
 	lb_Time->Caption = tempStr;
 
 	// SPEED UP
-	if(m_Speed == 100) return;
+	if(m_Speed == 300) return;
 
 	m_time_cnt++;
 	if(m_time_cnt % 30 == 0) {
@@ -2611,11 +2617,10 @@ void __fastcall TFormMain::tm_PlayTimeTimer(TObject *Sender)
 		tm_Level->Interval = m_Speed;
 		tempStr.sprintf(L"SPEED UP : %.1f Sec", (double)m_Speed / 1000);
 		PrintChat_InGame(tempStr);
-		if(m_Speed == 100) PrintChat_InGame(L"MAX SPEED");
+		if(m_Speed == 300) PrintChat_InGame(L"MAX SPEED");
 	}
 }
 //---------------------------------------------------------------------------
-
 
 void __fastcall TFormMain::USE_ITEM_PLUS() {
 
@@ -2742,6 +2747,30 @@ void __fastcall TFormMain::USE_ITEM_CLEAR_ALL() {
 			m_MyView[x][y] = 0;
 		}
 	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::USE_ITEM_CLEAR_HALF() {
+	for(int x = 5 ; x < MAX_GRID_X ; x++) {
+		for(int y = 0 ; y < MAX_GRID_Y ; y++) {
+			if(GetBitStatus(m_MyView[x][y], 7) || GetBitStatus(m_MyView[x][y], 6)) continue;
+			m_MyView[x][y] = 0;
+		}
+	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::USE_ITEM_CLEAR_DROP() {
+	for(int x = 0 ; x < MAX_GRID_X ; x++) {
+		for(int y = 3 ; y < MAX_GRID_Y - 1 ; y++) {
+			if(GetBitStatus(m_MyView[x][y], 7) || GetBitStatus(m_MyView[x][y], 6)) continue;
+			if(m_MyView[x][y] == 0) continue;
+			if(m_MyView[x][y + 1] == 0) {
+				m_MyView[x][y + 1] = TYPE_STATUS_ROCK;
+			}
+		}
+	}
+	if(m_Block)	m_Block->CheckLineClear();
 }
 //---------------------------------------------------------------------------
 
@@ -2912,6 +2941,10 @@ void __fastcall TFormMain::Execute_Item(int _ItemIdx) {
 			USE_ITEM_CLEAR_ALL();
 			break;
 
+		case TYPE_ITEM_CLEAR_HALF:
+			USE_ITEM_CLEAR_HALF();
+			break;
+
 		default:
 			break;
 	}
@@ -2972,6 +3005,9 @@ void __fastcall TFormMain::grid_MineDrawCell(TObject *Sender, int ACol, int ARow
 			break;
 		case TYPE_ITEM_CLEAR_ALL:
 			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[ITEM_CLEAR_ALL];
+			break;
+		case TYPE_ITEM_CLEAR_HALF:
+			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[ITEM_CLEAR_HALF];
 			break;
 		default:
 			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_N];

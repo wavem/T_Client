@@ -489,6 +489,15 @@ public: // ITEM
 	void __fastcall USE_ITEM_MINUS();
 	void __fastcall USE_ITEM_TWIST();
 	void __fastcall USE_ITEM_CLEAR_ALL();
+	void __fastcall USE_ITEM_CLEAR_HALF();
+	void __fastcall USE_ITEM_CLEAR_DROP();
+
+	void __fastcall USE_ITEM_DEL_FIELD_ITEM();
+	void __fastcall USE_ITEM_DEL_ITEMLIST();
+	void __fastcall USE_ITEM_SWAP();
+	void __fastcall USE_ITEM_SPEED_UP();
+	void __fastcall USE_ITEM_SPEED_DOWN();
+	void __fastcall USE_ITEM_BLIND();
 
 ///***** GAME SYSTEM *****///
 	// TIME

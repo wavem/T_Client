@@ -120,7 +120,7 @@ void __fastcall TFormMain::CreateRandomItem() {
 			t_Byte = GetBlockData(m_MyView[x][y]);
 			if(t_Byte != 0) {
 				if(check_cnt == randNum) {
-					int t_random = rand() % 7;
+					int t_random = rand() % 8;
 					switch(t_random) {
 						case 0:
 							m_MyView[x][y] = TYPE_ITEM_PLUS;
@@ -148,6 +148,10 @@ void __fastcall TFormMain::CreateRandomItem() {
 
 						case 6:
 							m_MyView[x][y] = TYPE_ITEM_CLEAR_ALL;
+							break;
+
+						case 7:
+							m_MyView[x][y] = TYPE_ITEM_CLEAR_HALF;
 							break;
 
 						default:
