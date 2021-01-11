@@ -487,6 +487,7 @@ public: // ITEM
 	///***** USING ITEM *****///
 	void __fastcall USE_ITEM_PLUS();
 	void __fastcall USE_ITEM_MINUS();
+	void __fastcall USE_ITEM_TWIST();
 
 ///***** GAME SYSTEM *****///
 	// TIME

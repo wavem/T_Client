@@ -256,6 +256,7 @@ bool __fastcall TFormMain::CreateClientThread() {
 
 	// Creating Client Thread
 	m_ClientThread = new CTcpSocketThread(&m_sock_Client);
+	return true;
 }
 //---------------------------------------------------------------------------
 
@@ -2499,9 +2500,9 @@ void __fastcall TFormMain::grid_MineKeyDown(TObject *Sender, WORD &Key, TShiftSt
 		}
 	}
 
-	//if(Key == 0x37) PushItemIntoList(TYPE_ITEM_PLUS);
-	//if(Key == 0x38) PushItemIntoList(TYPE_ITEM_MINUS);
-	//if(Key == 0x39) PushItemIntoList(TYPE_ITEM_PLUSPLUS);
+	if(Key == 0x37) USE_ITEM_TWIST();
+	if(Key == 0x38) USE_ITEM_MINUS();
+	if(Key == 0x39) PushItemIntoList(TYPE_ITEM_PLUSPLUS);
 	RefreshMyGameView();
 #endif
 
@@ -2657,6 +2658,58 @@ void __fastcall TFormMain::USE_ITEM_PLUS() {
 
 void __fastcall TFormMain::USE_ITEM_MINUS() {
 	m_Block->ClearLine(MAX_GRID_Y - 1);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::USE_ITEM_TWIST() {
+
+	// Common
+	BYTE t_CurrentBlockBuffer[10] = {0, };
+	BYTE t_OneBlockBuffer = 0;
+	int t_TopLine = MAX_GRID_Y - 1;
+	int t_TargetLine = 0;
+	bool t_bFindComplete = false;
+	int randnum = 0; // For Selecting Twist Target Line
+
+	// Find Top Line Routine
+	for(int y = 2 ; y <= MAX_GRID_Y - 1 ; y++) {
+		for(int x = 0 ; x < MAX_GRID_X ; x++) {
+			if(GetBlockData(m_MyView[x][y]) != 0 && !GetBitStatus(m_MyView[x][y], 7) && !GetBitStatus(m_MyView[x][y], 6)) {
+				t_TopLine = y;
+				t_bFindComplete = true;
+				break;
+			}
+		}
+		if(t_bFindComplete) break;
+	}
+
+	///***** CASE : THERE IS NOTHING *****///
+	if(!t_bFindComplete) {
+		// If there is no any block, do nothing.
+		return;
+	}
+
+	// Select Target Line
+	if(t_TopLine == (MAX_GRID_Y - 1)) {
+		t_TargetLine = t_TopLine;
+	} else {
+		randnum = rand() % (MAX_GRID_Y - t_TopLine);
+		t_TargetLine = t_TopLine + randnum;
+	}
+
+	// Twist Routine
+	for(int i = 0 ; i < 10 ; i++) {
+		if(GetBitStatus(m_MyView[i][t_TargetLine], 7) || GetBitStatus(m_MyView[i][t_TargetLine], 6)) continue;
+		t_CurrentBlockBuffer[i] = GetBlockData(m_MyView[i][t_TargetLine]);
+	}
+	t_OneBlockBuffer = GetBlockData(m_MyView[0][t_TargetLine]);
+	for(int i = 0 ; i < 9 ; i++) {
+		if(GetBitStatus(m_MyView[i][t_TargetLine], 7) || GetBitStatus(m_MyView[i][t_TargetLine], 6)) continue;
+		m_MyView[i][t_TargetLine] = t_CurrentBlockBuffer[i + 1];
+	}
+	if(!GetBitStatus(m_MyView[9][t_TargetLine], 7) && !GetBitStatus(m_MyView[9][t_TargetLine], 6)) {
+		m_MyView[9][t_TargetLine] = t_OneBlockBuffer;
+	}
 }
 //---------------------------------------------------------------------------
 

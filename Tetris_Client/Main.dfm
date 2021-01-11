@@ -168,7 +168,6 @@ object FormMain: TFormMain
       Width = 1186
       Height = 819
       Align = alClient
-      PageIndex = 2
       TabOrder = 0
       object TPage
         Left = 0

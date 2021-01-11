@@ -10,6 +10,7 @@
 #include "AdvGlassButton.hpp"
 #include "AdvSmoothPanel.hpp"
 #include <Vcl.ExtCtrls.hpp>
+#include "dxGDIPlusClasses.hpp"
 //---------------------------------------------------------------------------
 class TFormHelp : public TForm
 {
@@ -31,8 +32,8 @@ __published:	// IDE-managed Components
 	TAdvGlassButton *btn_EXIT;
 	TLabel *Label4;
 	TLabel *Label5;
-	TLabel *Label6;
 	TLabel *Label7;
+	TImage *Image1;
 	void __fastcall ClickPageButton(TObject *Sender);
 	void __fastcall btn_EXITClick(TObject *Sender);
 private:	// User declarations

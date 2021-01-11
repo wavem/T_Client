@@ -8,6 +8,7 @@
 #pragma package(smart_init)
 #pragma link "AdvGlassButton"
 #pragma link "AdvSmoothPanel"
+#pragma link "dxGDIPlusClasses"
 #pragma resource "*.dfm"
 TFormHelp *FormHelp;
 //---------------------------------------------------------------------------
