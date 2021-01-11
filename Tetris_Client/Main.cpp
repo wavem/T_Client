@@ -2521,7 +2521,7 @@ void __fastcall TFormMain::grid_MineKeyDown(TObject *Sender, WORD &Key, TShiftSt
 		}
 	}
 
-	if(Key == 0x37) USE_ITEM_TWIST();
+	if(Key == 0x37) USE_ITEM_CLEAR_ALL();
 	if(Key == 0x38) PushItemIntoList(TYPE_ITEM_TWIST);
 	if(Key == 0x39) PushItemIntoList(TYPE_ITEM_TWISTTWIST);
 	RefreshMyGameView();
@@ -2734,6 +2734,16 @@ void __fastcall TFormMain::USE_ITEM_TWIST() {
 }
 //---------------------------------------------------------------------------
 
+void __fastcall TFormMain::USE_ITEM_CLEAR_ALL() {
+	for(int x = 0 ; x < MAX_GRID_X ; x++) {
+		for(int y = 0 ; y < MAX_GRID_Y ; y++) {
+			if(GetBitStatus(m_MyView[x][y], 7) || GetBitStatus(m_MyView[x][y], 6)) continue;
+			m_MyView[x][y] = 0;
+		}
+	}
+}
+//---------------------------------------------------------------------------
+
 void __fastcall TFormMain::ResetItemList() {
 	m_ItemList.clear();
 	RefreshItemList();
@@ -2895,6 +2905,10 @@ void __fastcall TFormMain::Execute_Item(int _ItemIdx) {
 		case TYPE_ITEM_TWISTTWIST:
 			USE_ITEM_TWIST();
 			USE_ITEM_TWIST();
+			break;
+
+		case TYPE_ITEM_CLEAR_ALL:
+			USE_ITEM_CLEAR_ALL();
 			break;
 
 		default:

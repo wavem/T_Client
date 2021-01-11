@@ -488,6 +488,7 @@ public: // ITEM
 	void __fastcall USE_ITEM_PLUS();
 	void __fastcall USE_ITEM_MINUS();
 	void __fastcall USE_ITEM_TWIST();
+	void __fastcall USE_ITEM_CLEAR_ALL();
 
 ///***** GAME SYSTEM *****///
 	// TIME
