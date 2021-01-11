@@ -2134,6 +2134,9 @@ void __fastcall TFormMain::RefreshPlayerGame() {
 				case TYPE_ITEM_TWISTTWIST:
 					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[ITEM_TWISTTWIST];
 					break;
+				case TYPE_ITEM_CLEAR_ALL:
+					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[ITEM_CLEAR_ALL];
+					break;
 				default:
 					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[BLOCK_N];
 					break;
@@ -2951,6 +2954,9 @@ void __fastcall TFormMain::grid_MineDrawCell(TObject *Sender, int ACol, int ARow
 			break;
 		case TYPE_ITEM_TWISTTWIST:
 			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[ITEM_TWISTTWIST];
+			break;
+		case TYPE_ITEM_CLEAR_ALL:
+			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[ITEM_CLEAR_ALL];
 			break;
 		default:
 			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_N];
