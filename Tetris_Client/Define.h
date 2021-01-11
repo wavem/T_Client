@@ -173,6 +173,8 @@ typedef struct ST_ROOMCMD {
 #define ITEM_MINUS  10 // ITEM MINUS
 #define ITEM_PLUSPLUS  11 // Double Plus
 #define ITEM_MINUSMINUS  12 // Double Minus
+#define ITEM_TWIST  13 // Twist
+#define ITEM_TWISTTWIST  14 // Double Twist
 
 #define DIRECTION_U 1
 #define DIRECTION_L 2
@@ -195,6 +197,8 @@ typedef struct ST_ROOMCMD {
 #define TYPE_ITEM_MINUS		10
 #define TYPE_ITEM_PLUSPLUS		11
 #define TYPE_ITEM_MINUSMINUS	12
+#define TYPE_ITEM_TWIST			13
+#define TYPE_ITEM_TWISTTWIST	14
 
 typedef struct ST_POINT {
 	int X;
