@@ -2124,6 +2124,12 @@ void __fastcall TFormMain::RefreshPlayerGame() {
 				case TYPE_ITEM_MINUSMINUS:
 					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[ITEM_MINUSMINUS];
 					break;
+				case TYPE_ITEM_TWIST:
+					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[ITEM_TWIST];
+					break;
+				case TYPE_ITEM_TWISTTWIST:
+					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[ITEM_TWISTTWIST];
+					break;
 				default:
 					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[BLOCK_N];
 					break;
