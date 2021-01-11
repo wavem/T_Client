@@ -192,6 +192,8 @@ void __fastcall TFormMain::LoadBMPFiles() {
 	ImgList_My->GetBitmap(ITEM_CLEAR_ALL, m_BmpList_My[ITEM_CLEAR_ALL]);
 	m_BmpList_My[ITEM_CLEAR_HALF] = new TBitmap;
 	ImgList_My->GetBitmap(ITEM_CLEAR_HALF, m_BmpList_My[ITEM_CLEAR_HALF]);
+	m_BmpList_My[ITEM_CLEAR_DROP] = new TBitmap;
+	ImgList_My->GetBitmap(ITEM_CLEAR_DROP, m_BmpList_My[ITEM_CLEAR_DROP]);
 
 
 	// Others View : Basic Blocks
@@ -231,6 +233,8 @@ void __fastcall TFormMain::LoadBMPFiles() {
 	ImgList_Others->GetBitmap(ITEM_CLEAR_ALL, m_BmpList_Others[ITEM_CLEAR_ALL]);
 	m_BmpList_Others[ITEM_CLEAR_HALF] = new TBitmap;
 	ImgList_Others->GetBitmap(ITEM_CLEAR_HALF, m_BmpList_Others[ITEM_CLEAR_HALF]);
+	m_BmpList_Others[ITEM_CLEAR_DROP] = new TBitmap;
+	ImgList_Others->GetBitmap(ITEM_CLEAR_DROP, m_BmpList_Others[ITEM_CLEAR_DROP]);
 }
 //---------------------------------------------------------------------------
 
@@ -2141,8 +2145,12 @@ void __fastcall TFormMain::RefreshPlayerGame() {
 					break;
 				case TYPE_ITEM_CLEAR_ALL:
 					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[ITEM_CLEAR_ALL];
+					break;
 				case TYPE_ITEM_CLEAR_HALF:
 					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[ITEM_CLEAR_HALF];
+					break;
+				case TYPE_ITEM_CLEAR_DROP:
+					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[ITEM_CLEAR_DROP];
 					break;
 				default:
 					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[BLOCK_N];
@@ -2529,8 +2537,8 @@ void __fastcall TFormMain::grid_MineKeyDown(TObject *Sender, WORD &Key, TShiftSt
 	}
 
 	if(Key == 0x37) USE_ITEM_CLEAR_DROP();
-	if(Key == 0x38) PushItemIntoList(TYPE_ITEM_CLEAR_HALF);
-	if(Key == 0x39) PushItemIntoList(TYPE_ITEM_TWISTTWIST);
+	if(Key == 0x38) PushItemIntoList(TYPE_ITEM_CLEAR_DROP);
+	if(Key == 0x39) CreateRandomItem();
 	RefreshMyGameView();
 #endif
 
@@ -2945,6 +2953,10 @@ void __fastcall TFormMain::Execute_Item(int _ItemIdx) {
 			USE_ITEM_CLEAR_HALF();
 			break;
 
+		case TYPE_ITEM_CLEAR_DROP:
+			USE_ITEM_CLEAR_DROP();
+			break;
+
 		default:
 			break;
 	}
@@ -3008,6 +3020,9 @@ void __fastcall TFormMain::grid_MineDrawCell(TObject *Sender, int ACol, int ARow
 			break;
 		case TYPE_ITEM_CLEAR_HALF:
 			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[ITEM_CLEAR_HALF];
+			break;
+		case TYPE_ITEM_CLEAR_DROP:
+			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[ITEM_CLEAR_DROP];
 			break;
 		default:
 			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_N];
