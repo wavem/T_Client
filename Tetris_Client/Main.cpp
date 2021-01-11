@@ -2924,6 +2924,12 @@ void __fastcall TFormMain::grid_MineDrawCell(TObject *Sender, int ACol, int ARow
 		case TYPE_ITEM_MINUSMINUS:
 			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[ITEM_MINUSMINUS];
 			break;
+		case TYPE_ITEM_TWIST:
+			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[ITEM_TWIST];
+			break;
+		case TYPE_ITEM_TWISTTWIST:
+			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[ITEM_TWISTTWIST];
+			break;
 		default:
 			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_N];
 			break;
