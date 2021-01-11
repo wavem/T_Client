@@ -2880,6 +2880,18 @@ void __fastcall TFormMain::Execute_Item(int _ItemIdx) {
 			USE_ITEM_MINUS();
 			USE_ITEM_MINUS();
 			break;
+
+		case TYPE_ITEM_TWIST:
+			USE_ITEM_TWIST();
+			break;
+
+		case TYPE_ITEM_TWISTTWIST:
+			USE_ITEM_TWIST();
+			USE_ITEM_TWIST();
+			break;
+
+		default:
+			break;
 	}
 
 	RefreshMyGameView();
