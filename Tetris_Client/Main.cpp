@@ -188,6 +188,8 @@ void __fastcall TFormMain::LoadBMPFiles() {
 	ImgList_My->GetBitmap(ITEM_TWIST, m_BmpList_My[ITEM_TWIST]);
 	m_BmpList_My[ITEM_TWISTTWIST] = new TBitmap;
 	ImgList_My->GetBitmap(ITEM_TWISTTWIST, m_BmpList_My[ITEM_TWISTTWIST]);
+	m_BmpList_My[ITEM_CLEAR_ALL] = new TBitmap;
+	ImgList_My->GetBitmap(ITEM_CLEAR_ALL, m_BmpList_My[ITEM_CLEAR_ALL]);
 
 
 	// Others View : Basic Blocks
@@ -223,6 +225,8 @@ void __fastcall TFormMain::LoadBMPFiles() {
 	ImgList_Others->GetBitmap(ITEM_TWIST, m_BmpList_Others[ITEM_TWIST]);
 	m_BmpList_Others[ITEM_TWISTTWIST] = new TBitmap;
 	ImgList_Others->GetBitmap(ITEM_TWISTTWIST, m_BmpList_Others[ITEM_TWISTTWIST]);
+	m_BmpList_Others[ITEM_CLEAR_ALL] = new TBitmap;
+	ImgList_Others->GetBitmap(ITEM_CLEAR_ALL, m_BmpList_Others[ITEM_CLEAR_ALL]);
 }
 //---------------------------------------------------------------------------
 
