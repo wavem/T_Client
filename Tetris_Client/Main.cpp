@@ -194,6 +194,8 @@ void __fastcall TFormMain::LoadBMPFiles() {
 	ImgList_My->GetBitmap(ITEM_CLEAR_HALF, m_BmpList_My[ITEM_CLEAR_HALF]);
 	m_BmpList_My[ITEM_CLEAR_DROP] = new TBitmap;
 	ImgList_My->GetBitmap(ITEM_CLEAR_DROP, m_BmpList_My[ITEM_CLEAR_DROP]);
+	m_BmpList_My[ITEM_DELETE_FIELD_ITEM] = new TBitmap;
+	ImgList_My->GetBitmap(ITEM_DELETE_FIELD_ITEM, m_BmpList_My[ITEM_DELETE_FIELD_ITEM]);
 
 
 	// Others View : Basic Blocks
@@ -235,6 +237,8 @@ void __fastcall TFormMain::LoadBMPFiles() {
 	ImgList_Others->GetBitmap(ITEM_CLEAR_HALF, m_BmpList_Others[ITEM_CLEAR_HALF]);
 	m_BmpList_Others[ITEM_CLEAR_DROP] = new TBitmap;
 	ImgList_Others->GetBitmap(ITEM_CLEAR_DROP, m_BmpList_Others[ITEM_CLEAR_DROP]);
+	m_BmpList_Others[ITEM_DELETE_FIELD_ITEM] = new TBitmap;
+	ImgList_Others->GetBitmap(ITEM_DELETE_FIELD_ITEM, m_BmpList_Others[ITEM_DELETE_FIELD_ITEM]);
 }
 //---------------------------------------------------------------------------
 
@@ -2152,6 +2156,9 @@ void __fastcall TFormMain::RefreshPlayerGame() {
 				case TYPE_ITEM_CLEAR_DROP:
 					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[ITEM_CLEAR_DROP];
 					break;
+				case TYPE_ITEM_DELETE_FIELD_ITEM:
+					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[ITEM_DELETE_FIELD_ITEM];
+					break;
 				default:
 					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[BLOCK_N];
 					break;
@@ -2536,8 +2543,8 @@ void __fastcall TFormMain::grid_MineKeyDown(TObject *Sender, WORD &Key, TShiftSt
 		}
 	}
 
-	if(Key == 0x37) USE_ITEM_CLEAR_DROP();
-	if(Key == 0x38) PushItemIntoList(TYPE_ITEM_CLEAR_DROP);
+	if(Key == 0x37) USE_ITEM_DEL_FIELD_ITEM();
+	if(Key == 0x38) PushItemIntoList(TYPE_ITEM_DELETE_FIELD_ITEM);
 	if(Key == 0x39) CreateRandomItem();
 	RefreshMyGameView();
 #endif
@@ -2782,6 +2789,23 @@ void __fastcall TFormMain::USE_ITEM_CLEAR_DROP() {
 }
 //---------------------------------------------------------------------------
 
+void __fastcall TFormMain::USE_ITEM_DEL_FIELD_ITEM() {
+
+	PrintChat_InGame(L"Del Field Item");
+
+	for(int x = 0 ; x < MAX_GRID_X ; x++) {
+		for(int y = 3 ; y < MAX_GRID_Y ; y++) {
+			if(GetBitStatus(m_MyView[x][y], 7) || GetBitStatus(m_MyView[x][y], 6)) continue;
+			if(m_MyView[x][y] == 0) continue;
+			if(m_MyView[x][y] > TYPE_STATUS_ROCK) {
+				m_MyView[x][y] = TYPE_STATUS_ROCK;
+			}
+		}
+	}
+
+}
+//---------------------------------------------------------------------------
+
 void __fastcall TFormMain::ResetItemList() {
 	m_ItemList.clear();
 	RefreshItemList();
@@ -2957,6 +2981,10 @@ void __fastcall TFormMain::Execute_Item(int _ItemIdx) {
 			USE_ITEM_CLEAR_DROP();
 			break;
 
+		case TYPE_ITEM_DELETE_FIELD_ITEM:
+			USE_ITEM_DEL_FIELD_ITEM();
+			break;
+
 		default:
 			break;
 	}
@@ -3023,6 +3051,9 @@ void __fastcall TFormMain::grid_MineDrawCell(TObject *Sender, int ACol, int ARow
 			break;
 		case TYPE_ITEM_CLEAR_DROP:
 			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[ITEM_CLEAR_DROP];
+			break;
+		case TYPE_ITEM_DELETE_FIELD_ITEM:
+			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[ITEM_DELETE_FIELD_ITEM];
 			break;
 		default:
 			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_N];
