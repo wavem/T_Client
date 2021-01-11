@@ -323,6 +323,20 @@ __published:	// IDE-managed Components
 	TAdvGlassButton *btn_Help_Ingame;
 	TAdvGlassButton *AdvGlassButton1;
 	TAdvGlassButton *AdvGlassButton2;
+	TAdvSmoothPanel *pn_Blind;
+	TLabel *lb_Blind_Time;
+	TLabel *lb_Blind_Title;
+	TAdvSmoothPanel *pn_Blind_P1;
+	TLabel *lb_Blind_P1;
+	TAdvSmoothPanel *pn_Blind_P2;
+	TLabel *lb_Blind_P2;
+	TAdvSmoothPanel *pn_Blind_P3;
+	TLabel *lb_Blind_P3;
+	TAdvSmoothPanel *pn_Blind_P4;
+	TLabel *lb_Blind_P4;
+	TAdvSmoothPanel *pn_Blind_P5;
+	TLabel *lb_Blind_P5;
+	TTimer *tm_Blind;
 	void __fastcall btn_SingleModeClick(TObject *Sender);
 	void __fastcall btn_SignUpClick(TObject *Sender);
 	void __fastcall btn_Login_QuitClick(TObject *Sender);
@@ -350,6 +364,7 @@ __published:	// IDE-managed Components
 	void __fastcall grid_MineDrawCell(TObject *Sender, int ACol, int ARow, TRect &Rect,
           TGridDrawState State);
 	void __fastcall btn_Help_IngameClick(TObject *Sender);
+	void __fastcall tm_BlindTimer(TObject *Sender);
 
 
 
@@ -492,12 +507,12 @@ public: // ITEM
 	void __fastcall USE_ITEM_CLEAR_HALF();
 	void __fastcall USE_ITEM_CLEAR_DROP();
 	void __fastcall USE_ITEM_DEL_FIELD_ITEM();
+	void __fastcall USE_ITEM_BLIND();
 
 	void __fastcall USE_ITEM_DEL_ITEMLIST();
 	void __fastcall USE_ITEM_SWAP();
 	void __fastcall USE_ITEM_SPEED_UP();
 	void __fastcall USE_ITEM_SPEED_DOWN();
-	void __fastcall USE_ITEM_BLIND();
 
 ///***** GAME SYSTEM *****///
 	// TIME
@@ -505,6 +520,7 @@ public: // ITEM
 	int m_time_M;
 	int m_time_S;
 	int m_time_cnt;
+	int m_time_blind;
 
 	bool m_IsPause;
 

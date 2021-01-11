@@ -179,6 +179,7 @@ typedef struct ST_ROOMCMD {
 #define ITEM_CLEAR_HALF  16 // Clear Half
 #define ITEM_CLEAR_DROP  17 // Clear Drop
 #define ITEM_DELETE_FIELD_ITEM  18 // Delete Field Item
+#define ITEM_BLIND  19 // Blind Screen
 
 #define DIRECTION_U 1
 #define DIRECTION_L 2
@@ -206,7 +207,8 @@ typedef struct ST_ROOMCMD {
 #define TYPE_ITEM_CLEAR_ALL		15
 #define TYPE_ITEM_CLEAR_HALF	16
 #define TYPE_ITEM_CLEAR_DROP	17
-#define TYPE_ITEM_DELETE_FIELD_ITEM	18
+#define TYPE_ITEM_DELETE_FIELD_ITEM		18
+#define TYPE_ITEM_BLIND			19
 
 typedef struct ST_POINT {
 	int X;

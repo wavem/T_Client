@@ -196,6 +196,8 @@ void __fastcall TFormMain::LoadBMPFiles() {
 	ImgList_My->GetBitmap(ITEM_CLEAR_DROP, m_BmpList_My[ITEM_CLEAR_DROP]);
 	m_BmpList_My[ITEM_DELETE_FIELD_ITEM] = new TBitmap;
 	ImgList_My->GetBitmap(ITEM_DELETE_FIELD_ITEM, m_BmpList_My[ITEM_DELETE_FIELD_ITEM]);
+	m_BmpList_My[ITEM_BLIND] = new TBitmap;
+	ImgList_My->GetBitmap(ITEM_BLIND, m_BmpList_My[ITEM_BLIND]);
 
 
 	// Others View : Basic Blocks
@@ -239,6 +241,8 @@ void __fastcall TFormMain::LoadBMPFiles() {
 	ImgList_Others->GetBitmap(ITEM_CLEAR_DROP, m_BmpList_Others[ITEM_CLEAR_DROP]);
 	m_BmpList_Others[ITEM_DELETE_FIELD_ITEM] = new TBitmap;
 	ImgList_Others->GetBitmap(ITEM_DELETE_FIELD_ITEM, m_BmpList_Others[ITEM_DELETE_FIELD_ITEM]);
+	m_BmpList_Others[ITEM_BLIND] = new TBitmap;
+	ImgList_Others->GetBitmap(ITEM_BLIND, m_BmpList_Others[ITEM_BLIND]);
 }
 //---------------------------------------------------------------------------
 
@@ -690,7 +694,7 @@ void __fastcall TFormMain::PrintThreadLogMessage(TMessage &_msg) {
 //---------------------------------------------------------------------------
 void __fastcall TFormMain::btn_Back_LogScreenClick(TObject *Sender)
 {
-	Notebook_Main->PageIndex = 0; // LOGIN SCREEN
+	Notebook_Main->PageIndex = 2; // LOGIN SCREEN
 }
 //---------------------------------------------------------------------------
 
@@ -2159,6 +2163,9 @@ void __fastcall TFormMain::RefreshPlayerGame() {
 				case TYPE_ITEM_DELETE_FIELD_ITEM:
 					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[ITEM_DELETE_FIELD_ITEM];
 					break;
+				case TYPE_ITEM_BLIND:
+					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[ITEM_BLIND];
+					break;
 				default:
 					p_grid->Canvas->Brush->Bitmap = m_BmpList_Others[BLOCK_N];
 					break;
@@ -2543,8 +2550,8 @@ void __fastcall TFormMain::grid_MineKeyDown(TObject *Sender, WORD &Key, TShiftSt
 		}
 	}
 
-	if(Key == 0x37) USE_ITEM_DEL_FIELD_ITEM();
-	if(Key == 0x38) PushItemIntoList(TYPE_ITEM_DELETE_FIELD_ITEM);
+	if(Key == 0x37) USE_ITEM_BLIND();
+	if(Key == 0x38) PushItemIntoList(TYPE_ITEM_BLIND);
 	if(Key == 0x39) CreateRandomItem();
 	RefreshMyGameView();
 #endif
@@ -2624,7 +2631,7 @@ void __fastcall TFormMain::tm_PlayTimeTimer(TObject *Sender)
 	lb_Time->Caption = tempStr;
 
 	// SPEED UP
-	if(m_Speed == 300) return;
+	if(m_Speed >= 300) return;
 
 	m_time_cnt++;
 	if(m_time_cnt % 30 == 0) {
@@ -2790,9 +2797,6 @@ void __fastcall TFormMain::USE_ITEM_CLEAR_DROP() {
 //---------------------------------------------------------------------------
 
 void __fastcall TFormMain::USE_ITEM_DEL_FIELD_ITEM() {
-
-	PrintChat_InGame(L"Del Field Item");
-
 	for(int x = 0 ; x < MAX_GRID_X ; x++) {
 		for(int y = 3 ; y < MAX_GRID_Y ; y++) {
 			if(GetBitStatus(m_MyView[x][y], 7) || GetBitStatus(m_MyView[x][y], 6)) continue;
@@ -2803,6 +2807,31 @@ void __fastcall TFormMain::USE_ITEM_DEL_FIELD_ITEM() {
 		}
 	}
 
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::USE_ITEM_BLIND() {
+	PrintChat_InGame(L"BLIND");
+	tm_Blind->Enabled = true;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::tm_BlindTimer(TObject *Sender)
+{
+	// Common
+	UnicodeString tempStr = L"";
+	int t_MaxTime = 50;
+
+	if(++m_time_blind == t_MaxTime) {
+		tm_Blind->Enabled = false;
+		m_time_blind = 0;
+		pn_Blind->Visible = false;
+		return;
+	}
+
+	pn_Blind->Visible = true;
+	tempStr.sprintf(L"%01d.%01d", (t_MaxTime - m_time_blind) / 10, (t_MaxTime - m_time_blind) % 10);
+	lb_Blind_Time->Caption = tempStr;
 }
 //---------------------------------------------------------------------------
 
@@ -2985,6 +3014,10 @@ void __fastcall TFormMain::Execute_Item(int _ItemIdx) {
 			USE_ITEM_DEL_FIELD_ITEM();
 			break;
 
+		case TYPE_ITEM_BLIND:
+			USE_ITEM_BLIND();
+			break;
+
 		default:
 			break;
 	}
@@ -3055,6 +3088,9 @@ void __fastcall TFormMain::grid_MineDrawCell(TObject *Sender, int ACol, int ARow
 		case TYPE_ITEM_DELETE_FIELD_ITEM:
 			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[ITEM_DELETE_FIELD_ITEM];
 			break;
+		case TYPE_ITEM_BLIND:
+			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[ITEM_BLIND];
+			break;
 		default:
 			p_grid->Canvas->Brush->Bitmap = m_BmpList_My[BLOCK_N];
 			break;
@@ -3062,3 +3098,4 @@ void __fastcall TFormMain::grid_MineDrawCell(TObject *Sender, int ACol, int ARow
 	p_grid->Canvas->FillRect(Rect);
 }
 //---------------------------------------------------------------------------
+
