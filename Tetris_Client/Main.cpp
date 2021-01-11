@@ -2000,6 +2000,7 @@ bool __fastcall TFormMain::Send_InGameDataMessage(int _RoomIdx) {
 	t_BuffIdx = 10;
 	for(int x = 0 ; x < MAX_GRID_X ; x++) {
 		for(int y = 3 ; y < MAX_GRID_Y ; y++) {
+			if(GetBitStatus(m_MyView[x][y], 7) || GetBitStatus(m_MyView[x][y], 6)) continue;
 			m_ClientThread->sendBuff[t_BuffIdx] = m_MyView[x][y];
 			t_BuffIdx++;
 		}
