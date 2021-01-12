@@ -1928,6 +1928,7 @@ void __fastcall TFormMain::Receive_InnerRoomCMDData(SERVERDATA _serverData) {
 
 	// Receive Item Index Routine
 	if(_serverData.Data[6] != 0) {
+		if(m_IsDead || m_IsGameOver) return;
 		t_ReceivedPlayerIdx = _serverData.Data[7];
 		t_TargetPlayerIdx = _serverData.Data[8];
 		tempStr.sprintf(L"%d->%d : Use Item", t_ReceivedPlayerIdx, t_TargetPlayerIdx);
