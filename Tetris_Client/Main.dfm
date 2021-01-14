@@ -168,7 +168,7 @@ object FormMain: TFormMain
       Width = 1186
       Height = 819
       Align = alClient
-      PageIndex = 3
+      PageIndex = 2
       TabOrder = 0
       object TPage
         Left = 0
@@ -6809,7 +6809,6 @@ object FormMain: TFormMain
             ShineColor = 15335424
             TabOrder = 12
             Version = '1.3.0.2'
-            Visible = False
           end
           object btn_Setting_InGame: TAdvGlassButton
             Left = 937
@@ -7384,9 +7383,9 @@ object FormMain: TFormMain
           end
           object pn_Blind_P1: TAdvSmoothPanel
             Left = 32
-            Top = 32
+            Top = 33
             Width = 164
-            Height = 319
+            Height = 321
             Cursor = crDefault
             Caption.HTMLFont.Charset = DEFAULT_CHARSET
             Caption.HTMLFont.Color = clWindowText
@@ -7431,7 +7430,7 @@ object FormMain: TFormMain
             Left = 205
             Top = 33
             Width = 164
-            Height = 319
+            Height = 321
             Cursor = crDefault
             Caption.HTMLFont.Charset = DEFAULT_CHARSET
             Caption.HTMLFont.Color = clWindowText
@@ -7476,7 +7475,7 @@ object FormMain: TFormMain
             Left = 33
             Top = 415
             Width = 164
-            Height = 319
+            Height = 321
             Cursor = crDefault
             Caption.HTMLFont.Charset = DEFAULT_CHARSET
             Caption.HTMLFont.Color = clWindowText
@@ -7521,7 +7520,7 @@ object FormMain: TFormMain
             Left = 207
             Top = 415
             Width = 164
-            Height = 319
+            Height = 321
             Cursor = crDefault
             Caption.HTMLFont.Charset = DEFAULT_CHARSET
             Caption.HTMLFont.Color = clWindowText
@@ -7566,7 +7565,7 @@ object FormMain: TFormMain
             Left = 381
             Top = 416
             Width = 164
-            Height = 319
+            Height = 321
             Cursor = crDefault
             Caption.HTMLFont.Charset = DEFAULT_CHARSET
             Caption.HTMLFont.Color = clWindowText
@@ -8283,7 +8282,7 @@ object FormMain: TFormMain
     Width = 32
     Left = 56
     Bitmap = {
-      494C01011400A8008C0120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C01011400A800900120002000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000080000000C000000001002000000000000080
       0100000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -11461,7 +11460,7 @@ object FormMain: TFormMain
   object ImgList_Others: TImageList
     Left = 84
     Bitmap = {
-      494C010114002400E80010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
+      494C010114002400EC0010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000006000000001002000000000000060
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -12265,5 +12264,9 @@ object FormMain: TFormMain
     Interval = 100
     OnTimer = tm_BlindTimer
     Left = 112
+  end
+  object tm_Blind_Players: TTimer
+    OnTimer = tm_Blind_PlayersTimer
+    Left = 140
   end
 end

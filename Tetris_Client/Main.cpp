@@ -1355,7 +1355,7 @@ void __fastcall TFormMain::Receive_InnerRoomStatusData(SERVERDATA _serverData) {
 		m_Player[t_PlayerIdx].UserID = tempStr;
 		m_Player[t_PlayerIdx].Grade = _serverData.Data[t_BuffIdx + 31];
 		//m_Player[t_PlayerIdx].Life = _serverData.Data[t_BuffIdx + 32];
-		m_Player[t_PlayerIdx].State = _serverData.Data[t_BuffIdx + 33];
+		//m_Player[t_PlayerIdx].State = _serverData.Data[t_BuffIdx + 33];
 		m_Player[t_PlayerIdx].TeamIdx = _serverData.Data[t_BuffIdx + 34];
 		m_Player[t_PlayerIdx].Win = _serverData.Data[t_BuffIdx + 35];
 		m_Player[t_PlayerIdx].ServerIdx = i;
@@ -1928,15 +1928,59 @@ void __fastcall TFormMain::Receive_InnerRoomCMDData(SERVERDATA _serverData) {
 
 	// Receive Item Index Routine
 	if(_serverData.Data[6] != 0) {
-		if(m_IsDead || m_IsGameOver) return;
 		t_ReceivedPlayerIdx = _serverData.Data[7];
 		t_TargetPlayerIdx = _serverData.Data[8];
 		tempStr.sprintf(L"%d->%d : Use Item", t_ReceivedPlayerIdx, t_TargetPlayerIdx);
 		PrintChat_InGame(tempStr);
+		if(m_IsDead || m_IsGameOver) return;
 		if(t_TargetPlayerIdx == m_MyIdx) {
 			Execute_Item((int)_serverData.Data[6]);
+		} else {
+			if(_serverData.Data[6] == TYPE_ITEM_BLIND) {
+				ShowPlayerBlindPanel(t_TargetPlayerIdx);
+			}
 		}
+
 		if(!m_IsSingleMode) Send_InGameDataMessage(m_MyRoomIdx);
+	}
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::ShowPlayerBlindPanel(BYTE _PlayerIdx) {
+
+	for(int i = 0 ; i < 5 ; i++) {
+		if(!m_Player[i].Connected) continue;
+		if(!m_Player[i].Life) continue;
+		if(m_Player[i].ServerIdx + 1 == _PlayerIdx) {
+			m_BlindPlayer[i][0] = 1;
+		}
+	}
+	// m_Player[t_PlayerIdx].State = _serverData.Data[t_BuffIdx + 33];
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TFormMain::tm_Blind_PlayersTimer(TObject *Sender)
+{
+	// Common
+	UnicodeString tempStr = L"";
+	TAdvSmoothPanel* p_pn = NULL;
+
+	for(int i = 0 ; i < 5 ; i++) {
+		if(m_BlindPlayer[i][0] == 1) {
+			tempStr.sprintf(L"pn_Blind_P%d", i + 1);
+			p_pn = (TAdvSmoothPanel*)FindComponent(tempStr);
+			if(p_pn == NULL) continue;
+			p_pn->Visible = true;
+
+			m_BlindPlayer[i][1]++;
+			if(m_BlindPlayer[i][1] == 5) {
+				m_BlindPlayer[i][0] = 0;
+				m_BlindPlayer[i][1] = 0;
+				memset(m_Player[i].BlockTempBuffer, 0, 200);
+				p_pn->Visible = false;
+				//RefreshPlayerGame(); // Refresh Routine Here
+			}
+		}
 	}
 }
 //---------------------------------------------------------------------------
@@ -3099,4 +3143,3 @@ void __fastcall TFormMain::grid_MineDrawCell(TObject *Sender, int ACol, int ARow
 	p_grid->Canvas->FillRect(Rect);
 }
 //---------------------------------------------------------------------------
-

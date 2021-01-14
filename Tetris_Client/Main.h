@@ -337,6 +337,7 @@ __published:	// IDE-managed Components
 	TAdvSmoothPanel *pn_Blind_P5;
 	TLabel *lb_Blind_P5;
 	TTimer *tm_Blind;
+	TTimer *tm_Blind_Players;
 	void __fastcall btn_SingleModeClick(TObject *Sender);
 	void __fastcall btn_SignUpClick(TObject *Sender);
 	void __fastcall btn_Login_QuitClick(TObject *Sender);
@@ -365,6 +366,7 @@ __published:	// IDE-managed Components
           TGridDrawState State);
 	void __fastcall btn_Help_IngameClick(TObject *Sender);
 	void __fastcall tm_BlindTimer(TObject *Sender);
+	void __fastcall tm_Blind_PlayersTimer(TObject *Sender);
 
 
 
@@ -388,6 +390,7 @@ public: // BASIC FUNCTIONS
 	void __fastcall RefreshInnerGameRoom();
 	void __fastcall ForceExitGame();
 	void __fastcall RefreshPlayerGame();
+	void __fastcall ShowPlayerBlindPanel(BYTE _PlayerIdx);
 
 public: // Item Area
 	void __fastcall ResetItemList();
@@ -417,6 +420,7 @@ public:
 	bool m_IsDead;
 	bool m_IsGameOver;
 	std::vector<BYTE> m_ItemList;
+	BYTE m_BlindPlayer[5][2];
 
 
 
