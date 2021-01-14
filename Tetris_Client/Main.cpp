@@ -1932,15 +1932,16 @@ void __fastcall TFormMain::Receive_InnerRoomCMDData(SERVERDATA _serverData) {
 		t_TargetPlayerIdx = _serverData.Data[8];
 		tempStr.sprintf(L"%d->%d : Use Item", t_ReceivedPlayerIdx, t_TargetPlayerIdx);
 		PrintChat_InGame(tempStr);
-		if(m_IsDead || m_IsGameOver) return;
 		if(t_TargetPlayerIdx == m_MyIdx) {
+			if(m_IsDead || m_IsGameOver) return;
 			Execute_Item((int)_serverData.Data[6]);
 		} else {
 			if(_serverData.Data[6] == TYPE_ITEM_BLIND) {
-				ShowPlayerBlindPanel(t_TargetPlayerIdx);
+				if(m_Player[t_TargetPlayerIdx].Life) ShowPlayerBlindPanel(t_TargetPlayerIdx);
 			}
 		}
 
+		if(m_IsDead || m_IsGameOver) return;
 		if(!m_IsSingleMode) Send_InGameDataMessage(m_MyRoomIdx);
 	}
 }
