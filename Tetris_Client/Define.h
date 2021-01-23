@@ -6,7 +6,7 @@
 #include <System.Classes.hpp>
 
 #define VERSION_MAJOR	1
-#define VERSION_MINOR	11
+#define VERSION_MINOR	12
 
 // COMM
 //#define IP_SERVER "127.0.0.1"
