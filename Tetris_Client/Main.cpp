@@ -1937,7 +1937,12 @@ void __fastcall TFormMain::Receive_InnerRoomCMDData(SERVERDATA _serverData) {
 			Execute_Item((int)_serverData.Data[6]);
 		} else {
 			if(_serverData.Data[6] == TYPE_ITEM_BLIND) {
-				if(m_Player[t_TargetPlayerIdx].Life) ShowPlayerBlindPanel(t_TargetPlayerIdx);
+				//if(m_Player[t_TargetPlayerIdx].Life) ShowPlayerBlindPanel(t_TargetPlayerIdx);
+				// 위처럼 하면 안된다.
+				// 아래처럼 비교해야함.
+				// 근데 그런 관련 루틴 만들기가 귀찮으니 걍 죽었뜬지 말든지 보여주기로 한다
+				//if(m_Player[i].ServerIdx + 1 == t_ReceivedPlayerIdx) {
+				ShowPlayerBlindPanel(t_TargetPlayerIdx);
 			}
 		}
 
